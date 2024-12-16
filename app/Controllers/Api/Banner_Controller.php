@@ -10,6 +10,7 @@ use App\Models\AboutModel;
 use App\Models\TaxesModel;
 use App\Models\AdmintagModel;
 use App\Models\FrontendtagModel;
+use App\Models\ShopModel;
 
 class Banner_Controller extends Api_Controller
 {
@@ -546,7 +547,187 @@ class Banner_Controller extends Api_Controller
         // Return the response
         return $resp;
     }
+    private function shop_add($data)
+    {
+        $resp = [
+            'status' => false,
+            'message' => 'Shop not updated',
+            'data' => null
+        ];
+        
+        $uploadedFiles = $this->request->getFiles();
+        if (empty ($data['shopName'])) {
+            $resp['message'] = 'Please Add Shop Name';
+        } else if (empty ($data['ownerName'])) {
+            $resp['message'] = 'Please Add owner Name';
+        } else if(empty ($data['ownerPhone'])){
+            $resp['message'] = 'Please Add owner Phone';
+        } else if(empty ($data['rating'])){
+            $resp['message'] = 'Please Add rating';
+        } else if(empty ($data['remark'])){
+            $resp['message'] = 'Please Add remark';
+        } else {
+
+
+            $about_data = [
+                'uid' => $this->generate_uid("SHOCRE"),
+                'shop_name' => $data['shopName'],
+                'owner_name' => $data['ownerName'],
+                'owner_phone' => $data['ownerPhone'],
+                'owner_rating' => $data['rating'],
+                'remarks' => $data['remark'],
+
+            ];
+            
+            // $uploadedFiles = $this->request->getFiles();
+            // if(isset($uploadedFiles['images'])){
+            //     foreach ($uploadedFiles['images'] as $file) {
+            //         $file_src = $this->single_upload($file, PATH_LOGO);
+            //         $about_data['logo'] = $file_src;
+            //     }
+            // }
+            
+            $ShopModel = new ShopModel();
+
+
+            // Transaction Start
+            $ShopModel->transStart();
+            try {
+                $ShopModel
+                        ->insert($about_data);
+                $ShopModel->transCommit();
+            } catch (\Exception $e) {
+                // Rollback the transaction if an error occurs
+                $ShopModel->transRollback();
+                $resp['message'] = $e->getMessage();
+            }
+
+            $resp['status'] = true;
+            $resp['message'] = 'Shop Added';
+            $resp['data'] = "";
+        }
+        return $resp;
+    }
+    private function single_shop($data)
+    {
+        // Load the ShopModel
+        $shopModel = new ShopModel();
+
+        // Validate input
+        if (!isset($data['shop_uid']) || empty($data['shop_uid'])) {
+            return [
+                'status' => false,
+                'message' => 'Shop UID is required.'
+            ];
+        }
+
+        // Fetch the shop details from the database
+        $shopDetails = $shopModel->where('uid', $data['shop_uid'])->first();
+
+        if ($shopDetails) {
+            return [
+                'status' => true,
+                'message' => 'Shop data retrieved successfully.',
+                'data' => $shopDetails
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'No shop found with the given UID.'
+            ];
+        }
+    }
+    private function shop_update($data)
+    {
+        $resp = [
+            'status' => false,
+            'message' => 'About not updated',
+            'data' => null
+        ];
+        
+        $uploadedFiles = $this->request->getFiles();
+        if (empty ($data['shopName'])) {
+            $resp['message'] = 'Please Add Shop Name';
+        } else if (empty ($data['ownerName'])) {
+            $resp['message'] = 'Please Add owner Name';
+        } else if(empty ($data['ownerPhone'])){
+            $resp['message'] = 'Please Add owner Phone';
+        } else if(empty ($data['rating'])){
+            $resp['message'] = 'Please Add rating';
+        } else if(empty ($data['remark'])){
+            $resp['message'] = 'Please Add remark';
+        } else if(empty ($data['shop_uid'])){
+            $resp['message'] = 'Shop nto found';
+        } else {
+
+
+            $about_data = [
+                'shop_name' => $data['shopName'],
+                'owner_name' => $data['ownerName'],
+                'owner_phone' => $data['ownerPhone'],
+                'owner_rating' => $data['rating'],
+                'remarks' => $data['remark'],
+                
+            ];
+            
+        
+            
+            $ShopModel = new ShopModel();
+
+
+            // Transaction Start
+            $ShopModel->transStart();
+            try {
+                $ShopModel
+                        ->where('uid', $data['shop_uid'])
+                        ->set($about_data)
+                        ->update();
+                $ShopModel->transCommit();
+            } catch (\Exception $e) {
+                // Rollback the transaction if an error occurs
+                $ShopModel->transRollback();
+                $resp['message'] = $e->getMessage();
+            }
+
+            $resp['status'] = true;
+            $resp['message'] = 'About Updated';
+            $resp['data'] = "";
+        }
+        return $resp;
+    }
+    private function shop_delete($data)
+    {
+        // Get the service UID from the data passed
+        $shop_uid = $data['shop_uid'] ?? null;
+        
+        // Validate the UID
+        if (empty($shop_uid)) {
+            return [
+                'status' => false, 
+                'message' => 'Invalid service UID'
+            ];
+        }
     
+        // Load the ServiceModel
+        $ShopModel = new ShopModel();
+    
+        // Attempt to delete the service entry by UID
+        $result = $ShopModel->where('uid', $shop_uid)->delete();
+        
+        // Check the result and return an appropriate response
+        if ($result) {
+            return [
+                'status' => true, 
+                'message' => 'Service deleted successfully'
+            ];
+        } else {
+            return [
+                'status' => false, 
+                'message' => 'Failed to delete service'
+            ];
+        }
+    }
+
     
 
 
@@ -671,6 +852,36 @@ class Banner_Controller extends Api_Controller
     {
         $data = $this->request->getPost();
         $resp = $this->frontend_tags($data);
+        return $this->response->setJSON($resp);
+
+    }
+
+    public function POST_shop_add()
+    {
+        $data = $this->request->getPost();
+        $resp = $this->shop_add($data);
+        return $this->response->setJSON($resp);
+
+    }
+    public function GET_single_shop()
+    {
+        $data = $this->request->getGet();
+        $resp = $this->single_shop($data);
+        return $this->response->setJSON($resp);
+
+    }
+    public function POST_shop_update()
+    {
+        $data = $this->request->getPost();
+        $resp = $this->shop_update($data);
+        return $this->response->setJSON($resp);
+
+    }
+
+    public function POST_shop_delete()
+    {
+        $data = $this->request->getPost();
+        $resp = $this->shop_delete($data);
         return $this->response->setJSON($resp);
 
     }

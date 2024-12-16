@@ -257,3 +257,12 @@ $routes->post('/product/get_size_chart',            'Api\User_Controller::GET_si
 
 
 
+$routes->get('/shop-creation',                'Admin\User_Controller::load_shop_creation');
+$routes->post('/api/add/shop',                  'Api\Banner_Controller::POST_shop_add');
+$routes->get('/api/get/shop',                  'Api\Banner_Controller::GET_single_shop');
+$routes->get('/all/shop',                   'Admin\User_Controller::load_shop_list');
+$routes->get('/api/all/shop',                   'Api\User_Controller::GET_shop_all');
+$routes->post('/api/update/shop',                  'Api\Banner_Controller::POST_shop_update'); // POST Update About
+$routes->post('/api/delete/shop',                'Api\Banner_Controller::POST_shop_delete');
+$routes->get('/product-category',                'Frontend\Product_Controller::load_product_category');
+

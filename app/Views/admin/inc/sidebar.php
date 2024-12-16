@@ -314,30 +314,31 @@
                 ?>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link <?= isset($sidebar['expart_review']) ? 'active' : '' ?>"
-                        href="#sidebarExpartReview" data-bs-toggle="collapse" role="button"
-                        aria-expanded="<?= isset($sidebar['expart_review']) ? 'true' : 'false' ?>"
-                        aria-controls="sidebarExpartReview">
+                    <a class="nav-link menu-link <?= isset($sidebar['shop_creation']) ? 'active' : '' ?>"
+                        href="#sidebarShopCreation" data-bs-toggle="collapse" role="button"
+                        aria-expanded="<?= isset($sidebar['shop_creation']) ? 'true' : 'false' ?>"
+                        aria-controls="sidebarShopCreation">
                         <i class="ri-archive-line"></i>
-                        <span>Expart Reviews</span>
+                        <span>Shop Creation </span>
                     </a>
-                    <div class="<?= isset($sidebar['expart_review']) ? '' : 'collapse' ?> menu-dropdown" id="sidebarExpartReview">
+                    <div class="<?= isset($sidebar['shop_creation']) ? 'show' : 'collapse' ?> menu-dropdown" id="sidebarShopCreation">
+
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="<?= base_url('/admin/exparts-reviews') ?>" class="nav-link">
-                                    All Expart Reviews
+                                <a href="<?= base_url() ?>all/shop" class="nav-link">
+                                    All Shop
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= base_url('/admin/add/expart-review') ?>" class="nav-link">
-                                    Add Expart Review
+                                <a href="<?= base_url() ?>shop-creation" class="nav-link">
+                                    Add Shop 
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="<?= base_url('/admin/reviews') ?>" class="nav-link">
                                     All Reviews
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </li>

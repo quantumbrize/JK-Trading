@@ -238,6 +238,48 @@ class User_Controller extends Admin_Controller{
 
         $this->isAuth('/admin/reviews',$data);
     }
+    public function load_shop_creation(){
+        $data = PAGE_DATA_ADMIN;
+        $data = [
+            'data_page' => [],
+            'data_header' => [
+                'header_link' => ['shop_creation_css.php'],
+                'title' => 'Shop Creation',
+                'header' => [],
+                'sidebar' => ['shop_creation'=>true],
+                'site' => 'admin'
+            ],
+            'data_footer' => [
+                'footer_link' => ['shop_creation_js.php'],
+                'footer' => [],
+                'site' => 'admin'
+            ]
+        ];
+
+        $this->isAuth('/admin/shop_creation',$data);
+    }
+
+    public function load_shop_list(){
+        $data = PAGE_DATA_ADMIN;
+        $data = [
+            'data_page' => [],
+            'data_header' => [
+                'header_link' => ['shop_list_css.php'],
+                'title' => 'Shop List',
+                'header' => [],
+                'sidebar' => ['shop_list'=>true],
+                'site' => 'admin'
+            ],
+            'data_footer' => [
+                'footer_link' => ['shop_list_js.php'],
+                'footer' => [],
+                'site' => 'admin'
+            ]
+        ];
+
+        $this->isAuth('/admin/shop_list',$data);
+    }
+
 
 
 

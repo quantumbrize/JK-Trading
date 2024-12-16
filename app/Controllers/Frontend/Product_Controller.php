@@ -161,6 +161,26 @@ class Product_Controller extends Main_Controller
         //     return redirect()->to('login');
         // }
     }
+    public function load_product_category(): void
+    {
+        $data = PAGE_DATA_FRONTEND;
+        $data = [
+            'data_page' => [],
+            'data_header' => [
+                'header_link' => ['product_category_css.php'],
+                'title' => 'Category',
+                'header' => ['product_category'=>true],
+                'sidebar' => [],
+                'site' => 'frontend'
+            ],
+            'data_footer' => [
+                'footer_link' => ['product_category_js.php'],
+                'footer' => [],
+                'site' => 'frontend'
+            ]
+        ];
+        $this->load_page('/frontend/product_category', $data);
+    }
 
 
 }

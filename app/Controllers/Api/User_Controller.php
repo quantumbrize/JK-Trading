@@ -19,6 +19,9 @@ use App\Models\AboutModel;
 use App\Models\AdmintagModel;
 use App\Models\FrontendtagModel;
 use App\Models\ProductModel;
+use App\Models\ShopModel;
+use App\Models\UserShopModel;
+
 
 
 class User_Controller extends Api_Controller
@@ -154,83 +157,172 @@ class User_Controller extends Api_Controller
     //     return $resp;
     // }
 
-    private function update_user($data)
-    {
+    // private function update_user($data)
+    // {
 
-        $resp = [
-            'status' => false,
-            'message' => 'Faild!',
-            'data' => null
+    //     $resp = [
+    //         'status' => false,
+    //         'message' => 'Faild!',
+    //         'data' => null
+    //     ];
+
+    //     if (empty($data['name'])) {
+    //         $resp['message'] = 'Please Enter Name';
+    //     } else if (empty($data['number'])) {
+    //         $resp['message'] = 'Please Enter Number';
+    //     } else if (empty($data['email'])) {
+    //         $resp['message'] = 'Please Enter Email';
+    //     } else {
+
+    //         $user_data = [
+    //             'user_name' => $data['name'],
+    //             'email' => $data['email'],
+    //         ];
+    //         $UserModel = new UsersModel();
+    //         $UserModel->transStart();
+    //         try {
+    //             $UserModel
+    //                 ->where('uid', $data['user_id'])
+    //                 ->set($user_data)
+    //                 ->update();
+    //             $UserModel->transCommit();
+    //         } catch (\Exception $e) {
+    //             $UserModel->transRollback();
+    //             throw $e;
+    //         }
+
+    //         $uploadedFiles = $this->request->getFiles();
+    //         // $this->prd($uploadedFiles);
+    //         if (!empty($uploadedFiles['images'])) {
+    //             $UserImagesModel = new UserImageModel();
+    //             $UsersData = $UserImagesModel
+    //                 ->where('user_id', $data['user_id'])
+    //                 ->get()
+    //                 ->getResultArray();
+    //             $UserImageData = !empty($UsersData[0]) ? $UsersData[0] : null;
+    //             foreach ($uploadedFiles['images'] as $file) {
+    //                 $file_src = $this->single_upload($file, PATH_USER_IMG);
+    //                 $UserImagesModel->transStart();
+    //                 try {
+    //                     if (!empty($UserImageData)) {
+    //                         $user_image_data = [
+    //                             'img' => $file_src,
+    //                         ];
+    //                         $UserImagesModel
+    //                             ->where('user_id', $data['user_id'])
+    //                             ->set($user_image_data)
+    //                             ->update();
+    //                     } else {
+    //                         $user_image_data = [
+    //                             'uid' => $this->generate_uid(UID_USER_IMG),
+    //                             'user_id' => $data['user_id'],
+    //                             'img' => $file_src,
+    //                         ];
+    //                         $UserImagesModel->insert($user_image_data);
+    //                     }
+    //                     $UserImagesModel->transCommit();
+    //                 } catch (\Exception $e) {
+    //                     $UserImagesModel->transRollback();
+    //                     throw $e;
+    //                 }
+
+    //             }
+    //         }
+    //         $resp['status'] = true;
+    //         $resp['message'] = 'Update Successful';
+    //         $resp['data'] = ['user_id' => $data['user_id']];
+    //     }
+    //     return $resp;
+    // }
+    private function update_user($data)
+{
+    $resp = [
+        'status' => false,
+        'message' => 'Failed!',
+        'data' => null
+    ];
+
+    // Validate user data
+    if (empty($data['name'])) {
+        $resp['message'] = 'Please Enter Name';
+    } else if (empty($data['number1'])) {
+        $resp['message'] = 'Please Enter Primary Number';
+    } else {
+
+        // Prepare user data for update
+        $user_data = [
+            'user_name' => $data['name'],
+            'number' => $data['number1'],
+            'number2' => $data['number2'] ?? null, // Allow null for number2
         ];
 
-        if (empty($data['name'])) {
-            $resp['message'] = 'Please Enter Name';
-        } else if (empty($data['number'])) {
-            $resp['message'] = 'Please Enter Number';
-        } else if (empty($data['email'])) {
-            $resp['message'] = 'Please Enter Email';
-        } else {
-
-            $user_data = [
-                'user_name' => $data['name'],
-                'email' => $data['email'],
-            ];
-            $UserModel = new UsersModel();
-            $UserModel->transStart();
-            try {
-                $UserModel
-                    ->where('uid', $data['user_id'])
-                    ->set($user_data)
-                    ->update();
-                $UserModel->transCommit();
-            } catch (\Exception $e) {
-                $UserModel->transRollback();
-                throw $e;
-            }
-
-            $uploadedFiles = $this->request->getFiles();
-            // $this->prd($uploadedFiles);
-            if (!empty($uploadedFiles['images'])) {
-                $UserImagesModel = new UserImageModel();
-                $UsersData = $UserImagesModel
-                    ->where('user_id', $data['user_id'])
-                    ->get()
-                    ->getResultArray();
-                $UserImageData = !empty($UsersData[0]) ? $UsersData[0] : null;
-                foreach ($uploadedFiles['images'] as $file) {
-                    $file_src = $this->single_upload($file, PATH_USER_IMG);
-                    $UserImagesModel->transStart();
-                    try {
-                        if (!empty($UserImageData)) {
-                            $user_image_data = [
-                                'img' => $file_src,
-                            ];
-                            $UserImagesModel
-                                ->where('user_id', $data['user_id'])
-                                ->set($user_image_data)
-                                ->update();
-                        } else {
-                            $user_image_data = [
-                                'uid' => $this->generate_uid(UID_USER_IMG),
-                                'user_id' => $data['user_id'],
-                                'img' => $file_src,
-                            ];
-                            $UserImagesModel->insert($user_image_data);
-                        }
-                        $UserImagesModel->transCommit();
-                    } catch (\Exception $e) {
-                        $UserImagesModel->transRollback();
-                        throw $e;
-                    }
-
-                }
-            }
-            $resp['status'] = true;
-            $resp['message'] = 'Update Successful';
-            $resp['data'] = ['user_id' => $data['user_id']];
+        $UserModel = new UsersModel();
+        $UserModel->transStart();
+        try {
+            // Update the user data
+            $UserModel
+                ->where('uid', $data['user_id'])
+                ->set($user_data)
+                ->update();
+            $UserModel->transCommit();
+        } catch (\Exception $e) {
+            $UserModel->transRollback();
+            throw $e;
         }
-        return $resp;
+
+        // Decode shop data if it is a string (in case it's been sent as JSON)
+        if (!empty($data['shops'])) {
+            // Decode if it's a string
+            if (is_string($data['shops'])) {
+                $data['shops'] = json_decode($data['shops'], true); // Decode JSON string into an array
+            }
+
+            // Ensure shops is now an array
+            if (is_array($data['shops'])) {
+                $UserShopModel = new UserShopModel();
+
+                // Step 1: Delete previous shop data for this user
+                $UserShopModel->where('user_uid', $data['user_id'])->delete();
+
+                // Step 2: Insert new shops into the shopuser table
+                foreach ($data['shops'] as $shop) {
+                    if (isset($shop['uid'], $shop['name'])) {
+                        $shop_data = [
+                            'user_uid' => $data['user_id'],  // user_uid from the passed data
+                            'shop_uid' => $shop['uid'],      // shop_uid from the frontend
+                            'shop_name' => $shop['name'],    // shop_name from the frontend
+                            'shop_remarks' => $shop['remarks'] ?? null, // remarks from the frontend
+                        ];
+
+                        $UserShopModel->transStart();
+                        try {
+                            // Insert new shop data into shopuser table
+                            $UserShopModel->insert($shop_data);
+                            $UserShopModel->transCommit();
+                        } catch (\Exception $e) {
+                            $UserShopModel->transRollback();
+                            throw $e;
+                        }
+                    }
+                }
+            } else {
+                $resp['message'] = 'Invalid shop data format';
+                return $resp; // Early return if the format is invalid
+            }
+        }
+
+        // Success response
+        $resp['status'] = true;
+        $resp['message'] = 'Update Successful';
+        $resp['data'] = ['user_id' => $data['user_id']];
     }
+
+    return $resp;
+}
+
+
+    
+
 
     private function change_password($data)
     {
@@ -327,15 +419,64 @@ class User_Controller extends Api_Controller
         return $resp;
     }
 
+    // private function get_user()
+    // {
+    //     $user_id = $this->is_logedin();
+    //     // echo $user_id;
+    //     $resp = [
+    //         "status" => false,
+    //         "message" => "Data Not Found",
+    //         "user_data" => ""
+    //     ];
+    //     if (!empty($user_id)) {
+    //         $UsersModel = new UsersModel();
+    //         $UsersData = $UsersModel
+    //             ->where('uid', $user_id)
+    //             ->get()
+    //             ->getResultArray();
+    //         $UsersData = !empty($UsersData[0]) ? $UsersData[0] : null;
+
+    //         $UserAddressModel = new AddressModel();
+    //         $AddressData = $UserAddressModel
+    //             ->where('user_id', $user_id)
+    //             ->get()
+    //             ->getResultArray();
+    //         $AddressData = !empty($AddressData[0]) ? $AddressData[0] : null;
+
+    //         $AllAddressData = $UserAddressModel
+    //             ->where('user_id', $user_id)
+    //             ->get()
+    //             ->getResultArray();
+    //         $AllAddressData = !empty($AllAddressData) ? $AllAddressData : null;
+
+    //         $UserImageModel = new UserImageModel();
+    //         $ImageData = $UserImageModel
+    //             ->where('user_id', $user_id)
+    //             ->get()
+    //             ->getResultArray();
+    //         $ImageData = !empty($ImageData[0]) ? $ImageData[0] : null;
+    //         $resp = [
+    //             "status" => true,
+    //             "message" => "Data fetched",
+    //             "user_id" => $user_id,
+    //             "user_data" => $UsersData,
+    //             "address" => $AddressData,
+    //             "user_img" => $ImageData,
+    //             "all_address" => $AllAddressData,
+    //         ];
+    //     }
+    //     return $resp;
+    // }
     private function get_user()
     {
         $user_id = $this->is_logedin();
-        // echo $user_id;
         $resp = [
             "status" => false,
             "message" => "Data Not Found",
-            "user_data" => ""
+            "user_data" => "",
+            "shops" => [] // Added key for shops
         ];
+        
         if (!empty($user_id)) {
             $UsersModel = new UsersModel();
             $UsersData = $UsersModel
@@ -343,26 +484,45 @@ class User_Controller extends Api_Controller
                 ->get()
                 ->getResultArray();
             $UsersData = !empty($UsersData[0]) ? $UsersData[0] : null;
-
+    
+            // Fetch user shops
+            $UserShopModel = new UserShopModel();
+            $UserShopsData = $UserShopModel
+                ->where('user_uid', $user_id)
+                ->get()
+                ->getResultArray();
+            
+            // Format the shop data
+            $shops = [];
+            foreach ($UserShopsData as $shop) {
+                $shops[] = [
+                    'shop_uid' => $shop['shop_uid'],
+                    'shop_name' => $shop['shop_name'],
+                    'shop_remarks' => $shop['shop_remarks']
+                ];
+            }
+    
+            // Fetch address and image data
             $UserAddressModel = new AddressModel();
             $AddressData = $UserAddressModel
                 ->where('user_id', $user_id)
                 ->get()
                 ->getResultArray();
             $AddressData = !empty($AddressData[0]) ? $AddressData[0] : null;
-
+    
             $AllAddressData = $UserAddressModel
                 ->where('user_id', $user_id)
                 ->get()
                 ->getResultArray();
             $AllAddressData = !empty($AllAddressData) ? $AllAddressData : null;
-
+    
             $UserImageModel = new UserImageModel();
             $ImageData = $UserImageModel
                 ->where('user_id', $user_id)
                 ->get()
                 ->getResultArray();
             $ImageData = !empty($ImageData[0]) ? $ImageData[0] : null;
+    
             $resp = [
                 "status" => true,
                 "message" => "Data fetched",
@@ -371,11 +531,13 @@ class User_Controller extends Api_Controller
                 "address" => $AddressData,
                 "user_img" => $ImageData,
                 "all_address" => $AllAddressData,
+                "shops" => $shops // Include shops data in the response
             ];
         }
+        
         return $resp;
     }
-
+    
     private function get_admin($data)
     {
         // echo $user_id;
@@ -1781,6 +1943,28 @@ class User_Controller extends Api_Controller
 
             return $resp;
     }
+    private function shop_all()
+    {
+        $resp = [
+            'status' => false,
+            'message' => 'No messages found',
+            'data' => []
+        ];
+        try {
+            $ShopModel = new ShopModel();
+            $shops = $ShopModel->findAll();
+            if (count($shops) > 0) {
+                $resp = [
+                    'status' => true,
+                    'message' => 'Messages found',
+                    'data' => $shops
+                ];
+            }
+        } catch (\Exception $e) {
+            $resp['message'] = $e;
+        }
+        return $resp;
+    }
 
     
 
@@ -2037,6 +2221,14 @@ class User_Controller extends Api_Controller
     {
         $data = $this->request->getPost();
         $resp = $this->get_sizechart($data);
+        return $this->response->setJSON($resp);
+
+    }
+
+    public function GET_shop_all()
+    {
+        $data = $this->request->getGet();
+        $resp = $this->shop_all($data);
         return $this->response->setJSON($resp);
 
     }

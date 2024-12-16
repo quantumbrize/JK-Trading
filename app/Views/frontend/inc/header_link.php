@@ -60,7 +60,7 @@
 		  <link rel="stylesheet" id="change-link" type="text/css" href="<?=base_url()?>public/assets/css/style/Product-reviews.css" />
     <?php }?>
 
-	<?php if(isset($header['product_list']) || isset($header['home'])){?>
+	<?php if(isset($header['product_list']) || isset($header['home']) || isset($header['product_category'])){?>
         <!-- Sub-Categories css -->
 	 	<link rel="stylesheet" id="change-link" type="text/css" href="<?=base_url()?>public/assets/css/style/Sub-Categories.css" />
     <?php }?>
