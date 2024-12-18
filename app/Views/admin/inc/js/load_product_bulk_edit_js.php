@@ -461,16 +461,17 @@
                 // const price = row.cells[2].children[0].value;
                 // const discount = row.cells[3].children[0].value;
                 // const visibility = row.cells[3].children[0].value;
-                const storeName = row.cells[2].children[0].value;
-                const barCode = row.cells[3].children[0].value;
-                const category = row.cells[4].children[1].value;
-                const size = row.cells[5].children[0].value;
+                // const storeName = row.cells[2].children[0].value;
+                // const barCode = row.cells[3].children[0].value;
+                const category = row.cells[2].children[1].value;
+                // const size = row.cells[5].children[0].value;
                 // const qty = row.cells[8].children[0].value;
-                const tags = row.cells[6].children[0].value;
-                const tax= row.cells[7].children[0].value;
-                const discount=row.cells[8].children[0].value;
-                const delivery_charge=row.cells[9].children[0].value;  
-                const price=row.cells[10].children[0].value;  
+                const tags = row.cells[3].children[0].value;
+                const tax= row.cells[4].children[0].value;
+                const discount=row.cells[5].children[0].value;
+                // const delivery_charge=row.cells[9].children[0].value;  
+                const price=row.cells[6].children[0].value;  
+                const stock=row.cells[7].children[0].value;  
                  
 
 
@@ -479,16 +480,17 @@
                     productId,
                     // price,
                     // discount,
-                    storeName,
-                    barCode,
+                    // storeName,
+                    // barCode,
                     category,
-                    size,
+                    // size,
                     // qty,
                     tags,
                     tax,
                     discount,
-                    delivery_charge,
-                    price
+                    // delivery_charge,
+                    price,
+                    stock
                     
                 });
 
@@ -502,16 +504,17 @@
                 const productName = product.productName; 
                 // const price = product.price; 
                 // const discount = product.discount; 
-                const storeName = product.storeName; 
-                const barCode = product.barCode;
-                const size = product.size;
+                // const storeName = product.storeName; 
+                // const barCode = product.barCode;
+                // const size = product.size;
                 const category = product.category;
                 // const qty = product.qty;
                 const tags = product.tags;
                 const tax=product.tax;
                 const discount= product.discount;  
-                const delivery_charge= product.delivery_charge;
+                // const delivery_charge= product.delivery_charge;
                 const price= product.price;
+                const stock= product.stock;
                 
 
                 // Validate product name
@@ -542,22 +545,22 @@
                 // }
 
                 // Validate store name
-                if (!storeName) {
-                    html += `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
-                                <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Store name is required for Product Update
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>`;
-                    isValid = false;
-                }
+                // if (!storeName) {
+                //     html += `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
+                //                 <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Store name is required for Product Update
+                //                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                //             </div>`;
+                //     isValid = false;
+                // }
 
                 // Validate barcode
-                if (!barCode) {
-                    html += `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
-                                <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Barcode is required for Product Update
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>`;
-                    isValid = false;
-                }
+                // if (!barCode) {
+                //     html += `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
+                //                 <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Barcode is required for Product Update
+                //                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                //             </div>`;
+                //     isValid = false;
+                // }
 
                 // Validate category
                 if (!category || category == 'null') {
@@ -595,15 +598,16 @@
                     // formData.append(`products[${index}][qty]`, product.qty);
                     // formData.append(`products[${index}][price]`, product.price);
                     // formData.append(`products[${index}][discount]`, product.discount);
-                    formData.append(`products[${index}][storeName]`, product.storeName);
-                    formData.append(`products[${index}][barCode]`, product.barCode);
+                    // formData.append(`products[${index}][storeName]`, product.storeName);
+                    // formData.append(`products[${index}][barCode]`, product.barCode);
                     formData.append(`products[${index}][category]`, product.category);
-                    formData.append(`products[${index}][size]`, product.size);
+                    // formData.append(`products[${index}][size]`, product.size);
                     formData.append(`products[${index}][tags]`, product.tags);
                     formData.append(`products[${index}][tax]`, product.tax);
                     formData.append(`products[${index}][discount]`, product.discount);
-                    formData.append(`products[${index}][delivery_charge]`, product.delivery_charge);
+                    // formData.append(`products[${index}][delivery_charge]`, product.delivery_charge);
                     formData.append(`products[${index}][price]`, product.price);
+                    formData.append(`products[${index}][stock]`, product.stock);
                     
 
                 });
@@ -826,6 +830,7 @@
                         console.log('del',resp)
                         $('#product-table-body').html("")
                         $.each(resp.data, function (index, product) {
+                            console.log('products',product)
                             const tableBody = document.getElementById('product-table-body');
                             const newRow = document.createElement('tr');
                             category_id += 1;
@@ -837,8 +842,7 @@
                             <td>
                                 <input type="text" value="${product.name}" required>
                             </td>
-                            <td><input type="text" value="${product.manufacturer_name}"></td>
-                            <td><input type="text" value="${product.manufacturer_brand}"></td>
+                            
                             <td>
                                 <select class="product-category-list" id="product-category-${category_id}" onChange="get_sub_category('${category_id}')">
                                     <option selected value="${product.category_id}">${product.category}</option>
@@ -846,11 +850,7 @@
                                 <input type="hidden" id="selected-cat-name-${category_id}" value="${product.category_id}">
                                 <p>Selected Category:- <b id="selected-cat-${category_id}">${product.category}</b><i class="fas fa-redo" onclick="reset_category('${category_id}')"></i></p>
                             </td>
-                            <td>
-                                <select class="product-size-list-input">
-                                    <option value="${product.size_list_id}">${product.size_list_name}</option>
-                                </select>
-                            </td>
+                            
                             <td><input type="text" value="${product.tags}"></td>
                              <td>
                                 <select class="product-tax-list" id="product-tax-0">
@@ -869,8 +869,9 @@
                                 </select>
                             </td>
                             <td><input type="text" value="${product.base_discount}" placeholder="Discount"></td>
-                            <td><input type="text" value="${product.delivery_charge}" placeholder="Delivery Charge"></td>
+                            
                             <td><input type="text" id="price" placeholder="Enter Price" value="${product.base_price}"></td>
+                            <td><input type="text" id="stock" placeholder="Enter stock" value="${product.stock}"></td>
                             <td>
                                 <button type="button" class="btn btn-md btn-primary" onclick="openDescriptionModal('${product.product_id}')">
                                     <i class="ri-edit-fill"></i>

@@ -11,6 +11,8 @@ use App\Models\TaxesModel;
 use App\Models\AdmintagModel;
 use App\Models\FrontendtagModel;
 use App\Models\ShopModel;
+use App\Models\SalesPersonModel;
+use App\Models\SalesPerMonthModel;
 
 class Banner_Controller extends Api_Controller
 {
@@ -730,6 +732,8 @@ class Banner_Controller extends Api_Controller
 
     
 
+    
+
 
 
 
@@ -885,4 +889,5 @@ class Banner_Controller extends Api_Controller
         return $this->response->setJSON($resp);
 
     }
+   
 }

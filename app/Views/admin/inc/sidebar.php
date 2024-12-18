@@ -343,6 +343,32 @@
                     </div>
                 </li>
 
+                <!-- <li class="nav-item">
+                    <a class="nav-link menu-link <?= isset($sidebar['sales_person']) ? 'active' : '' ?>"
+                        href="#sidebarSalesPerson" data-bs-toggle="collapse" role="button"
+                        aria-expanded="<?= isset($sidebar['sales_person']) ? 'true' : 'false' ?>"
+                        aria-controls="sidebarSalesPerson">
+                        <i class="ri-archive-line"></i>
+                        <span>Sales Person</span>
+                    </a>
+                    <div class="<?= isset($sidebar['sales_person']) ? 'show' : 'collapse' ?> menu-dropdown" id="sidebarSalesPerson">
+
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="<?= base_url() ?>all/sales_person" class="nav-link">
+                                    All Sales Person
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url() ?>add/sales_person" class="nav-link">
+                                    Add Sales Person 
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </li> -->
+
                 <?php
                 if (isset($_SESSION[SES_STAFF_USER_ID]) && in_array('orders', $_SESSION[SES_STAFF_ACCESS])) {
                     ?>
@@ -463,7 +489,7 @@
                                 data-bs-toggle="collapse" role="button"
                                 aria-expanded="<?= isset($sidebar['users']) ? 'true' : 'false' ?>" aria-controls="sidebarUser">
                                 <i class="bx bx-user"></i>
-                                <span>Users</span>
+                                <span>Sales Person</span>
                             </a>
                             <div class="<?= isset($sidebar['users']) ? '' : 'collapse' ?> menu-dropdown" id="sidebarUser">
                                 <ul class="nav nav-sm flex-column">

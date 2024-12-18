@@ -183,29 +183,29 @@ class Product_Controller extends Api_Controller
         // $this->prd($data['products']);
         foreach($data['products'] as $index => $product) {
             // Handle size chart file if provided, or assign default image
-            $sizeChartFileName = 'demo_img.jpg'; // Default image name
+            // $sizeChartFileName = 'demo_img.jpg'; // Default image name
 
-            if (isset($uploadedFiles['size_chart']) && $uploadedFiles['size_chart']->isValid()) {
-                $sizeChartFile = $uploadedFiles['size_chart'];
+            // if (isset($uploadedFiles['size_chart']) && $uploadedFiles['size_chart']->isValid()) {
+            //     $sizeChartFile = $uploadedFiles['size_chart'];
                 
-                // Define the target directory
-                $targetDirectory = FCPATH . 'public/uploads/size_charts/';
+            //     // Define the target directory
+            //     $targetDirectory = FCPATH . 'public/uploads/size_charts/';
                 
-                // Ensure the directory exists, create it if not
-                if (!is_dir($targetDirectory)) {
-                    mkdir($targetDirectory, 0777, true);
-                }
+            //     // Ensure the directory exists, create it if not
+            //     if (!is_dir($targetDirectory)) {
+            //         mkdir($targetDirectory, 0777, true);
+            //     }
 
-                // Generate a unique name for the size chart file to avoid overwriting
-                $sizeChartFileName = uniqid('size_chart_') . '.' . $sizeChartFile->getExtension();
+            //     // Generate a unique name for the size chart file to avoid overwriting
+            //     $sizeChartFileName = uniqid('size_chart_') . '.' . $sizeChartFile->getExtension();
 
-                // Move the file to the target directory
-                $sizeChartFile->move($targetDirectory, $sizeChartFileName);
-            }
+            //     // Move the file to the target directory
+            //     $sizeChartFile->move($targetDirectory, $sizeChartFileName);
+            // }
             
             // Get size data from the ProductSizeListModel
-            $stocks_list = $ProductSizeListModel->where('uid', $product['size'])->first();
-            $listOfSizes = json_decode($stocks_list['size_list'], true);
+            // $stocks_list = $ProductSizeListModel->where('uid', $product['size'])->first();
+            // $listOfSizes = json_decode($stocks_list['size_list'], true);
 
             // Prepare the product data
             $product_data[] = array(
@@ -214,22 +214,23 @@ class Product_Controller extends Api_Controller
                 'category_id' => $product['category'],
                 'name' => $product['productName'],
                 'description' => $product['description'],
-                'size_id' => $product['size'],
+                // 'size_id' => $product['size'],
                 'status' => $data['status'],
-                'size_chart' => $sizeChartFileName, // Save the name of the size chart file (or default image)
+                'stock'=>$product['stock']
+                // 'size_chart' => $sizeChartFileName, // Save the name of the size chart file (or default image)
             );
 
             // Prepare the stock data
-            foreach ($listOfSizes as $i => $size_list_data) {
-                $item_stock_data[] = [
-                    'uid' => $this->generate_uid('ITSKU'),
-                    'product_id' => $product_data[$index]['uid'],
-                    'varient_id' => '',
-                    'size_id' => $product['size'],
-                    'sizes' => $size_list_data,
-                    'stocks' => 0,
-                ];
-            }
+            // foreach ($listOfSizes as $i => $size_list_data) {
+            //     $item_stock_data[] = [
+            //         'uid' => $this->generate_uid('ITSKU'),
+            //         'product_id' => $product_data[$index]['uid'],
+            //         'varient_id' => '',
+            //         // 'size_id' => $product['size'],
+            //         'sizes' => $size_list_data,
+            //         'stocks' => 0,
+            //     ];
+            // }
 
             // Prepare the product item data
             $product_item_data[] = array(
@@ -238,14 +239,14 @@ class Product_Controller extends Api_Controller
                 'price' => $product['price'],
                 'discount' => $product['discount'],
                 'tax' => $product['tax'],
-                'delivery_charge' => $product['del_charge'],
+                // 'delivery_charge' => $product['del_charge'],
                 'product_tags' => $product['tags'],
                 'publish_date' => "",
                 'status' => "",
                 'visibility' => "visible",
                 'quantity' => '0',
-                'manufacturer_brand' => $product['barCode'],
-                'manufacturer_name' => $product['storeName']
+                // 'manufacturer_brand' => $product['barCode'],
+                // 'manufacturer_name' => $product['storeName']
             );
 
             $product_item_parcel[] = array(
@@ -276,7 +277,7 @@ class Product_Controller extends Api_Controller
         // Models for database insertions
         $ProductModel = new ProductModel();
         $ProductItemModel = new ProductItemModel();
-        $ItemStocksModel = new ItemStocksModel();
+        // $ItemStocksModel = new ItemStocksModel();
         $ProductParcelModel = new ProductParcelModel();
 
         // Transaction Start
@@ -284,7 +285,7 @@ class Product_Controller extends Api_Controller
         try {
             // Insert data into the product tables
             $ProductModel->insertBatch($product_data);
-            $ItemStocksModel->insertBatch($item_stock_data);
+            // $ItemStocksModel->insertBatch($item_stock_data);
             $ProductItemModel->insertBatch($product_item_data);
             $ProductParcelModel->insertBatch($product_item_parcel);
             $ProductModel->transCommit();
@@ -322,7 +323,8 @@ class Product_Controller extends Api_Controller
                 $ptoduct_update_data = [
                     'name' => $product['productName'],
                     'category_id' => $product['category'],
-                    'size_id' => $product['size']
+                    'stock' => $product['stock'],
+                    // 'size_id' => $product['size']
                 ];
 
                 $ptoduct_item_update_data = [
@@ -330,11 +332,11 @@ class Product_Controller extends Api_Controller
                     // 'discount' => $product['discount'],
                     // 'quantity' => $product['qty'],
                     'product_tags' => $product['tags'],
-                    'manufacturer_name' => $product['storeName'],
-                    'manufacturer_brand' => $product['barCode'],
+                    // 'manufacturer_name' => $product['storeName'],
+                    // 'manufacturer_brand' => $product['barCode'],
                     'tax'=>$product['tax'],
                     'discount'=>$product['discount'],
-                    'delivery_charge'=>$product['delivery_charge'],
+                    // 'delivery_charge'=>$product['delivery_charge'],
                     'price'=>$product['price']
                 ];
 
@@ -589,6 +591,7 @@ class Product_Controller extends Api_Controller
             product.status AS product_status,
             product.created_at AS created_at,
             product.uid,
+            product.stock,
             
             categories.name AS category,
             categories.uid AS category_id,

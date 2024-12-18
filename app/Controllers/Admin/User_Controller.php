@@ -279,7 +279,46 @@ class User_Controller extends Admin_Controller{
 
         $this->isAuth('/admin/shop_list',$data);
     }
+    public function load_sales_person_add(){
+        $data = PAGE_DATA_ADMIN;
+        $data = [
+            'data_page' => [],
+            'data_header' => [
+                'header_link' => [],
+                'title' => 'Sales Person',
+                'header' => [],
+                'sidebar' => ['sales_person'=>true],
+                'site' => 'admin'
+            ],
+            'data_footer' => [
+                'footer_link' => ['sales_person_add_js.php'],
+                'footer' => [],
+                'site' => 'admin'
+            ]
+        ];
 
+        $this->isAuth('/admin/sales_person_add',$data);
+    }
+    public function load_sales_person_all(){
+        $data = PAGE_DATA_ADMIN;
+        $data = [
+            'data_page' => [],
+            'data_header' => [
+                'header_link' => [],
+                'title' => 'Sales Person',
+                'header' => [],
+                'sidebar' => ['sales_person'=>true],
+                'site' => 'admin'
+            ],
+            'data_footer' => [
+                'footer_link' => ['sales_person_all_js.php'],
+                'footer' => [],
+                'site' => 'admin'
+            ]
+        ];
+
+        $this->isAuth('/admin/sales_person_all',$data);
+    }
 
 
 

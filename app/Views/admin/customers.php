@@ -1,6 +1,6 @@
 <div class="page-content">
     <div class="container-fluid">
-
+        
         <!-- start page title -->
         <div class="row">
             <div class="col-12">
@@ -20,6 +20,29 @@
 
         <div class="row">
             <div class="col-lg-12">
+            <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row g-4">
+                                <div class="col-sm-auto">
+                                    <div>
+                                        <a href="<?=base_url('/add/sales_person')?>" class="btn btn-success"
+                                            id="addproduct-btn">
+                                            <i class="ri-add-line align-bottom me-1"></i>
+                                            Add Sales Person
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-sm" style="display: none;">
+                                    <div class="d-flex justify-content-sm-end">
+                                        <div class="search-box ms-2">
+                                            <input type="text" class="form-control" id="searchProductList"
+                                                placeholder="Search Products...">
+                                            <i class="ri-search-line search-icon"></i>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
                 <div class="card" id="customerList">
                     <div class="card-header border-bottom-dashed">
 
@@ -178,6 +201,7 @@
                                                 <input type="text" id="customername-field" class="form-control"
                                                     placeholder="Enter name" required="">
                                                 <div class="invalid-feedback">Please enter a customer name.</div>
+                                                <input type="hidden" class="form-control" id="current_uid">
                                             </div>
 
                                             <div class="mb-3">
@@ -212,12 +236,66 @@
                                                     <option value="Block">Block</option>
                                                 </select>
                                             </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="yearly_total_sale">Yearly Total Sale</label>
+                                                <input type="number" class="form-control" id="yearly_total_sale" placeholder="Enter yearly total sale" required>
+                                                <div class="invalid-feedback">Please Enter yearly total sale.</div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="current_month">Current Month</label>
+                                                <select class="form-select" id="current_month">
+                                                    <option value="" selected disabled>Select Month</option>
+                                                    <option value="January">January</option>
+                                                    <option value="February">February</option>
+                                                    <option value="March">March</option>
+                                                    <option value="April">April</option>
+                                                    <option value="May">May</option>
+                                                    <option value="June">June</option>
+                                                    <option value="July">July</option>
+                                                    <option value="August">August</option>
+                                                    <option value="September">September</option>
+                                                    <option value="October">October</option>
+                                                    <option value="November">November</option>
+                                                    <option value="December">December</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label" for="monthly_total_sale">Monthly Total Sale</label>
+                                                <input type="number" class="form-control" id="monthly_total_sale" placeholder="Enter Monthly Total Sale">
+                                            </div>
+
+                                            <!-- Add Monthly Sale Button -->
+                                            <button type="button" class="btn btn-primary" id="add_monthly_sale_button">Add Monthly Sale</button>
+
+                                            <!-- Container for added month-sales display -->
+                                            <div id="monthly_sales_list" class="mb-3" style="display: none;">
+                                                <h5>Monthly Sales:</h5>
+                                                <ul id="sales_month_list" class="list-group">
+                                                    <!-- The selected months will be shown here -->
+                                                </ul>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="ongoing_month_sale">Ongoing Month Sale</label>
+                                                <input type="number" class="form-control" id="ongoing_month_sale" placeholder="Enter Ongoing Month Sale" required>
+                                                <div class="invalid-feedback">Please Enter Ongoing Month Sale.</div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <select class="form-control" name="shop" id="shop">
+                                                    </select>
+                                                    &nbsp;&nbsp;&nbsp;
+                                                    <button id="add_shop" class="btn btn-success">Add Shop</button>
+                                                </div>
+                                                <div id="addedShopList" style="margin-top: 20px;"></div>
+                                                <input type="hidden" id="user_id">
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <div class="hstack gap-2 justify-content-end">
                                                 <button type="button" class="btn btn-light"
                                                     data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-success" id="add-btn">Add
+                                                <button class="btn btn-success" id="add-btn">Add
                                                     Customer</button>
                                                 <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                                             </div>

@@ -11,33 +11,26 @@
     /* Set a fixed table layout to respect column widths */
     #product-table {
         table-layout: fixed;
+        width: 100%;
     }
 
-    /* Set widths for the first columns */
+    /* Ensure column widths are defined correctly */
     #product-table th.product-column,
     #product-table td.product-column { width: 200px; }
-    #product-table th.store-name-column,
-    #product-table td.store-name-column { width: 200px; }
-    #product-table th.barcode-column,
-    #product-table td.barcode-column { width: 150px; }
     #product-table th.category-column,
     #product-table td.category-column { width: 200px; }
-    #product-table th.size-column,
-    #product-table td.size-column { width: 150px; }
     #product-table th.tags-column,
     #product-table td.tags-column { width: 200px; }
     #product-table th.tax-column,
     #product-table td.tax-column { width: 120px; }
     #product-table th.discount-column,
     #product-table td.discount-column { width: 150px; }
-    #product-table th.delivery-charge-column,
-    #product-table td.delivery-charge-column { width: 150px; }
     #product-table th.price-column,
     #product-table td.price-column { width: 150px; }
-
-    /* Set widths for the last four columns */
+    #product-table th.stock-column,
+    #product-table td.stock-column { width: 150px; }
     #product-table th.details-column,
-    #product-table td.details-column { width: 100px; }
+    #product-table td.details-column { width: 150px; }
     #product-table th.images-column,
     #product-table td.images-column { width: 100px; }
     #product-table th.size-chart-column,
@@ -80,18 +73,19 @@
                 <thead>
                 <tr>
                     <th class="product-column">Product</th>
-                    <th class="store-name-column">Store Name</th>
-                    <th class="barcode-column">Barcode</th>
+                    <!-- <th class="store-name-column">Store Name</th> -->
+                    <!-- <th class="barcode-column">Barcode</th> -->
                     <th class="category-column">Category</th>
-                    <th class="size-column">Size</th>
+                    <!-- <th class="size-column">Size</th> -->
                     <th class="tags-column">Tags</th>
                     <th class="tax-column">Tax</th>
                     <th class="discount-column">Discount</th>
-                    <th class="delivery-charge-column">Delivery Charge</th>
+                    <!-- <th class="delivery-charge-column">Delivery Charge</th> -->
                     <th class="price-column">Price</th>
+                    <th class="stock-column">Stocks</th>
                     <th class="details-column">Details</th>
                     <th class="images-column">Images</th>
-                    <th class="size-chart-column">Size Chart</th>
+                    <!-- <th class="size-chart-column">Size Chart</th> -->
                     <th class="size-chart-column">Weight (in Gram)</th>
                     <th class="size-chart-column">Length (in Centemeter)</th>
                     <th class="size-chart-column">Breadth (in Centemeter)</th>
@@ -104,8 +98,8 @@
                         <td><input type="text" placeholder="Enter Product Name" required></td>
                         <!-- <td><input type="number" placeholder="Enter Price"></td>
                         <td><input type="number" placeholder="Enter Discount"></td> -->
-                        <td><input type="text" placeholder="Enter Store Name"></td>
-                        <td><input type="text" placeholder="Enter Barcode"></td>
+                        <!-- <td><input type="text" placeholder="Enter Store Name"></td> -->
+                        <!-- <td><input type="text" placeholder="Enter Barcode"></td> -->
                         <td>
                             <select class="product-category-list" id="product-category-0"
                                 onChange="get_sub_category('0')"></select>
@@ -115,9 +109,9 @@
                                 <i class="fas fa-redo" onclick="reset_category('0')"></i>
                             </p>
                         </td>
-                        <td>
+                        <!-- <td>
                             <select class="product-size-list-input"></select>
-                        </td>
+                        </td> -->
                         <!-- <td><input type="number" placeholder="Enter Quantity"></td> -->
                         <td><input type="text" placeholder="Enter Tags"></td>
                         <td>
@@ -137,13 +131,14 @@
                             </select>
                         </td>
                         <td><input type="text" placeholder="Discount"></td>
-                        <td><input type="text" placeholder="Delivery Charge"></td>
+                        <!-- <td><input type="text" placeholder="Delivery Charge"></td> -->
                         <!-- <td>
                             <button type="button" class="btn btn-md btn-secondary" onclick="openPriceModal(this)">
                                 <i class="ri-money-dollar-circle-fill"></i>
                             </button>
                         </td> -->
                         <td><input type="text" id="price" placeholder="Enter Price"></td>
+                        <td><input type="text" id="stock" placeholder="Enter Stock"></td>
                         <td>
                             <button type="button" class="btn btn-md btn-primary" onclick="openDescriptionModal(this)">
                                 <i class="ri-edit-fill"></i>
@@ -157,7 +152,7 @@
                             <!-- Modal for uploading images specific to this row -->
 
                         </td>
-                        <td><input type="file" id="size_chart" name="size_chart"></td>
+                        <!-- <td><input type="file" id="size_chart" name="size_chart"></td> -->
                         <td><input type="text" placeholder="Enter Weight"></td>
                         <td><input type="text" placeholder="Enter Length"></td>
                         <td><input type="text" placeholder="Enter Breadth"></td>

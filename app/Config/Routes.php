@@ -266,3 +266,15 @@ $routes->post('/api/update/shop',                  'Api\Banner_Controller::POST_
 $routes->post('/api/delete/shop',                'Api\Banner_Controller::POST_shop_delete');
 $routes->get('/product-category',                'Frontend\Product_Controller::load_product_category');
 
+$routes->get('/add/sales_person',                    'Admin\User_Controller::load_sales_person_add');
+$routes->post('/api/add/sales_person',                  'Api\User_Controller::POST_sales_person_add');
+
+$routes->get('/all/sales_person',                    'Admin\User_Controller::load_sales_person_all');
+$routes->get('api/all/sales_person',                    'Api\User_Controller::GET_sales_person_all');
+$routes->get('/api/sales_person/monthly_sale',           'Api\User_Controller::GET_monthly_sale');
+$routes->get('/single_sales_person',           'Api\User_Controller::GET_single_sales_person');
+
+$routes->post('/api/update/sales_person',                  'Api\User_Controller::POST_sales_person_update');
+$routes->post('/api/delete/sales_person',                  'Api\User_Controller::POST_sales_person_delete');
+
+
