@@ -1,3 +1,67 @@
+<style>
+    /* Adjusting column widths */
+/* Ensure fixed layout to force column widths */
+#customerTable {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#customerTable th:nth-child(1),
+#customerTable td:nth-child(1) {
+    width: 100px;
+}
+
+#customerTable th:nth-child(2),
+#customerTable td:nth-child(2) {
+    width: 150px;
+}
+
+#customerTable th:nth-child(3),
+#customerTable td:nth-child(3) {
+    width: 200px;
+}
+
+#customerTable th:nth-child(4),
+#customerTable td:nth-child(4) {
+    width: 150px;
+}
+
+#customerTable th:nth-child(5),
+#customerTable td:nth-child(5) {
+    width: 200px;
+}
+
+#customerTable th:nth-child(6),
+#customerTable td:nth-child(6) {
+    width: 150px;
+}
+
+#customerTable th:nth-child(7),
+#customerTable td:nth-child(7) {
+    width: 150px;
+}
+
+#customerTable th:nth-child(8),
+#customerTable td:nth-child(8) {
+    width: 150px;
+}
+
+#customerTable th:nth-child(9),
+#customerTable td:nth-child(9) {
+    width: 150px;
+}
+
+#customerTable th:nth-child(10),
+#customerTable td:nth-child(10) {
+    width: 100px;
+}
+
+#customerTable th:nth-child(11),
+#customerTable td:nth-child(11) {
+    width: 100px;
+}
+
+</style>
 <div class="page-content">
     <div class="container-fluid">
         
@@ -101,22 +165,21 @@
                             <div class="table-responsive table-card mb-1">
                                 <table class="table align-middle" id="customerTable">
                                     <thead class="table-light text-muted">
-                                        <!-- <tr>
-                                                        <th scope="col" style="width: 50px;">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                                            </div>
-                                                        </th>
-
-                                                        <th class="sort" data-sort="customer_image">Image</th>
-                                                        <th class="sort" data-sort="customer_name">Customer</th>
-                                                        <th class="sort" data-sort="phone">Phone</th>
-                                                        <th class="sort" data-sort="email">Email</th>
-                                                        <th class="sort" data-sort="date">Joining Date</th>
-                                                        <th class="sort" data-sort="status">Status</th>
-                                                        <th class="sort" data-sort="action">Action</th>
-                                                    </tr> -->
+                                        <tr>
+                                            <th style="width: 100px;"></th>
+                                            <th style="width: 150px;">Image</th>
+                                            <th style="width: 200px;">Name</th>
+                                            <th style="width: 150px;">Number</th>
+                                            <th style="width: 200px;">Email</th>
+                                            <th style="width: 150px;">Joining Date</th>
+                                            <th style="width: 150px;">Yearly Total Sale</th>
+                                            <th style="width: 150px;">Selected Month Sale</th>
+                                            <th style="width: 150px;">Ongoing Month Sale</th>
+                                            <th style="width: 100px;">Status</th>
+                                            <th style="width: 100px;">Edit</th>
+                                        </tr>
                                     </thead>
+
                                     <tbody class="list form-check-all" id="table_data">
                                         <tr>
                                             <th scope="row">
