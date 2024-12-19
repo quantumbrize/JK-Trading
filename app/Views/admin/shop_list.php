@@ -13,6 +13,30 @@
         <!-- Content -->
         <div class="row">
             <div class="col-xl-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <div class="row g-4">
+                                <div class="col-sm-auto">
+                                    <div>
+                                        <a href="<?= base_url() ?>shop-creation" class="btn btn-success"
+                                            id="addproduct-btn">
+                                            <i class="ri-add-line align-bottom me-1"></i>
+                                            Add SHop
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-sm" style="display: none;">
+                                    <div class="d-flex justify-content-sm-end">
+                                        <div class="search-box ms-2">
+                                            <input type="text" class="form-control" id="searchProductList"
+                                                placeholder="Search Products...">
+                                            <i class="ri-search-line search-icon"></i>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
                 <div class="card">
                     <div class="card-header border-0">
                         <div class="row g-4">
@@ -30,7 +54,7 @@
 
                     <!-- Tabs -->
                     <div class="card-header">
-                        <div class="row align-items-center">
+                        <!-- <div class="row align-items-center">
                             <div class="col">
                                 <ul class="nav nav-tabs-custom card-header-tabs border-bottom-0" role="tablist">
                                     <li class="nav-item">
@@ -49,7 +73,7 @@
                                         data-bs-toggle="modal" data-bs-target="#removeItemModal">Remove</button>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- Table -->

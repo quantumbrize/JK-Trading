@@ -140,7 +140,7 @@
                             <i class="ri-archive-line"></i>
                             <span>Banners</span>
                         </a>
-                        <div class="<?= isset($sidebar['banners']) ? '' : 'collapse' ?> menu-dropdown" id="sidebarBanner">
+                        <!-- <div class="<?= isset($sidebar['banners']) ? '' : 'collapse' ?> menu-dropdown" id="sidebarBanner">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
                                     <a href="<?= base_url('/admin/banners') ?>" class="nav-link">
@@ -153,7 +153,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
 
                     </li>
                     <?php
@@ -161,13 +161,13 @@
                     ?>
                         <li class="nav-item">
                             <a class="nav-link menu-link <?= isset($sidebar['banners']) ? 'active' : '' ?>"
-                                href="#sidebarBanner" data-bs-toggle="collapse" role="button"
+                                href="<?= base_url('/admin/banners') ?>" data-bs-toggle="" role="button"
                                 aria-expanded="<?= isset($sidebar['banners']) ? 'true' : 'false' ?>"
                                 aria-controls="sidebarBanner">
                                 <i class="ri-archive-line"></i>
                                 <span>Banners</span>
                             </a>
-                            <div class="<?= isset($sidebar['banners']) ? '' : 'collapse' ?> menu-dropdown" id="sidebarBanner">
+                            <!-- <div class="<?= isset($sidebar['banners']) ? '' : 'collapse' ?> menu-dropdown" id="sidebarBanner">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
                                         <a href="<?= base_url('/admin/banners') ?>" class="nav-link">
@@ -180,7 +180,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
 
                         </li>
                     <?php
@@ -287,61 +287,53 @@
                     ?>
                         <li class="nav-item">
                             <a class="nav-link menu-link <?= isset($sidebar['products']) ? 'active' : '' ?>"
-                                href="#sidebarProduct" data-bs-toggle="collapse" role="button"
+                                href="<?= base_url('/admin/product/list') ?>"  role="button"
                                 aria-expanded="<?= isset($sidebar['products']) ? 'true' : 'false' ?>"
                                 aria-controls="sidebarProduct">
                                 <i class="ri-archive-line"></i>
                                 <span>Products</span>
                             </a>
-                            <div class="<?= isset($sidebar['products']) ? '' : 'collapse' ?> menu-dropdown" id="sidebarProduct">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
+                            <!-- <div class="<?= isset($sidebar['products']) ? '' : 'collapse' ?> menu-dropdown" id="sidebarProduct">
+                                <ul class="nav nav-sm flex-column"> -->
+                                    <!-- <li class="nav-item">
                                         <a href="<?= base_url('/admin/product/list') ?>" class="nav-link">
                                             All Products
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <!-- <li class="nav-item">
                                         <a href="<?= base_url('/admin/product/add') ?>" class="nav-link">
                                             Add Product
                                         </a>
                                     </li> -->
-                                </ul>
-                            </div>
+                                <!-- </ul>
+                            </div> -->
 
                         </li>
                     <?php
                 }
                 ?>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link <?= isset($sidebar['shop_creation']) ? 'active' : '' ?>"
-                        href="#sidebarShopCreation" data-bs-toggle="collapse" role="button"
-                        aria-expanded="<?= isset($sidebar['shop_creation']) ? 'true' : 'false' ?>"
-                        aria-controls="sidebarShopCreation">
-                        <i class="ri-archive-line"></i>
-                        <span>Shop Creation </span>
-                    </a>
-                    <div class="<?= isset($sidebar['shop_creation']) ? 'show' : 'collapse' ?> menu-dropdown" id="sidebarShopCreation">
-
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="<?= base_url() ?>all/shop" class="nav-link">
-                                    All Shop
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?= base_url() ?>shop-creation" class="nav-link">
-                                    Add Shop 
-                                </a>
-                            </li>
-                            <!-- <li class="nav-item">
-                                <a href="<?= base_url('/admin/reviews') ?>" class="nav-link">
-                                    All Reviews
-                                </a>
-                            </li> -->
-                        </ul>
-                    </div>
-                </li>
+                <?php
+                if (isset($_SESSION[SES_STAFF_USER_ID]) && in_array('shop_creation', $_SESSION[SES_STAFF_ACCESS])) {
+                    ?>
+                    <li class="nav-item ">
+                        <a class="nav-link menu-link <?= isset($sidebar['shop_creation']) ? 'active' : '' ?>"
+                            href="<?= base_url() ?>all/shop">
+                            <i class="bx bx-category"></i> <span data-key="t-widgets">Shop creation</span>
+                        </a>
+                    </li>
+                    <?php
+                } else if (isset($_SESSION[SES_ADMIN_USER_ID])) {
+                    ?>
+                        <li class="nav-item ">
+                            <a class="nav-link menu-link <?= isset($sidebar['shop_creation']) ? 'active' : '' ?>"
+                                href="<?= base_url() ?>all/shop">
+                                <i class="bx bx-category"></i> <span data-key="t-widgets">Shop creation</span>
+                            </a>
+                        </li>
+                    <?php
+                }
+                ?>
+               
 
                 <!-- <li class="nav-item">
                     <a class="nav-link menu-link <?= isset($sidebar['sales_person']) ? 'active' : '' ?>"

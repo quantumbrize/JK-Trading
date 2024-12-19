@@ -168,7 +168,7 @@
 
             <button type="button" class="btn btn-sm btn-success" onclick="addRow()">Add Another Product</button>
             <button type="button" class="btn btn-sm btn-success" id="submitBtn" onclick="submitProducts()">Submit
-                Products</button>
+                Products</button><br><br>
 
             <!-- Modal for CKEditor -->
             <div id="descriptionModal" class="modal">

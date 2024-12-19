@@ -119,7 +119,11 @@
                                         </tr>`
                         })
                         $('#table-product-list-all-body').html(html)
-                        $('#table-product-list-all').DataTable();
+                        $('#table-product-list-all').DataTable({
+                        language: {
+                            search: "Search" // Custom placeholder text for the search field
+                        }
+                    });
                     }
                 }
 
@@ -130,6 +134,36 @@
             complete: function () {
 
             }
+        })
+    }
+    function delete_product(p_id) {
+        // alert(customer_id)
+        $.ajax({
+            url: "<?= base_url('/api/delete/product') ?>",
+            type: "GET",
+            data:{p_id:p_id},
+            beforeSend: function () {
+                    $('#delete_product').html(`<div class="spinner-border" role="status"></div>`)
+                    $('#delete_product').attr('disabled', true)
+
+                },
+            success: function (resp) {
+                if (resp.status) {
+                    console.log(resp)
+                    
+                    
+                }else{
+                    console.log(resp)
+                }
+
+            },
+            error: function (err) {
+                console.log(err)
+            },
+            complete: function () {
+                    $('#delete_product').html(`Yes, Delete It!`)
+                    $('#delete_product').attr('disabled', false)
+                }
         })
     }
 

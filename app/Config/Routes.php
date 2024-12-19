@@ -277,4 +277,6 @@ $routes->get('/single_sales_person',           'Api\User_Controller::GET_single_
 $routes->post('/api/update/sales_person',                  'Api\User_Controller::POST_sales_person_update');
 $routes->post('/api/delete/sales_person',                  'Api\User_Controller::POST_sales_person_delete');
 
+$routes->get('/api/getSalesPersonRoute/',           'Api\User_Controller::GET_sales_person_route');
 
+$routes->get('/api/delete/product',                'Api\Product_Controller::GET_delete_product');

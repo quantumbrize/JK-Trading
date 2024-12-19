@@ -63,6 +63,9 @@
                             { type: 'date', targets: 2 },
                         ],
                         "order": [[2, "desc"]],
+                        language: {
+                            search: "Search" // Custom placeholder text for the search field
+                        }
                     });
                 }else{
                     $('#order_table_body').html('<tr><td colspan="6" align="center"><h4>No Orders Found</h4></td><tr>')

@@ -70,6 +70,8 @@
                         $('#bannerLink').val(``)
                         $imageContainer.html(``);
                         $numOfFiles.html(``);
+                        $('#images').html(``)
+
                     } else {
                         html += `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
                                 <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - ${resp.message}

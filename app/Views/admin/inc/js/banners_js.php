@@ -50,7 +50,11 @@
                                         </tr>`
                         })
                         $('#table-banner-list-all-body').html(html)
-                        $('#table-banner-list-all').DataTable();
+                        $('#table-banner-list-all').DataTable({
+                        language: {
+                            search: "Search" // Custom placeholder text for the search field
+                        }
+                    });
                     }
                 }else{
                     $('#table-banner-list-all-body').html(`<tr >

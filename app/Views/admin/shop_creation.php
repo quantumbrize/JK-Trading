@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
-                    <h4 class="mb-sm-0">Add  About</h4>
+                    <h4 class="mb-sm-0">Add Shop</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
@@ -16,6 +16,7 @@
                 </div>
             </div>
         </div>
+        
         <!-- end page title -->
 
         <div id="createproduct-form">

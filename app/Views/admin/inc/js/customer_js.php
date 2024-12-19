@@ -6,6 +6,125 @@
     let monthly_sales_data = [];
     load_all_shop()
 
+    // function customers() {
+    //     $.ajax({
+    //         url: "<?= base_url('/api/customers') ?>",
+    //         type: "GET",
+    //         // beforeSend: function () {
+    //         //     $('#table-banner-list-all-body').html(`<tr >
+    //         //             <td colspan="7"  style="text-align:center;">
+    //         //                 <div class="spinner-border" role="status"></div>
+    //         //             </td>
+    //         //         </tr>`)
+    //         // },
+    //         success: function (resp) {
+    //             if (resp.status) {
+    //                 console.log(resp)
+    //                     let html = ``
+    //                     $.each(resp.user_data, function (index, user) {
+    //                         // let product_img = banner.img.length > 0 ? banner.img[0]['src'] : ''
+    //                         var image = `https://usercontent.one/wp/www.vocaleurope.eu/wp-content/uploads/no-image.jpg?media=1642546813`
+    //                         if(user.user_img != null){
+    //                             image = `<?= base_url('public/uploads/user_images/') ?>${user.user_img.img}`
+    //                         }
+    //                         var joining_date = new Date(user.created_at)
+    //                         var formatted_date = joining_date.toLocaleString('en-US', { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' });
+    //                         var status_color = 'text-danger'
+    //                         if(user.status == "active"){
+    //                             status_color = 'text-success'
+    //                         }
+                            
+    //                         console.log('users',user)
+    //                         html += `<tr>
+    //                                         <th scope="row">
+    //                                             <div class="form-check">
+    //                                                 <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+    //                                             </div>
+    //                                         </th>
+    //                                         <td >
+    //                                             <img src="${image}" alt="" class="product-img" style="width: 80px; height: 80px;  border-radius: 50%; overflow: hidden;">
+    //                                         </td>
+    //                                         <td >
+    //                                             ${user.user_name}
+    //                                         </td>
+    //                                         <td >
+    //                                             ${user.number}
+    //                                         </td>
+    //                                         <td >
+    //                                             ${user.email}
+    //                                         </td>
+    //                                         <td >
+    //                                             ${formatted_date}
+    //                                         </td>
+    //                                         <td>
+    //                                             ${user.yearly_total_sale}
+    //                                         </td>
+    //                                         <td>
+    //                                             <select class="form-select form-select-sm monthly-sale-dropdown" 
+    //                                                     data-sales-person-uid="${user.uid}" 
+    //                                                     onchange="fetchMonthlySale(this)">
+    //                                                 <option value="" disabled selected>Select Month</option>
+    //                                                 <option value="January">January</option>
+    //                                                 <option value="February">February</option>
+    //                                                 <option value="March">March</option>
+    //                                                 <option value="April">April</option>
+    //                                                 <option value="May">May</option>
+    //                                                 <option value="June">June</option>
+    //                                                 <option value="July">July</option>
+    //                                                 <option value="August">August</option>
+    //                                                 <option value="September">September</option>
+    //                                                 <option value="October">October</option>
+    //                                                 <option value="November">November</option>
+    //                                                 <option value="December">December</option>
+    //                                             </select>
+    //                                             <div class="monthly-sale-result" style="margin-top: 5px; font-weight: bold; font-size: 12px;">
+    //                                                 <!-- Monthly Sale will be displayed here -->
+    //                                             </div>
+    //                                         </td>
+    //                                         <td>
+    //                                             ${user.yearly_total_sale}
+    //                                         </td>
+                                            
+    //                                         <td class="status">
+    //                                             <span class="badge bg-success-subtle ${status_color} text-uppercase">${user.status}</span>
+    //                                         </td>
+                                            
+    //                                         <td>
+    //                                             <ul class="list-inline hstack gap-2 mb-0">
+    //                                                 <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top"  title="Edit">
+    //                                                     <a href="#showModal" data-bs-toggle="modal" onclick="single_customer('${user.uid}')" class="text-primary d-inline-block edit-item-btn">
+    //                                                         <i class="ri-pencil-fill fs-16"></i>
+    //                                                     </a>
+    //                                                 </li>
+    //                                                 <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Remove">
+    //                                                     <a class="text-danger d-inline-block remove-item-btn" href="#" onclick="open_delete_modal('${user.uid}')">
+    //                                                         <i class="ri-delete-bin-5-fill fs-16"></i>
+    //                                                     </a>
+    //                                                 </li>
+    //                                             </ul>
+    //                                         </td>
+
+    //                                     </tr>`
+    //                     })
+    //                     $('#table_data').html(html)
+    //                     // $('#table-banner-list-all').DataTable();
+    //             }else{
+    //                 $('#table-banner-list-all-body').html(`<tr >
+    //                     <td>
+    //                         DATA NOT FOUND!
+    //                     </td>
+    //                 </tr>`)
+    //             }
+
+    //         },
+    //         error: function (err) {
+    //             console.log(err)
+    //         },
+    //         // complete: function () {
+               
+    //         // }
+    //     })
+    // }
     function customers() {
         $.ajax({
             url: "<?= base_url('/api/customers') ?>",
@@ -19,7 +138,8 @@
             // },
             success: function (resp) {
                 if (resp.status) {
-                    console.log(resp)
+                    console.log('userda',resp)
+                        $('#all_user_count').html(resp.user_data.length)
                         let html = ``
                         $.each(resp.user_data, function (index, user) {
                             // let product_img = banner.img.length > 0 ? banner.img[0]['src'] : ''
@@ -36,75 +156,77 @@
                             
                             console.log('users',user)
                             html += `<tr>
-                                            <th scope="row">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                                </div>
-                                            </th>
-                                            <td >
-                                                <img src="${image}" alt="" class="product-img" style="width: 80px; height: 80px;  border-radius: 50%; overflow: hidden;">
-                                            </td>
-                                            <td >
-                                                ${user.user_name}
-                                            </td>
-                                            <td >
-                                                ${user.number}
-                                            </td>
-                                            <td >
-                                                ${user.email}
-                                            </td>
-                                            <td >
-                                                ${formatted_date}
-                                            </td>
-                                            <td>
-                                                ${user.yearly_total_sale}
-                                            </td>
-                                            <td>
-                                                <select class="form-select form-select-sm monthly-sale-dropdown" 
-                                                        data-sales-person-uid="${user.uid}" 
-                                                        onchange="fetchMonthlySale(this)">
-                                                    <option value="" disabled selected>Select Month</option>
-                                                    <option value="January">January</option>
-                                                    <option value="February">February</option>
-                                                    <option value="March">March</option>
-                                                    <option value="April">April</option>
-                                                    <option value="May">May</option>
-                                                    <option value="June">June</option>
-                                                    <option value="July">July</option>
-                                                    <option value="August">August</option>
-                                                    <option value="September">September</option>
-                                                    <option value="October">October</option>
-                                                    <option value="November">November</option>
-                                                    <option value="December">December</option>
-                                                </select>
-                                                <div class="monthly-sale-result" style="margin-top: 5px; font-weight: bold; font-size: 12px;">
-                                                    <!-- Monthly Sale will be displayed here -->
-                                                </div>
-                                            </td>
-                                            <td>
-                                                ${user.yearly_total_sale}
-                                            </td>
-                                            
-                                            <td class="status">
-                                                <span class="badge bg-success-subtle ${status_color} text-uppercase">${user.status}</span>
-                                            </td>
-                                            
-                                            <td>
-                                                <ul class="list-inline hstack gap-2 mb-0">
-                                                    <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top"  title="Edit">
-                                                        <a href="#showModal" data-bs-toggle="modal" onclick="single_customer('${user.uid}')" class="text-primary d-inline-block edit-item-btn">
-                                                            <i class="ri-pencil-fill fs-16"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Remove">
-                                                        <a class="text-danger d-inline-block remove-item-btn" href="#" onclick="open_delete_modal('${user.uid}')">
-                                                            <i class="ri-delete-bin-5-fill fs-16"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </td>
+                                        <th scope="row">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                            </div>
+                                        </th>
+                                        <td>
+                                            <img src="${image}" alt="" class="product-img" style="width: 80px; height: 80px;  border-radius: 50%; overflow: hidden;">
+                                        </td>
+                                        <td>
+                                            ${user.user_name}
+                                        </td>
+                                        <td>
+                                            ${user.number}
+                                        </td>
+                                        <td>
+                                            ${user.email}
+                                        </td>
+                                        <td>
+                                            ${formatted_date}
+                                        </td>
+                                        <td>
+                                            ${user.yearly_total_sale}
+                                        </td>
+                                        <td>
+                                            <select class="form-select form-select-sm monthly-sale-dropdown" 
+                                                    data-sales-person-uid="${user.uid}" 
+                                                    onchange="fetchMonthlySale(this)">
+                                                <option value="" disabled selected>Select Month</option>
+                                                <option value="January">January</option>
+                                                <option value="February">February</option>
+                                                <option value="March">March</option>
+                                                <option value="April">April</option>
+                                                <option value="May">May</option>
+                                                <option value="June">June</option>
+                                                <option value="July">July</option>
+                                                <option value="August">August</option>
+                                                <option value="September">September</option>
+                                                <option value="October">October</option>
+                                                <option value="November">November</option>
+                                                <option value="December">December</option>
+                                            </select>
+                                            <div class="monthly-sale-result" style="margin-top: 5px; font-weight: bold; font-size: 12px;">
+                                                <!-- Monthly Sale will be displayed here -->
+                                            </div>
+                                        </td>
+                                        <td>
+                                            ${user.ongoing_month_sale}
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-info" onclick="showRouteDetails('${user.uid}')">View Days and Route</button>
+                                        </td>
+                                        <td class="status">
+                                            <span class="badge bg-success-subtle ${status_color} text-uppercase">${user.status}</span>
+                                        </td>
+                                        <td>
+                                            <ul class="list-inline hstack gap-2 mb-0">
+                                                <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Edit">
+                                                    <a href="#showModal" data-bs-toggle="modal" onclick="single_customer('${user.uid}')" class="text-primary d-inline-block edit-item-btn">
+                                                        <i class="ri-pencil-fill fs-16"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Remove">
+                                                    <a class="text-danger d-inline-block remove-item-btn" href="#" onclick="open_delete_modal('${user.uid}')">
+                                                        <i class="ri-delete-bin-5-fill fs-16"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        
+                                    </tr>`;
 
-                                        </tr>`
                         })
                         $('#table_data').html(html)
                         // $('#table-banner-list-all').DataTable();
@@ -499,6 +621,31 @@ function sales_person_update() {
     formData.append('ongoing_month_sale', $('#ongoing_month_sale').val());
     formData.append('sales_person_uid', $('#current_uid').val());
     formData.append('monthly_sales_data', JSON.stringify(monthly_sales_data));
+    const locationData = [];
+    $('#addedRouteList .added-location').each(function() {
+        // Extract the days and route text while excluding the 'Remove' button or any extra text
+        const locationText = $(this).children('p').text().trim(); // Only get text from the <p> tags, assuming they contain the location and route info
+
+        // Split text by some delimiter (assuming "Location: Monday, Tuesday, Route: Route 1")
+        const daysRoute = locationText.split('Route:');
+        if (daysRoute.length === 2) {
+            const days = daysRoute[0].replace('Location:', '').trim();  // Remove "Location:" and trim
+            const route = daysRoute[1].trim();  // Trim route
+            locationData.push({ days, route });
+        }
+    });
+
+    if (locationData.length > 0) {
+        // Append the location data (array of objects) to the form
+        formData.append('location_data', JSON.stringify(locationData)); // Send as JSON string
+    } else {
+        alert('Please add at least one location (Days and Route).');
+        return; // Stop the function if no locations are added
+    }
+
+    // alert("Location Data: " + JSON.stringify(locationData)); // Check the captured location data
+
+    console.log("Submitting Form Data: ", Object.fromEntries(formData));
 
     // Collect shop data
     // Collect shop data
@@ -557,4 +704,83 @@ console.log('shopData',shopData)
         }
     });
 }
+function showRouteDetails(userId) {
+    $.ajax({
+        url: `<?= base_url('/api/getSalesPersonRoute/') ?>`,
+        type: "GET",
+        data: { uid: userId },
+        success: function (resp) {
+            if (resp.status) {
+                // Generate the HTML for the routes and days
+                let routeHtml = "<ul>";
+                $.each(resp.sales_person_route, function (index, route) {
+                    routeHtml += `<li> <strong>Day:</strong> ${route.days} <strong>Route:</strong> ${route.route}</li>`;
+                });
+                routeHtml += "</ul>";
+
+                // Inject the content into the modal
+                $('#routeDetailsModal .modal-body').html(routeHtml);
+                $('#routeDetailsModal').modal('show');
+            } else {
+                // If no data, show a message
+                $('#routeDetailsModal .modal-body').html('<p>No route data available for this user.</p>');
+                $('#routeDetailsModal').modal('show');
+            }
+        },
+        error: function (err) {
+            console.error("Error fetching route details:", err);
+            $('#routeDetailsModal .modal-body').html('<p>Failed to fetch route details. Please try again later.</p>');
+            $('#routeDetailsModal').modal('show');
+        }
+    });
+}
+function addLocation() {
+    // Get the values from the input fields for Days and Route
+    const days = document.getElementById('days').value;
+    const route = document.getElementById('route').value;
+
+    // Check if both location (days) and route are provided
+    if (days && route) {
+        // Create a new div element to display the location and route
+        const locationDiv = document.createElement('div');
+        locationDiv.classList.add('added-location');
+        locationDiv.style.marginBottom = '10px'; // Optional: Add margin for spacing between entries
+        
+        // Create a new paragraph element to display the location and route
+        const locationText = document.createElement('p');
+        locationText.textContent = `Location: ${days}  Route: ${route}`;
+        
+        // Create a button to remove the location
+        const removeButton = document.createElement('button');
+        removeButton.classList.add('btn', 'btn-danger');
+        removeButton.textContent = 'Remove';
+        
+        // Add an event listener to the remove button
+        removeButton.addEventListener('click', function() {
+            locationDiv.remove();
+        });
+
+        // Append the location text and remove button to the location div
+        locationDiv.appendChild(locationText);
+        locationDiv.appendChild(removeButton);
+        
+        // Get the container where locations will be displayed
+        const locationContainer = document.getElementById('addedRouteList');
+        
+        // Append the new location div to the container
+        locationContainer.appendChild(locationDiv);
+        
+        // Clear the input fields after adding
+        document.getElementById('days').value = '';
+        document.getElementById('route').value = '';
+    } else {
+        // Optionally, you can display an alert or message if either field is empty
+        alert('Please enter both Location (Days) and Route');
+    }
+}
+
+// Attach event listener to the Add Location button
+document.getElementById('add_location').addEventListener('click', addLocation);
+
+
 </script>

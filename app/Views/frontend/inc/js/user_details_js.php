@@ -263,11 +263,16 @@
                     let shopHtml = '';
                     $.each(resp.shops, function(index, shop) {
                         shopHtml += `
-                            <div class="shop-item" data-shop-id="${shop.shop_uid}" style="margin-bottom: 10px;">
+                           <div class="shop-item" data-shop-id="${shop.shop_uid}" style="margin-bottom: 10px;">
                                 <span class="shop-name">${shop.shop_name}</span>
-                                <input type="text" placeholder="Remarks" class="remarks-input form-control" style="margin-left: 10px; padding: 5px;" value="${shop.shop_remarks}"><br>
+                                <div style="display: flex; align-items: center; margin-top: 5px;">
+                                    <label style="margin-right: 10px;color:#9796a1">Remarks:</label>
+                                    <input type="text" placeholder="Remarks" class="remarks-input form-control" style="padding: 5px;" value="${shop.shop_remarks}">
+                                </div>
+                                <br>
                                 <button class="remove-shop-btn btn btn-danger btn-sm" style="margin-left: 10px;">Remove</button>
                             </div>
+
                         `;
                     });
                     $('#addedShopList').html(shopHtml);

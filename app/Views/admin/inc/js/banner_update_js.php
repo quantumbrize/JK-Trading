@@ -71,6 +71,7 @@
                                 <i class="ri-checkbox-circle-fill label-icon"></i>${resp.message}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>`
+                            window.location.href = "<?= base_url('/admin/banners') ?>";
                             // get_banner()
                     } else {
                         html += `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">

@@ -20,7 +20,16 @@
 
         <div id="createproduct-form">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-sm-auto">
+                    <div>
+                        <a href="<?=base_url('/admin/banners')?>" class="btn btn-success"
+                            id="addproduct-btn">
+                            <i class=""></i>
+                            All Banner
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-12" style="margin-top:20px;">
                     <div class="card">
                         <div class="card-body">
                             <div class="mb-3">

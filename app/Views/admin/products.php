@@ -113,6 +113,7 @@
                                                 <!-- <th>Stock</th> -->
                                                 <th>Created by</th>
                                                 <th>Status</th>
+                                                <!-- <th>Delete</th> -->
 
                                             </tr>
                                         </thead>

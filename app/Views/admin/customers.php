@@ -69,7 +69,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
-                    <h4 class="mb-sm-0">Customers</h4>
+                    <h4 class="mb-sm-0">Sales Person</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
@@ -84,7 +84,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-            <div class="card">
+                    <div class="card">
                         <div class="card-header border-0">
                             <div class="row g-4">
                                 <div class="col-sm-auto">
@@ -107,6 +107,7 @@
                                 </div> -->
                             </div>
                         </div>
+                    </div>
                 <div class="card" id="customerList">
                     <div class="card-header border-bottom-dashed">
 
@@ -114,25 +115,50 @@
                     <div class="card-body border-bottom-dashed border-bottom">
                         <form>
                             <div class="row g-3">
-                                <div class="col-xl-6">
+                                <!-- <div class="col-xl-6">
                                     <div class="search-box">
                                         <input type="text" class="form-control search"
                                             placeholder="Search for customer, email, phone, status or something...">
                                         <i class="ri-search-line search-icon"></i>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!--end col-->
                                 <div class="col-xl-6">
                                     <div class="row g-3">
-                                        <div class="col-sm-4">
+                                    <div class="col">
+                                    <ul class="nav nav-tabs-custom card-header-tabs border-bottom-0" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active fw-semibold" data-bs-toggle="tab"
+                                                href="#productnav-all" role="tab">
+                                                All <span id="all_user_count"
+                                                    class="badge bg-danger-subtle text-danger align-middle rounded-pill ms-1"></span>
+                                            </a>
+                                        </li>
+                                        <!-- <li class="nav-item">
+                                            <a class="nav-link fw-semibold" data-bs-toggle="tab"
+                                                href="#productnav-published" role="tab">
+                                                Published <span 
+                                                    class="badge bg-danger-subtle text-danger align-middle rounded-pill ms-1">0</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link fw-semibold" data-bs-toggle="tab"
+                                                href="#productnav-draft" role="tab">
+                                                Draft<span 
+                                                    class="badge bg-danger-subtle text-danger align-middle rounded-pill ms-1">0</span>
+                                            </a>
+                                        </li> -->
+                                    </ul>
+                                </div>
+                                        <!-- <div class="col-sm-4">
                                             <div class="">
                                                 <input type="text" class="form-control" id="datepicker-range"
                                                     data-provider="flatpickr" data-date-format="d M, Y"
                                                     data-range-date="true" placeholder="Select date">
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <!--end col-->
-                                        <div class="col-sm-4">
+                                        <!-- <div class="col-sm-4">
                                             <div>
                                                 <select class="form-control" data-plugin="choices" data-choices=""
                                                     data-choices-search-false="" name="choices-single-default"
@@ -143,16 +169,16 @@
                                                     <option value="Block">Block</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <!--end col-->
 
-                                        <div class="col-sm-4">
+                                        <!-- <div class="col-sm-4">
                                             <div>
                                                 <button type="button" class="btn btn-primary w-100"
                                                     onclick="SearchData();"> <i
                                                         class="ri-equalizer-fill me-2 align-bottom"></i>Filters</button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <!--end col-->
                                     </div>
                                 </div>
@@ -160,6 +186,7 @@
                             <!--end row-->
                         </form>
                     </div>
+                    
                     <div class="card-body">
                         <div>
                             <div class="table-responsive table-card mb-1">
@@ -175,6 +202,7 @@
                                             <th style="width: 150px;">Yearly Total Sale</th>
                                             <th style="width: 150px;">Selected Month Sale</th>
                                             <th style="width: 150px;">Ongoing Month Sale</th>
+                                            <th style="width: 150px;">Days and Route</th>
                                             <th style="width: 100px;">Status</th>
                                             <th style="width: 100px;">Edit</th>
                                         </tr>
@@ -344,6 +372,15 @@
                                                 <div class="invalid-feedback">Please Enter Ongoing Month Sale.</div>
                                             </div>
                                             <div class="mb-3">
+                                                <label class="form-label" for="days">Days</label>
+                                                <input type="text" class="form-control" id="days" placeholder="Enter Days" required>
+                                                <label class="form-label" for="route">Route</label>
+                                                <input type="text" class="form-control" id="route" placeholder="Enter Ongoing" required>
+                                                <div class="invalid-feedback">Please Enter Dyas and Route.</div>
+                                                <button id="add_location" class="btn btn-success">Add Location</button>
+                                            </div>
+                                            <div id="addedRouteList" style="margin-top: 20px;"></div>
+                                            <div class="mb-3">
                                                 <div class="input-group">
                                                     <select class="form-control" name="shop" id="shop">
                                                     </select>
@@ -354,6 +391,7 @@
                                                 <input type="hidden" id="user_id">
                                             </div>
                                         </div>
+                                        
                                         <div class="modal-footer">
                                             <div class="hstack gap-2 justify-content-end">
                                                 <button type="button" class="btn btn-light"
@@ -408,4 +446,21 @@
 
     </div>
     <!-- container-fluid -->
+</div>
+
+<div class="modal fade" id="routeDetailsModal" tabindex="-1" aria-labelledby="routeDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="routeDetailsModalLabel">Route Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Route details will be injected here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

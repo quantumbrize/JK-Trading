@@ -708,8 +708,10 @@ class User_Controller extends Api_Controller
             $ImageData = !empty($ImageData[0]) ? $ImageData[0] : null;
             $SalesPerMonthModel = new SalesPerMonthModel();
             $SalesPersonShopModel = new SalesPersonShopModel();
+            $SalesPersonRouteModel = new SalesPersonRouteModel();
             $monthly_sales = $SalesPerMonthModel->where('sales_person_uid', $user_id)->findAll();
             $sales_person_shop= $SalesPersonShopModel->where('sales_person_uid', $user_id)->findAll();
+            $sales_person_route= $SalesPersonRouteModel->where('sales_person_uid', $user_id)->findAll();
             $resp = [
                 "status" => true,
                 "message" => "Data fetched",
@@ -720,6 +722,7 @@ class User_Controller extends Api_Controller
                 "all_address" => $AllAddressData,
                 "monthly_sales" => $monthly_sales,
                 "sales_person_shop" => $sales_person_shop,
+                "sales_person_route" => $sales_person_route,
             ];
            
         } else {
@@ -2274,6 +2277,7 @@ private function sales_person_add($data)
             $sales_person_uid=$data['sales_person_uid'];
             $monthly_sales = json_decode($data['monthly_sales_data'], true);
             $shop_data = json_decode($data['shop_data'], true); // Decode the shop data (uid, name, owner_name, owner_rating)
+            $routes_data = json_decode($data['location_data'], true);
             // $this->prd($shop_data);
             // Prepare main sales person data
             $date = new \DateTime($data['date-field']);
@@ -2293,7 +2297,8 @@ private function sales_person_add($data)
             $UsersModel = new UsersModel();
             $SalesPerMonthModel = new SalesPerMonthModel();
             $SalesPersonShopModel = new SalesPersonShopModel(); // Initialize the model for shop data
-    
+            $SalesPersonRouteModel = new SalesPersonRouteModel();
+
             $UsersModel->transStart();
             try {
                 // Update the sales person data
@@ -2331,6 +2336,14 @@ private function sales_person_add($data)
                         $SalesPersonShopModel->insert($shop_data_to_insert);
                     }
                 }
+                foreach ($routes_data as $route) {
+                $SalesPersonRouteModel->insert([
+                    'sales_person_uid' => $sales_person_uid,
+                    'uid' => $this->generate_uid("SALROU"),
+                    'days' => $route['days'],
+                    'route' => $route['route'],
+                ]);
+            }
     
                 // Commit transaction if everything is successful
                 $UsersModel->transCommit();
@@ -2385,7 +2398,39 @@ private function sales_person_add($data)
         }
         return $resp;
     }
-    
+    private function getSalesPersonRoute($data)
+{
+    // Check if 'user_id' is provided in the request
+    // $this->prd($data);
+    if (isset($data['uid'])) {
+        $user_id = $data['uid'];
+
+        // Load the SalesPersonRouteModel
+        $SalesPersonRouteModel = new SalesPersonRouteModel();
+
+        // Fetch the sales person's route data based on the 'user_id'
+        $routeData = $SalesPersonRouteModel->where('sales_person_uid', $user_id)->findAll();
+
+        // Check if data is found, and return the appropriate response
+        if (!empty($routeData)) {
+            return [
+                'status' => true,
+                'sales_person_route' => $routeData
+            ];
+        } else {
+            return [
+                'status' => false,
+                'message' => 'No route data found for the given user ID'
+            ];
+        }
+    } else {
+        // If no 'user_id' is provided, return an error message
+        return [
+            'status' => false,
+            'message' => 'User ID is required'
+        ];
+    }
+}
     
 
     
@@ -2693,6 +2738,13 @@ private function sales_person_add($data)
     {
         $data = $this->request->getPost();
         $resp = $this->sales_person_delete($data);
+        return $this->response->setJSON($resp);
+
+    }
+    public function GET_sales_person_route()
+    {
+        $data = $this->request->getGet();
+        $resp = $this->getSalesPersonRoute($data);
         return $this->response->setJSON($resp);
 
     }

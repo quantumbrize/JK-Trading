@@ -506,34 +506,34 @@
                         </div>`;
                 isValid = false;
             }
-            if (!weigth) {
-                html = `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
-                            <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Product Weight is required.
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>`;
-                isValid = false;
-            }
-            if (!length) {
-                html = `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
-                            <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Product Length is required.
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>`;
-                isValid = false;
-            }
-            if (!breadth) {
-                html = `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
-                            <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Product Breadth is required.
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>`;
-                isValid = false;
-            }
-            if (!height) {
-                html = `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
-                            <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Product Height is required.
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>`;
-                isValid = false;
-            }
+            // if (!weigth) {
+            //     html = `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
+            //                 <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Product Weight is required.
+            //                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            //             </div>`;
+            //     isValid = false;
+            // }
+            // if (!length) {
+            //     html = `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
+            //                 <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Product Length is required.
+            //                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            //             </div>`;
+            //     isValid = false;
+            // }
+            // if (!breadth) {
+            //     html = `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
+            //                 <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Product Breadth is required.
+            //                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            //             </div>`;
+            //     isValid = false;
+            // }
+            // if (!height) {
+            //     html = `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
+            //                 <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Product Height is required.
+            //                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            //             </div>`;
+            //     isValid = false;
+            // }
 
             // Validate images (optional)
             imagesFiles.forEach((imageFile, imgIndex) => {

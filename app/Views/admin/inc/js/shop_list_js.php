@@ -3,78 +3,80 @@
     load_all_shop()
 
     function load_all_shop() {
-        $.ajax({
-            url: "<?= base_url('/api/all/shop') ?>",
-            type: "GET",
-            beforeSend: function () {
-                $('#shop_list_body').html(`<tr >
-                        <td colspan="7"  style="text-align:center;">
-                            <div class="spinner-border" role="status"></div>
-                        </td>
-                    </tr>`)
-            },
-            success: function (resp) {
-                console.log(resp)
-                if (resp.status) {
-                    if (resp.data.length > 0) {
-                        $('#all_banner_count').html(resp.data.length)
-                        let html = ``
-                        console.log(resp)
-                        $.each(resp.data, function (index, shop) {
-                            // let product_img = banner.img.length > 0 ? banner.img[0]['src'] : ''
-                            html += `<tr>
-                                            <td>
-                                                ${index+1}
-                                            </td>
-                                            <td>
-                                                ${shop.shop_name}
-                                            </td>
-                                            <td>
-                                                ${shop.owner_name}
-                                            </td>
-                                            <td>
-                                                ${shop.owner_phone}
-                                            </td>
-                                            <td>
-                                                ${shop.owner_rating}
-                                            </td>
-                                            <td>
-                                                ${shop.remarks}
-                                            </td>
-                                            <td>
-                                                <i class="fa fa-edit btn btn-info" id="edit_service" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                                                <input type='hidden' id="shop_uid" value="${shop.uid}">
-                                                
-                                                
-                                            </td>
-                                            <td>
-                                                <i class="fa fa-trash btn btn-danger" id="delete_service"></i>
-                                                 <input type='hidden' id="shop_uid_delete" value="${shop.uid}">
-                                            </td>
-                                            
+    $.ajax({
+        url: "<?= base_url('/api/all/shop') ?>",
+        type: "GET",
+        beforeSend: function () {
+            $('#shop_list_body').html(`<tr >
+                    <td colspan="7"  style="text-align:center;">
+                        <div class="spinner-border" role="status"></div>
+                    </td>
+                </tr>`)
+        },
+        success: function (resp) {
+            console.log(resp)
+            if (resp.status) {
+                if (resp.data.length > 0) {
+                    $('#all_banner_count').html(resp.data.length)
+                    let html = ``
 
-                                        </tr>`
-                        })
-                        $('#shop_list_body').html(html)
-                        $('#shop_list').DataTable();
-                    }
-                }else{
-                    $('#shop_list_body').html(`<tr >
-                        <td>
-                            DATA NOT FOUND!
-                        </td>
-                    </tr>`)
+                    $.each(resp.data, function (index, shop) {
+                        html += `<tr>
+                                    <td>
+                                        ${index + 1}
+                                    </td>
+                                    <td>
+                                        ${shop.shop_name}
+                                    </td>
+                                    <td>
+                                        ${shop.owner_name}
+                                    </td>
+                                    <td>
+                                        ${shop.owner_phone}
+                                    </td>
+                                    <td>
+                                        ${shop.owner_rating}
+                                    </td>
+                                    <td>
+                                        ${shop.remarks}
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-edit btn btn-info" id="edit_service" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                                        <input type='hidden' id="shop_uid" value="${shop.uid}">
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-trash btn btn-danger" id="delete_service"></i>
+                                        <input type='hidden' id="shop_uid_delete" value="${shop.uid}">
+                                    </td>
+                                </tr>`
+                    })
+
+                    $('#shop_list_body').html(html)
+
+                    // Initialize DataTable with a custom placeholder for the search field
+                    $('#shop_list').DataTable({
+                        language: {
+                            search: "Search" // Custom placeholder text for the search field
+                        }
+                    });
                 }
-
-            },
-            error: function (err) {
-                console.log(err)
-            },
-            complete: function () {
-               
+            } else {
+                $('#shop_list_body').html(`<tr >
+                    <td colspan="7" style="text-align:center;">
+                        DATA NOT FOUND!
+                    </td>
+                </tr>`)
             }
-        })
-    }
+        },
+        error: function (err) {
+            console.log(err)
+        },
+        complete: function () {
+            // Code to execute after the AJAX request completes
+        }
+    })
+}
+
     // Function to handle edit button click
 function load_shop_details(shop_uid) {
     $.ajax({
@@ -217,5 +219,21 @@ $(document).on('click', '#edit_service', function () {
             });
         }
     });
+    document.getElementById('rating').addEventListener('input', function (e) {
+    const value = e.target.value;
 
+    // Remove non-numeric characters
+    e.target.value = value.replace(/[^0-9]/g, '');
+
+    // Ensure the value is within 1 and 10
+    if (e.target.value !== '') {
+        const numericValue = parseInt(e.target.value, 10);
+
+        if (numericValue < 1) {
+            e.target.value = 1;
+        } else if (numericValue > 10) {
+            e.target.value = 10;
+        }
+    }
+});
 </script>

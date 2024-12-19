@@ -129,102 +129,102 @@
     //     });
     // }
     function sales_persons_add() {
-    const formData = new FormData();
+        const formData = new FormData();
 
-    // Append primary data
-    formData.append('sales_person_name', document.getElementById('sales_person_name').value);
-    formData.append('yearly_total_sale', document.getElementById('yearly_total_sale').value);
-    formData.append('ongoing_month_sale', document.getElementById('ongoing_month_sale').value);
-    formData.append('customer_email', document.getElementById('customer_email').value);
-    formData.append('customer_Phone', document.getElementById('customer_Phone').value);
-    formData.append('date-field', document.getElementById('date-field').value);
-    formData.append('status-field', document.getElementById('status-field').value);
-    formData.append('type-field', document.getElementById('type-field').value);
+        // Append primary data
+        formData.append('sales_person_name', document.getElementById('sales_person_name').value);
+        formData.append('yearly_total_sale', document.getElementById('yearly_total_sale').value);
+        formData.append('ongoing_month_sale', document.getElementById('ongoing_month_sale').value);
+        formData.append('customer_email', document.getElementById('customer_email').value);
+        formData.append('customer_Phone', document.getElementById('customer_Phone').value);
+        formData.append('date-field', document.getElementById('date-field').value);
+        formData.append('status-field', document.getElementById('status-field').value);
+        formData.append('type-field', document.getElementById('type-field').value);
 
-    // Append month-sale data as JSON string
-    formData.append('monthly_sales_data', JSON.stringify(monthly_sales_data));
+        // Append month-sale data as JSON string
+        formData.append('monthly_sales_data', JSON.stringify(monthly_sales_data));
 
-    // Collect all selected shop data (uid, name, owner_name, and owner_rating) from the added shop list
-    const shopData = [];
-    $('#addedShopList .shop-item').each(function () {
-        const shopId = $(this).data('shop-id');
-        const shopName = $(this).find('.shop-name').text(); // Shop name only
-        const shopOwnerName = $(this).data('owner-name');  // Owner name
-        const shopOwnerRating = $(this).data('owner-rating');  // Owner rating
+        // Collect all selected shop data (uid, name, owner_name, and owner_rating) from the added shop list
+        const shopData = [];
+        $('#addedShopList .shop-item').each(function () {
+            const shopId = $(this).data('shop-id');
+            const shopName = $(this).find('.shop-name').text(); // Shop name only
+            const shopOwnerName = $(this).data('owner-name');  // Owner name
+            const shopOwnerRating = $(this).data('owner-rating');  // Owner rating
 
-        shopData.push({
-            shop_uid: shopId,
-            shop_name: shopName,
-            owner_name: shopOwnerName,  // Include owner name
-            owner_rating: shopOwnerRating  // Include owner rating
+            shopData.push({
+                shop_uid: shopId,
+                shop_name: shopName,
+                owner_name: shopOwnerName,  // Include owner name
+                owner_rating: shopOwnerRating  // Include owner rating
+            });
         });
-    });
 
-    if (shopData.length > 0) {
-        // Append the shop data (array of objects) to the form
-        formData.append('shop_data', JSON.stringify(shopData)); // Send as JSON string
-    } else {
-        alert('Please add at least one shop.');
-        return; // Stop the function if no shops are added
-    }
-
-    // Collect all added locations (Days and Route pairs)
-    const locationData = [];
-    $('#addedRouteList .added-location').each(function() {
-        // Extract the days and route text while excluding the 'Remove' button or any extra text
-        const locationText = $(this).children('p').text().trim(); // Only get text from the <p> tags, assuming they contain the location and route info
-
-        // Split text by some delimiter (assuming "Location: Monday, Tuesday, Route: Route 1")
-        const daysRoute = locationText.split('Route:');
-        if (daysRoute.length === 2) {
-            const days = daysRoute[0].replace('Location:', '').trim();  // Remove "Location:" and trim
-            const route = daysRoute[1].trim();  // Trim route
-            locationData.push({ days, route });
+        if (shopData.length > 0) {
+            // Append the shop data (array of objects) to the form
+            formData.append('shop_data', JSON.stringify(shopData)); // Send as JSON string
+        } else {
+            alert('Please add at least one shop.');
+            return; // Stop the function if no shops are added
         }
-    });
 
-    if (locationData.length > 0) {
-        // Append the location data (array of objects) to the form
-        formData.append('location_data', JSON.stringify(locationData)); // Send as JSON string
-    } else {
-        alert('Please add at least one location (Days and Route).');
-        return; // Stop the function if no locations are added
-    }
+        // Collect all added locations (Days and Route pairs)
+        const locationData = [];
+        $('#addedRouteList .added-location').each(function() {
+            // Extract the days and route text while excluding the 'Remove' button or any extra text
+            const locationText = $(this).children('p').text().trim(); // Only get text from the <p> tags, assuming they contain the location and route info
 
-    alert("Location Data: " + JSON.stringify(locationData)); // Check the captured location data
+            // Split text by some delimiter (assuming "Location: Monday, Tuesday, Route: Route 1")
+            const daysRoute = locationText.split('Route:');
+            if (daysRoute.length === 2) {
+                const days = daysRoute[0].replace('Location:', '').trim();  // Remove "Location:" and trim
+                const route = daysRoute[1].trim();  // Trim route
+                locationData.push({ days, route });
+            }
+        });
 
-    console.log("Submitting Form Data: ", Object.fromEntries(formData));
-
-    // Send AJAX request
-    $.ajax({
-        url: "<?= base_url('/api/add/sales_person') ?>",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        beforeSend: function () {
-            $('#sales_person_add_btn').html(`<div class="spinner-border" role="status"></div>`);
-            $('#sales_person_add_btn').attr('disabled', true);
-        },
-        success: function (resp) {
-            let alertHtml = resp.status
-                ? `<div class="alert alert-success">${resp.message}</div>`
-                : `<div class="alert alert-danger">${resp.message}</div>`;
-
-            $('#alert').html(alertHtml);
-            console.log("Server Response: ", resp);
-
-            if (resp.status) location.reload();
-        },
-        error: function (err) {
-            console.error("Error: ", err);
-        },
-        complete: function () {
-            $('#sales_person_add_btn').html(`Submit`);
-            $('#sales_person_add_btn').attr('disabled', false);
+        if (locationData.length > 0) {
+            // Append the location data (array of objects) to the form
+            formData.append('location_data', JSON.stringify(locationData)); // Send as JSON string
+        } else {
+            alert('Please add at least one location (Days and Route).');
+            return; // Stop the function if no locations are added
         }
-    });
-}
+
+        // alert("Location Data: " + JSON.stringify(locationData)); // Check the captured location data
+
+        console.log("Submitting Form Data: ", Object.fromEntries(formData));
+
+        // Send AJAX request
+        $.ajax({
+            url: "<?= base_url('/api/add/sales_person') ?>",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                $('#sales_person_add_btn').html(`<div class="spinner-border" role="status"></div>`);
+                $('#sales_person_add_btn').attr('disabled', true);
+            },
+            success: function (resp) {
+                let alertHtml = resp.status
+                    ? `<div class="alert alert-success">${resp.message}</div>`
+                    : `<div class="alert alert-danger">${resp.message}</div>`;
+
+                $('#alert').html(alertHtml);
+                console.log("Server Response: ", resp);
+
+                if (resp.status) location.reload();
+            },
+            error: function (err) {
+                console.error("Error: ", err);
+            },
+            complete: function () {
+                $('#sales_person_add_btn').html(`Submit`);
+                $('#sales_person_add_btn').attr('disabled', false);
+            }
+        });
+    }
 
 
 
@@ -338,7 +338,7 @@ function addLocation() {
         
         // Create a new paragraph element to display the location and route
         const locationText = document.createElement('p');
-        locationText.textContent = `Location: ${days}, Route: ${route}`;
+        locationText.textContent = `Location: ${days}  Route: ${route}`;
         
         // Create a button to remove the location
         const removeButton = document.createElement('button');

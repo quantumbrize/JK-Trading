@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
-                    <h4 class="mb-sm-0">Create Product</h4>
+                    <h4 class="mb-sm-0">Edit Banner</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
@@ -46,7 +46,7 @@
                                 <i class="fas fa-upload"></i> &nbsp; Select Banner Image
                             </label>
                             <p id="num-of-files"></p>
-                            <div id="images"></div>
+                            <div id="images" style="width:50% !important;"></div>
                         </div>
                     </div>
 
