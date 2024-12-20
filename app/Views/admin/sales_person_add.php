@@ -62,7 +62,7 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label class="form-label" for="customer_Phone">Phone</label>
-                                <input type="text" class="form-control" id="customer_Phone" placeholder="Enter Sales Person Name" required>
+                                <input type="number" class="form-control" id="customer_Phone" placeholder="Enter Sales Person Name" required>
                                 <div class="invalid-feedback">Please enter the Phone number</div>
                             </div>
                         </div>
@@ -112,10 +112,11 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="mb-3">
-                                <label class="form-label" for="yearly_total_sale">Yearly Total Sale</label>
+                                <label class="form-label" for="yearly_total_sale">Yearly Total Sale (₹)</label>
                                 <input type="number" class="form-control" id="yearly_total_sale" placeholder="Enter yearly total sale" required>
                                 <div class="invalid-feedback">Please Enter yearly total sale.</div>
                             </div>
+                            <div id="yearly_total_sale_in_words" class="mt-2 text-muted"></div> <!-- This will show the amount in words -->
                         </div>
                     </div>
 
@@ -142,8 +143,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="monthly_total_sale">Monthly Total Sale</label>
-                                <input type="number" class="form-control" id="monthly_total_sale" placeholder="Enter Monthly Total Sale">
+                                <label class="form-label" for="monthly_total_sale">Monthly Total Sale (₹)</label>
+                                <input type="number" class="form-control" id="monthly_total_sale" placeholder="Enter monthly total sale">
+                                <div id="monthly_total_sale_in_words" class="mt-2 text-muted"></div>
                             </div>
 
                             <!-- Add Monthly Sale Button -->
@@ -161,10 +163,11 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="mb-3">
-                                <label class="form-label" for="ongoing_month_sale">Ongoing Month Sale</label>
+                                <label class="form-label" for="ongoing_month_sale">Ongoing Month Sale (₹)</label>
                                 <input type="number" class="form-control" id="ongoing_month_sale" placeholder="Enter Ongoing Month Sale" required>
                                 <div class="invalid-feedback">Please Enter Ongoing Month Sale.</div>
                             </div>
+                            <div id="ongoin_total_sale_in_words" class="mt-2 text-muted"></div>
                         </div>
                     </div>
                     <div class="card">
@@ -173,7 +176,7 @@
                                 <label class="form-label" for="days">Days</label>
                                 <input type="text" class="form-control" id="days" placeholder="Enter Days" required>
                                 <label class="form-label" for="route">Route</label>
-                                <input type="text" class="form-control" id="route" placeholder="Enter Ongoing" required>
+                                <input type="text" class="form-control" id="route" placeholder="Enter Ongoing" required> <br>
                                 <div class="invalid-feedback">Please Enter Dyas and Route.</div>
                                 <button id="add_location" class="btn btn-success">Add Location</button>
                             </div>

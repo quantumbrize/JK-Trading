@@ -295,10 +295,10 @@ $('#add_shop').click(function (e) {
     if (shopId && shopName) {
         // Check if the shop is already added
         const existingShop = $(`#addedShopList .shop-item[data-shop-id="${shopId}"]`);
-        if (existingShop.length > 0) {
-            alert('This shop is already added.');
-            return;
-        }
+        // if (existingShop.length > 0) {
+        //     alert('This shop is already added.');
+        //     return;
+        // }
 
         // Create shop display element with owner name, rating, and hidden UID
         const shopItem = `
@@ -374,6 +374,51 @@ function addLocation() {
 
 // Attach event listener to the Add Location button
 document.getElementById('add_location').addEventListener('click', addLocation);
+
+document.getElementById('yearly_total_sale').addEventListener('input', function() {
+    var amount = this.value;
+    if (amount > 99000) {
+        document.getElementById('yearly_total_sale_in_words').innerText = convertToWords(amount);
+    } else {
+        document.getElementById('yearly_total_sale_in_words').innerText = ''; // Clear if less than 99,000
+    }
+});
+
+
+// Function to update sale in words
+function updateSaleInWords(inputId, outputId) {
+    document.getElementById(inputId).addEventListener("input", function () {
+        const value = parseInt(this.value, 10);
+        const outputElement = document.getElementById(outputId);
+
+        if (value < 1000) {
+            outputElement.textContent = ""; // Clear if input is less than 1000
+            return;
+        }
+
+        // Extract first digit and calculate the scale
+        const scales = ["", "Thousand", "Lakh", "Crore"];
+        let num = value;
+        let scaleIndex = 0;
+
+        while (num >= 1000) {
+            num = Math.floor(num / 1000);
+            scaleIndex++;
+        }
+
+        const firstDigit = Math.floor(value / Math.pow(10, scaleIndex * 3));
+        const scale = scales[scaleIndex];
+
+        // Display the result
+        outputElement.textContent = `${firstDigit} ${scale}`;
+    });
+}
+
+// Initialize functionality for both fields
+updateSaleInWords("yearly_total_sale", "yearly_total_sale_in_words");
+updateSaleInWords("monthly_total_sale", "monthly_total_sale_in_words");
+updateSaleInWords("ongoing_month_sale", "ongoin_total_sale_in_words");
+
 
 
 

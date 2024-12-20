@@ -84,6 +84,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label" for="address">Address</label>
+                                <input type="text" class="form-control" id="address" value="">
+                                <div class="invalid-feedback">Please enter a valid address</div>
+                            </div>
+                        </div>
+                    </div>
 
                     
                     <div class="card">

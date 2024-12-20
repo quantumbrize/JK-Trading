@@ -24,17 +24,17 @@
                 <input class="pf-dts-input" type="tel" id="mobileNumber2" placeholder="Phone" readonly>
                 <span style="color:red" id="number_val"></span>
             </div>
-            <div class="input-group">
-    <!-- Select Shop Dropdown -->
-    <select class="form-control" name="shop" id="shop">
-        <!-- Options will be populated dynamically -->
-    </select>
-</div>
+            <!-- <div class="input-group">
+                
+                <select class="form-control" name="shop" id="shop">
+                    
+                </select>
+            </div> -->
 
-<div class="input-group" style="margin-top: 10px;">
-    <!-- Add Shop Button -->
+<!-- <div class="input-group" style="margin-top: 10px;">
+    
     <button id="add_shop" class="btn btn-primary btn-block">Add Shop</button>
-</div>
+</div> -->
 
 <div class="input-group" style="margin-top: 10px;">
     <!-- View Shops Button (Full width below the Add Shop button) -->
@@ -48,7 +48,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="editShopsModalLabel">Edit Shops and Remarks</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          
         </button>
       </div>
       <div class="modal-body">
@@ -62,7 +62,7 @@
 </div>
 
 <input type="hidden" id="user_id">
->
+
 
             
             <!-- <button onclick="window.location.href='<?= base_url('user/address')?>'" type="button" id="locationButton">Add your Location</button> -->

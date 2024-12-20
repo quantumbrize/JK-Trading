@@ -171,6 +171,9 @@
                                             ${user.number}
                                         </td>
                                         <td>
+                                            ${user.number2}
+                                        </td>
+                                        <td>
                                             ${user.email}
                                         </td>
                                         <td>
@@ -248,43 +251,146 @@
         })
     }
 
-    function single_customer(uid) {
-        user_id=uid
+    // function single_customer(uid) {
+    //     user_id=uid
         
-        $.ajax({
-            url: "<?= base_url('/api/customers') ?>",
-            type: "GET",
-            data:{uid:user_id},
-            // beforeSend: function () {
-            //     $('#table-banner-list-all-body').html(`<tr >
-            //             <td colspan="7"  style="text-align:center;">
-            //                 <div class="spinner-border" role="status"></div>
-            //             </td>
-            //         </tr>`)
-            // },
-            success: function (resp) {
-                if (resp.status) {
-                    console.log('single_user',resp)
-                    const monthlySales = resp.monthly_sales;
-                    const shops = resp.sales_person_shop; 
-                        let html = ``
-                       $("#customername-field").val(resp.user_data.user_name)
-                       $("#email-field").val(resp.user_data.email)
-                       $("#phone-field").val(resp.user_data.number)
-                       $("#date-field").val(resp.user_data.created_at)
-                       $("#status-field").val(resp.user_data.status)
-                       $("#yearly_total_sale").val(resp.user_data.yearly_total_sale)
-                       $("#ongoing_month_sale").val(resp.user_data.ongoing_month_sale)
-                       $("#current_uid").val(resp.user_data.uid)
+    //     $.ajax({
+    //         url: "<?= base_url('/api/customers') ?>",
+    //         type: "GET",
+    //         data:{uid:user_id},
+    //         // beforeSend: function () {
+    //         //     $('#table-banner-list-all-body').html(`<tr >
+    //         //             <td colspan="7"  style="text-align:center;">
+    //         //                 <div class="spinner-border" role="status"></div>
+    //         //             </td>
+    //         //         </tr>`)
+    //         // },
+    //         success: function (resp) {
+    //             if (resp.status) {
+    //                 console.log('single_user',resp)
+    //                 const monthlySales = resp.monthly_sales;
+    //                 const shops = resp.sales_person_shop; 
+    //                     let html = ``
+    //                    $("#customername-field").val(resp.user_data.user_name)
+    //                    $("#email-field").val(resp.user_data.email)
+    //                    $("#phone-field").val(resp.user_data.number)
+    //                    $("#date-field").val(resp.user_data.created_at)
+    //                    $("#status-field").val(resp.user_data.status)
+    //                    $("#yearly_total_sale").val(resp.user_data.yearly_total_sale)
+    //                    $("#ongoing_month_sale").val(resp.user_data.ongoing_month_sale)
+    //                    $("#current_uid").val(resp.user_data.uid)
 
 
-                       const monthlySalesList = $('#sales_month_list');
+    //                    const monthlySalesList = $('#sales_month_list');
+    //             monthlySalesList.empty(); // Clear any existing data
+
+    //             // Add each month and sale to the list
+    //             if (monthlySales && monthlySales.length > 0) {
+    //                 monthlySales.forEach(function (sale) {
+    //                     console.log('monthly',sale)
+    //                     const saleItem = `
+    //                         <li class="list-group-item">
+    //                             ${sale.month} - Sale: ${sale.sales}
+    //                             <button type="button" class="btn btn-danger btn-sm float-end remove-sale">Remove</button>
+    //                         </li>
+    //                     `;
+    //                     monthlySalesList.append(saleItem);
+    //                 });
+
+    //                 // Show the Monthly Sales section if it contains data
+    //                 $('#monthly_sales_list').show();
+    //                 } else {
+    //                     $('#monthly_sales_list').hide(); // Hide if no data
+    //                 }
+
+    //                 // Populate the Shop List
+    //                 const addedShopList = $('#addedShopList');
+    //                 // addedShopList.empty(); // Clear any existing data
+
+    //                 if (shops && shops.length > 0) {
+    //                     shops.forEach(function (shop, index) {
+    //                         const shopItem = `
+    //                             <div class="shop-item" data-shop-index="${index}" data-shop-uid="${shop.shop_uid}">
+    //                                 <div><strong>Shop Name:</strong> ${shop.shop_name || 'N/A'}</div>
+    //                                 <div><strong>Owner Name:</strong> ${shop.owner_name || 'N/A'}</div>
+    //                                 <div><strong>Owner Rating:</strong> ${shop.owner_rating || 'N/A'}</div>
+    //                                 <button type="button" class="btn btn-danger btn-sm remove-shop remove-shop-btn">Remove Shop</button>
+    //                                 <hr/>
+    //                             </div>
+    //                         `;
+    //                         let shopdatalength = shopData.length;
+    //                         shopData.push({
+    //                             shop_uid: shop.shop_uid,
+    //                             shop_name: shop.shop_name,
+    //                             owner_name: shop.owner_name,
+    //                             owner_rating: shop.owner_rating,
+    //                             index: shopdatalength + 1
+    //                         });
+    //                         addedShopList.append(shopItem);
+    //                     });
+
+    //                     // Show the added shops section if shops are available
+    //                     $('#addedShopList').show();
+    //                 } else {
+    //                     // If no shops are available, hide the section
+    //                     $('#addedShopList').hide();
+    //                 }
+    //                     // $('#table_data').html(html)
+    //                     // $('#table-banner-list-all').DataTable();
+    //             }else{
+    //                 $('#table-banner-list-all-body').html(`<tr >
+    //                     <td>
+    //                         DATA NOT FOUND!
+    //                     </td>
+    //                 </tr>`)
+    //             }
+
+    //         },
+    //         error: function (err) {
+    //             console.log(err)
+    //         },
+    //         // complete: function () {
+               
+    //         // }
+    //     })
+    // }
+
+    function single_customer(uid) {
+    user_id = uid;
+    
+    $.ajax({
+        url: "<?= base_url('/api/customers') ?>",
+        type: "GET",
+        data: {uid: user_id},
+        success: function (resp) {
+            if (resp.status) {
+                console.log('single_user', resp);
+                const monthlySales = resp.monthly_sales;
+                const shops = resp.sales_person_shop;
+                const routes = resp.sales_person_route; // Get the sales_person_route data
+                
+                $("#customername-field").val(resp.user_data.user_name);
+                $("#email-field").val(resp.user_data.email);
+                $("#phone-field").val(resp.user_data.number);
+
+                // Format the date field to 'YYYY-MM-DD'
+                const date = new Date(resp.user_data.created_at);
+                const formattedDate = date.toISOString().split('T')[0]; // This will give 'YYYY-MM-DD'
+
+                $("#date-field").val(formattedDate); // Set the formatted date
+
+                $("#status-field").val(resp.user_data.status);
+                $("#yearly_total_sale").val(resp.user_data.yearly_total_sale);
+                $("#ongoing_month_sale").val(resp.user_data.ongoing_month_sale);
+                $("#current_uid").val(resp.user_data.uid);
+
+                // Monthly Sales
+                const monthlySalesList = $('#sales_month_list');
                 monthlySalesList.empty(); // Clear any existing data
 
-                // Add each month and sale to the list
                 if (monthlySales && monthlySales.length > 0) {
                     monthlySales.forEach(function (sale) {
-                        console.log('monthly',sale)
+                        console.log('monthly', sale);
                         const saleItem = `
                             <li class="list-group-item">
                                 ${sale.month} - Sale: ${sale.sales}
@@ -294,65 +400,107 @@
                         monthlySalesList.append(saleItem);
                     });
 
-                    // Show the Monthly Sales section if it contains data
                     $('#monthly_sales_list').show();
-                    } else {
-                        $('#monthly_sales_list').hide(); // Hide if no data
-                    }
-
-                    // Populate the Shop List
-                    const addedShopList = $('#addedShopList');
-                    // addedShopList.empty(); // Clear any existing data
-
-                    if (shops && shops.length > 0) {
-                        shops.forEach(function (shop, index) {
-                            const shopItem = `
-                                <div class="shop-item" data-shop-index="${index}" data-shop-uid="${shop.shop_uid}">
-                                    <div><strong>Shop Name:</strong> ${shop.shop_name || 'N/A'}</div>
-                                    <div><strong>Owner Name:</strong> ${shop.owner_name || 'N/A'}</div>
-                                    <div><strong>Owner Rating:</strong> ${shop.owner_rating || 'N/A'}</div>
-                                    <button type="button" class="btn btn-danger btn-sm remove-shop remove-shop-btn">Remove Shop</button>
-                                    <hr/>
-                                </div>
-                            `;
-                            let shopdatalength = shopData.length;
-                            shopData.push({
-                                shop_uid: shop.shop_uid,
-                                shop_name: shop.shop_name,
-                                owner_name: shop.owner_name,
-                                owner_rating: shop.owner_rating,
-                                index: shopdatalength + 1
-                            });
-                            addedShopList.append(shopItem);
-                        });
-
-                        // Show the added shops section if shops are available
-                        $('#addedShopList').show();
-                    } else {
-                        // If no shops are available, hide the section
-                        $('#addedShopList').hide();
-                    }
-                        // $('#table_data').html(html)
-                        // $('#table-banner-list-all').DataTable();
-                }else{
-                    $('#table-banner-list-all-body').html(`<tr >
-                        <td>
-                            DATA NOT FOUND!
-                        </td>
-                    </tr>`)
+                } else {
+                    $('#monthly_sales_list').hide();
                 }
 
-            },
-            error: function (err) {
-                console.log(err)
-            },
-            // complete: function () {
-               
-            // }
-        })
-    }
+                // Shops
+               // Shops
+                const addedShopList = $('#addedShopList');
+                addedShopList.empty(); // Clear any existing shops
 
-    
+                if (shops && shops.length > 0) {
+                    shops.forEach(function (shop) {
+                        const shopItem = `
+                            <div class="shop-item" data-shop-uid="${shop.shop_uid}">
+                                <div><strong>Shop Name:</strong> ${shop.shop_name || 'N/A'}</div>
+                                <div><strong>Owner Name:</strong> ${shop.owner_name || 'N/A'}</div>
+                                <div><strong>Owner Rating:</strong> ${shop.owner_rating || 'N/A'}</div>
+                                <button type="button" class="btn btn-danger btn-sm remove-shop">Remove Shop</button>
+                                <hr/>
+                            </div>
+                        `;
+                        addedShopList.append(shopItem);
+                    });
+
+                    $('#addedShopList').show();
+                } else {
+                    $('#addedShopList').hide();
+                }
+
+                // Attach event delegation for dynamically created "Remove Shop" buttons
+                $('#addedShopList').on('click', '.remove-shop', function() {
+                    const shopItem = $(this).closest('.shop-item');
+                    const shopUid = shopItem.data('shop-uid'); // Get the shop UID
+
+                    // Optional: Send an AJAX request to remove the shop from the backend
+                    $.ajax({
+                        url: '<?= base_url('/api/remove_shop') ?>',
+                        type: 'GET',
+                        data: { shop_uid: shopUid },
+                        success: function (response) {
+                            if (response.status) {
+                                console.log('Shop removed successfully');
+                                shopItem.remove(); // Remove the shop from the DOM
+                            } else {
+                                console.log('Failed to remove shop:', response.message);
+                            }
+                        },
+                        error: function (err) {
+                            console.log('Error removing shop:', err);
+                        }
+                    });
+                });
+
+
+                // Sales Person Route
+                const routesList = $('#sales_person_route_list');
+                routesList.empty(); // Clear any existing data
+
+                if (routes && routes.length > 0) {
+                    routes.forEach(function (route) {
+                        const routeItem = `
+                            <div class="route-item">
+                                <div><strong>Route Name:</strong> ${route.route || 'N/A'}</div>
+                                <div><strong>Days:</strong> ${route.days || 'N/A'}</div>
+                                <button type="button" class="btn btn-danger btn-sm remove-route" onclick="remove_route('${route.uid}')">Remove Route</button>
+                                <hr/>
+                            </div>
+                        `;
+                        routesList.append(routeItem);
+                    });
+
+                    $('#sales_person_route_section').show(); // Ensure the route section is shown
+                } else {
+                    $('#sales_person_route_section').hide(); // Hide the section if no routes
+                }
+
+                // Attach event delegation for dynamically created "Remove Route" buttons
+                $('#sales_person_route_list').on('click', '.remove-route', function() {
+                    const routeItem = $(this).closest('.route-item');
+                    routeItem.remove(); // Remove the route item from the DOM
+                    // Optionally, you can send an AJAX request here to update the backend if needed
+                    // $.ajax({
+                    //     url: '<?= base_url('/api/remove_route') ?>',
+                    //     type: 'POST',
+                    //     data: { route_id: routeItem.data('route-id') },
+                    //     success: function(response) {
+                    //         console.log('Route removed');
+                    //     }
+                    // });
+                });
+
+            } else {
+                $('#table-banner-list-all-body').html(`<tr><td colspan="7" style="text-align:center;">DATA NOT FOUND!</td></tr>`);
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}
+
 
     var customer_id = ""
     var flag = false
@@ -526,10 +674,10 @@ $('#add_shop').click(function (e) {
     if (shopId && shopName) {
         // Check if the shop is already added
         const existingShop = $(`#addedShopList .shop-item[data-shop-id="${shopId}"]`);
-        if (existingShop.length > 0) {
-            alert('This shop is already added.');
-            return;
-        }
+        // if (existingShop.length > 0) {
+        //     alert('This shop is already added.');
+        //     return;
+        // }
 
         // Push the shop data into the array
         let shopdatalength = shopData.length;
@@ -607,6 +755,106 @@ $(document).ready(function() {
     });
 });
 
+// function sales_person_update() {
+//     var formData = new FormData();
+
+//     // Append main sales person data
+//     formData.append('sales_person_name', $('#customername-field').val());
+//     formData.append('sales_person_email', $('#email-field').val());
+//     formData.append('sales_person_phone', $('#phone-field').val());
+//     formData.append('date-field', $('#date-field').val());
+//     formData.append('status-field', $('#status-field').val());
+//     // formData.append('status', $('#status-field').val());
+//     formData.append('yearly_total_sale', $('#yearly_total_sale').val());
+//     formData.append('ongoing_month_sale', $('#ongoing_month_sale').val());
+//     formData.append('sales_person_uid', $('#current_uid').val());
+//     formData.append('monthly_sales_data', JSON.stringify(monthly_sales_data));
+//     const locationData = [];
+//     $('#addedRouteList .added-location').each(function() {
+//         // Extract the days and route text while excluding the 'Remove' button or any extra text
+//         const locationText = $(this).children('p').text().trim(); // Only get text from the <p> tags, assuming they contain the location and route info
+
+//         // Split text by some delimiter (assuming "Location: Monday, Tuesday, Route: Route 1")
+//         const daysRoute = locationText.split('Route:');
+//         if (daysRoute.length === 2) {
+//             const days = daysRoute[0].replace('Location:', '').trim();  // Remove "Location:" and trim
+//             const route = daysRoute[1].trim();  // Trim route
+//             locationData.push({ days, route });
+//         }
+//     });
+
+//     if (locationData.length > 0) {
+//         // Append the location data (array of objects) to the form
+//         formData.append('location_data', JSON.stringify(locationData)); // Send as JSON string
+//     } else {
+//         alert('Please add at least one location (Days and Route).');
+//         return; // Stop the function if no locations are added
+//     }
+
+//     // alert("Location Data: " + JSON.stringify(locationData)); // Check the captured location data
+
+//     console.log("Submitting Form Data: ", Object.fromEntries(formData));
+
+//     // Collect shop data
+//     // Collect shop data
+    
+//     $('#addedShopList .shop-item').each(function () {
+//         const shopId = $(this).data('shop-id');
+//         const shopName = $(this).find('.shop-name').text().trim();  // Ensure trim() works on text
+//         const ownerName = $(this).data('owner-name');  // Ensure owner_name is a string
+//         const ownerRating = $(this).data('owner-rating');  // Ensure owner_rating is a string
+
+       
+//     });
+
+   
+// console.log('shopData',shopData)
+
+//     // Append shop data as JSON string
+//     formData.append('shop_data', JSON.stringify(shopData));
+
+//     // Send the data via AJAX request
+//     $.ajax({
+//         url: "<?= base_url('/api/update/sales_person') ?>",
+//         type: "POST",
+//         data: formData,
+//         contentType: false,
+//         processData: false,
+//         beforeSend: function () {
+//             $('#sales_person_update').html(`<div class="spinner-border" role="status"></div>`);
+//             $('#sales_person_update').attr('disabled', true);
+//         },
+//         success: function (resp) {
+//             let html = '';
+//             if (resp.status) {
+//                 html += `<div class="alert alert-success alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
+//                             <i class="ri-checkbox-circle-fill label-icon"></i>${resp.message}
+                            
+//                         </div>`;
+//                 location.reload();
+//             } else {
+//                 html += `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
+//                             <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - ${resp.message}
+                            
+//                         </div>`;
+//             }
+
+//             $('#alert').html(html);
+//             console.log(resp);
+//             setTimeout(function () {
+//                         $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+//                             }, 1500);
+            
+//         },
+//         error: function (err) {
+//             console.log(err);
+//         },
+//         complete: function () {
+//             $('#sales_person_update').html('Save Changes');
+//             $('#sales_person_update').attr('disabled', false);
+//         }
+//     });
+// }
 function sales_person_update() {
     var formData = new FormData();
 
@@ -616,51 +864,42 @@ function sales_person_update() {
     formData.append('sales_person_phone', $('#phone-field').val());
     formData.append('date-field', $('#date-field').val());
     formData.append('status-field', $('#status-field').val());
-    // formData.append('status', $('#status-field').val());
     formData.append('yearly_total_sale', $('#yearly_total_sale').val());
     formData.append('ongoing_month_sale', $('#ongoing_month_sale').val());
     formData.append('sales_person_uid', $('#current_uid').val());
     formData.append('monthly_sales_data', JSON.stringify(monthly_sales_data));
+
     const locationData = [];
     $('#addedRouteList .added-location').each(function() {
-        // Extract the days and route text while excluding the 'Remove' button or any extra text
-        const locationText = $(this).children('p').text().trim(); // Only get text from the <p> tags, assuming they contain the location and route info
-
-        // Split text by some delimiter (assuming "Location: Monday, Tuesday, Route: Route 1")
+        const locationText = $(this).children('p').text().trim();
         const daysRoute = locationText.split('Route:');
         if (daysRoute.length === 2) {
-            const days = daysRoute[0].replace('Location:', '').trim();  // Remove "Location:" and trim
-            const route = daysRoute[1].trim();  // Trim route
+            const days = daysRoute[0].replace('Location:', '').trim();
+            const route = daysRoute[1].trim();
             locationData.push({ days, route });
         }
     });
 
+    // Only append location data if it's available
     if (locationData.length > 0) {
-        // Append the location data (array of objects) to the form
-        formData.append('location_data', JSON.stringify(locationData)); // Send as JSON string
-    } else {
-        alert('Please add at least one location (Days and Route).');
-        return; // Stop the function if no locations are added
+        formData.append('location_data', JSON.stringify(locationData));
     }
 
-    // alert("Location Data: " + JSON.stringify(locationData)); // Check the captured location data
-
-    console.log("Submitting Form Data: ", Object.fromEntries(formData));
-
     // Collect shop data
-    // Collect shop data
-    
+    const shopData = [];
     $('#addedShopList .shop-item').each(function () {
-        const shopId = $(this).data('shop-id');
-        const shopName = $(this).find('.shop-name').text().trim();  // Ensure trim() works on text
-        const ownerName = $(this).data('owner-name');  // Ensure owner_name is a string
-        const ownerRating = $(this).data('owner-rating');  // Ensure owner_rating is a string
+        const shopId = $(this).data('shop-id') || null;  // Handle undefined by setting to null
+        const shopName = $(this).find('.shop-name').text().trim() || null;  // Handle undefined by setting to null
+        const ownerName = $(this).data('owner-name') || null;  // Handle undefined by setting to null
+        const ownerRating = $(this).data('owner-rating') || null;  // Handle undefined by setting to null
 
-       
+        shopData.push({
+            shop_uid: shopId,
+            shop_name: shopName,
+            owner_name: ownerName,
+            owner_rating: ownerRating
+        });
     });
-
-   
-console.log('shopData',shopData)
 
     // Append shop data as JSON string
     formData.append('shop_data', JSON.stringify(shopData));
@@ -681,13 +920,11 @@ console.log('shopData',shopData)
             if (resp.status) {
                 html += `<div class="alert alert-success alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
                             <i class="ri-checkbox-circle-fill label-icon"></i>${resp.message}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>`;
                 location.reload();
             } else {
                 html += `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
                             <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - ${resp.message}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>`;
             }
 
@@ -695,8 +932,7 @@ console.log('shopData',shopData)
             console.log(resp);
             setTimeout(function () {
                         $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
-                            }, 1500);
-            
+                    }, 1500);
         },
         error: function (err) {
             console.log(err);
@@ -707,6 +943,8 @@ console.log('shopData',shopData)
         }
     });
 }
+
+
 function showRouteDetails(userId) {
     $.ajax({
         url: `<?= base_url('/api/getSalesPersonRoute/') ?>`,
@@ -784,6 +1022,97 @@ function addLocation() {
 
 // Attach event listener to the Add Location button
 document.getElementById('add_location').addEventListener('click', addLocation);
+
+function remove_route(route_uid) {
+    // Prepare the data to be sent to the backend
+    const data = { route_id: route_uid };
+    console.log('route_uid',route_uid)
+
+    // Make the AJAX request to remove the route
+    $.ajax({
+        url: "<?= base_url('/api/remove_route') ?>",  // Make sure the correct endpoint is used
+        type: "GET", // You can change this to POST if needed
+        data: data,  // Send the route_id as part of the request
+        success: function(response) {
+            // Check the response from the backend
+            if (response.status) {
+                // If successful, alert the user and optionally remove the route from the DOM
+                alert(response.message); // Success message from backend
+                
+                // Optionally, remove the route from the list
+                // Assuming the route item has a class `route-item` and a data attribute for route_id
+                $(`.route-item[data-route-id="${route_uid}"]`).remove(); // Remove the route item
+            } else {
+                // If not successful, show the error message from the backend
+                alert(response.message); // Error message from backend
+            }
+        },
+        error: function(err) {
+            console.log(err);
+            alert('Error occurred while removing route.'); // General error message
+        }
+    });
+}
+function updateSaleInWords(inputId, outputId) {
+    document.getElementById(inputId).addEventListener("input", function () {
+        const value = parseInt(this.value, 10);
+        const outputElement = document.getElementById(outputId);
+
+        if (value < 1000) {
+            outputElement.textContent = ""; // Clear if input is less than 1000
+            return;
+        }
+
+        // Extract first digit and calculate the scale
+        const scales = ["", "Thousand", "Lakh", "Crore"];
+        let num = value;
+        let scaleIndex = 0;
+
+        while (num >= 1000) {
+            num = Math.floor(num / 1000);
+            scaleIndex++;
+        }
+
+        const firstDigit = Math.floor(value / Math.pow(10, scaleIndex * 3));
+        const scale = scales[scaleIndex];
+
+        // Display the result
+        outputElement.textContent = `${firstDigit} ${scale}`;
+    });
+}
+
+// Initialize functionality for both fields
+updateSaleInWords("yearly_total_sale", "yearly_total_sale_in_words");
+updateSaleInWords("monthly_total_sale", "monthly_total_sale_in_words");
+updateSaleInWords("ongoing_month_sale", "ongoin_total_sale_in_words");
+
+
+
+// function updateSaleInWords(inputId) {
+//     const inputElement = document.getElementById(inputId);
+//     const value = parseInt(inputElement.value, 10);
+
+//     if (isNaN(value) || value < 1000) {
+//         inputElement.value = ""; // Clear the input if the value is less than 1000 or invalid
+//         return;
+//     }
+
+//     // Extract first digit and calculate the scale
+//     const scales = ["", "Thousand", "Lakh", "Crore"];
+//     let num = value;
+//     let scaleIndex = 0;
+
+//     while (num >= 1000) {
+//         num = Math.floor(num / 1000);
+//         scaleIndex++;
+//     }
+
+//     const firstDigit = Math.floor(value / Math.pow(10, scaleIndex * 3));
+//     const scale = scales[scaleIndex];
+
+//     // Replace the input value with the word representation
+//     inputElement.value = `${firstDigit} ${scale}`;
+// }
 
 
 </script>

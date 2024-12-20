@@ -9,6 +9,7 @@
             formData.append('ownerPhone', $('#ownerPhone').val());
             formData.append('rating', $('#rating').val());
             formData.append('remark', $('#remark').val());
+            formData.append('address', $('#address').val());
             // formData.append('email', $('#email').val());
             // formData.append('mission', editor1.getData());
             // formData.append('vision', editor2.getData());

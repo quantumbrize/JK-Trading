@@ -197,11 +197,12 @@
                                             <th style="width: 150px;">Image</th>
                                             <th style="width: 200px;">Name</th>
                                             <th style="width: 150px;">Number</th>
+                                            <th style="width: 150px;">Number 2</th>
                                             <th style="width: 200px;">Email</th>
                                             <th style="width: 150px;">Joining Date</th>
-                                            <th style="width: 150px;">Yearly Total Sale</th>
-                                            <th style="width: 150px;">Selected Month Sale</th>
-                                            <th style="width: 150px;">Ongoing Month Sale</th>
+                                            <th style="width: 150px;">Yearly Total Sale(₹)</th>
+                                            <th style="width: 150px;">Selected Month Sale(₹)</th>
+                                            <th style="width: 150px;">Ongoing Month Sale(₹)</th>
                                             <th style="width: 150px;">Days and Route</th>
                                             <th style="width: 100px;">Status</th>
                                             <th style="width: 100px;">Edit</th>
@@ -328,9 +329,11 @@
                                                 </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label" for="yearly_total_sale">Yearly Total Sale</label>
+                                                <label class="form-label" for="yearly_total_sale">Yearly Total Sale (₹)</label>
                                                 <input type="number" class="form-control" id="yearly_total_sale" placeholder="Enter yearly total sale" required>
                                                 <div class="invalid-feedback">Please Enter yearly total sale.</div>
+                                                <div id="yearly_total_sale_in_words" class="mt-2 text-muted"></div> 
+
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label" for="current_month">Current Month</label>
@@ -352,12 +355,14 @@
                                             </div>
 
                                             <div class="mb-3">
-                                                <label class="form-label" for="monthly_total_sale">Monthly Total Sale</label>
+                                                <label class="form-label" for="monthly_total_sale">Monthly Total Sale (₹)</label>
                                                 <input type="number" class="form-control" id="monthly_total_sale" placeholder="Enter Monthly Total Sale">
+                                                <div id="monthly_total_sale_in_words" class="mt-2 text-muted"></div>
                                             </div>
 
                                             <!-- Add Monthly Sale Button -->
                                             <button type="button" class="btn btn-primary" id="add_monthly_sale_button">Add Monthly Sale</button>
+                                            <br><br>
 
                                             <!-- Container for added month-sales display -->
                                             <div id="monthly_sales_list" class="mb-3" style="display: none;">
@@ -367,18 +372,24 @@
                                                 </ul>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label" for="ongoing_month_sale">Ongoing Month Sale</label>
+                                                <label class="form-label" for="ongoing_month_sale">Ongoing Month Sale (₹)</label>
                                                 <input type="number" class="form-control" id="ongoing_month_sale" placeholder="Enter Ongoing Month Sale" required>
                                                 <div class="invalid-feedback">Please Enter Ongoing Month Sale.</div>
+                                                <div id="ongoin_total_sale_in_words" class="mt-2 text-muted"></div>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label" for="days">Days</label>
                                                 <input type="text" class="form-control" id="days" placeholder="Enter Days" required>
                                                 <label class="form-label" for="route">Route</label>
-                                                <input type="text" class="form-control" id="route" placeholder="Enter Ongoing" required>
+                                                <input type="text" class="form-control" id="route" placeholder="Enter Ongoing" required> <br>
                                                 <div class="invalid-feedback">Please Enter Dyas and Route.</div>
                                                 <button id="add_location" class="btn btn-success">Add Location</button>
                                             </div>
+                                            <div id="sales_person_route_section" style="margin-top: 20px;">
+                                                <h5>Sales Person Routes</h5>
+                                                <div id="sales_person_route_list"></div>
+                                            </div>
+
                                             <div id="addedRouteList" style="margin-top: 20px;"></div>
                                             <div class="mb-3">
                                                 <div class="input-group">
@@ -396,8 +407,7 @@
                                             <div class="hstack gap-2 justify-content-end">
                                                 <button type="button" class="btn btn-light"
                                                     data-bs-dismiss="modal">Close</button>
-                                                <button class="btn btn-success" id="add-btn">Add
-                                                    Customer</button>
+                                                <button class="btn btn-success" id="add-btn">Update</button>
                                                 <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                                             </div>
                                         </div>

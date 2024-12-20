@@ -154,7 +154,11 @@
                         })
 
                         $('#table-best-selling-list-all-body').html(html)
-                        $('#table-best-selling-list-all').DataTable();
+                        $('#table-best-selling-list-all').DataTable({
+                        language: {
+                            search: "Search" // Custom placeholder text for the search field
+                        }
+                    });
                 } else {
                     $('#table-best-selling-list-all-body').html(`<tr >
                         <td>

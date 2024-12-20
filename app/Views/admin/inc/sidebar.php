@@ -455,15 +455,15 @@
                         <div class="<?= isset($sidebar['users']) ? '' : 'collapse' ?> menu-dropdown" id="sidebarUser">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="<?= base_url('/admin/users/customers') ?>" class="nav-link">
-                                        Customers
+                                    <a href="<?= base_url('/admin/users/sales_person') ?>" class="nav-link">
+                                    Sales Serson
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a href="<?= base_url('/admin/users/vendors') ?>" class="nav-link">
                                         Vendors
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="nav-item">
                                     <a href="<?= base_url('/admin/users/staff') ?>" class="nav-link">
                                         Staff
@@ -486,7 +486,7 @@
                             <div class="<?= isset($sidebar['users']) ? '' : 'collapse' ?> menu-dropdown" id="sidebarUser">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="<?= base_url('/admin/users/customers') ?>" class="nav-link">
+                                        <a href="<?= base_url('/admin/users/sales_person') ?>" class="nav-link">
                                             Sales Person
                                         </a>
                                     </li>

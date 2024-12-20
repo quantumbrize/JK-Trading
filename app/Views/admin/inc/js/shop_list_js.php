@@ -41,6 +41,9 @@
                                         ${shop.remarks}
                                     </td>
                                     <td>
+                                        ${shop.address}
+                                    </td>
+                                    <td>
                                         <i class="fa fa-edit btn btn-info" id="edit_service" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
                                         <input type='hidden' id="shop_uid" value="${shop.uid}">
                                     </td>
@@ -137,6 +140,7 @@ $(document).on('click', '#edit_service', function () {
             formData.append('rating', $('#rating').val());
             formData.append('remark', $('#remark').val());
             formData.append('shop_uid', $('#current_uid').val());
+            formData.append('address', $('#address').val());
            
             
 

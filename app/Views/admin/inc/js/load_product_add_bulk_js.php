@@ -423,9 +423,12 @@
             // alert(".");
             html = `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
                         <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - The minimum value of the first row must be greater than 0.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        
                     </div>`
             $('#alert').html(html)
+            setTimeout(function () {
+                        $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                            }, 1500);
             return false;
         }
         if (prices.row.length > 1) {
@@ -436,9 +439,12 @@
                     // alert(`.`);
                     html = `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
                         <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Row ${i + 1} minimum value must be greater than row ${i} maximum value.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        
                     </div>`
                     $('#alert').html(html)
+                    setTimeout(function () {
+                        $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                            }, 1500);
                     return false;
                 }
             }
@@ -502,7 +508,7 @@
             if (!productName) {
                 html = `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
                             <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Product Name is required.
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            
                         </div>`;
                 isValid = false;
             }
@@ -543,7 +549,7 @@
                 if (!validExtensions.includes(imageFile.type) && imagesFiles.length > 0) {
                     html = `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
                                 <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Image ${imgIndex + 1} must be a JPEG, PNG, or GIF.
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                
                             </div>`;
                     isValid = false;
                 }
@@ -551,14 +557,19 @@
                 if (imageFile.size > maxSizeMB * 1024 * 1024 && imagesFiles.length > 0) { // Convert MB to bytes
                     html = `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
                                 <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Image ${imgIndex + 1} exceeds the maximum size of ${maxSizeMB} MB
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                
                             </div>`;
                     isValid = false;
+                    
+                    
                 }
             });
 
             if (!isValid) {
                 $('#alert').html(html);
+                setTimeout(function () {
+                        $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                            }, 1500);
                 return;
             }
 
@@ -587,9 +598,12 @@
         if ($('#vendor_drop_down').val() == '') {
             html = `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
                         <i class="ri-alert-line label-icon"></i><strong>Warning</strong> - Please Select a Vendor.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                       
                     </div>`;
             $('#alert').html(html);
+            setTimeout(function () {
+                        $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                            }, 1500);
             return;
         }
 
@@ -652,7 +666,7 @@
                         getSizeList();
                         $('#alert').html(`<div class="alert alert-success alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
                                             <i class="ri-check-line label-icon"></i><strong>Success</strong> - All Products Added
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            
                                         </div>`);
                         setTimeout(function () {
                             $('#alert .alert').alert('close'); // Closes the alert after 2 seconds

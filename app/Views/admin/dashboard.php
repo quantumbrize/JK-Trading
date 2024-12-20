@@ -129,7 +129,7 @@
                                             <h4 class="fs-22 fw-semibold ff-secondary mb-4">
                                                 <span class="counter-value" id="customer_counter" data-target="36894">0</span>
                                             </h4>
-                                            <a href="<?= base_url('admin/users/customers')?>" class="text-decoration-underline">See details</a>
+                                            <a href="<?= base_url('admin/users/sales_person')?>" class="text-decoration-underline">See details</a>
                                         </div>
                                         <div class="avatar-sm flex-shrink-0">
                                             <span class="avatar-title bg-warning-subtle rounded fs-3">

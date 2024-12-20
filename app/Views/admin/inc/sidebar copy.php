@@ -477,7 +477,7 @@
                         <div class="<?= isset($sidebar['users']) ? '' : 'collapse' ?> menu-dropdown" id="sidebarUser">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="<?= base_url('/admin/users/customers') ?>" class="nav-link">
+                                    <a href="<?= base_url('/admin/users/sales_person') ?>" class="nav-link">
                                         Customers
                                     </a>
                                 </li>
@@ -508,7 +508,7 @@
                             <div class="<?= isset($sidebar['users']) ? '' : 'collapse' ?> menu-dropdown" id="sidebarUser">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="<?= base_url('/admin/users/customers') ?>" class="nav-link">
+                                        <a href="<?= base_url('/admin/users/sales_person') ?>" class="nav-link">
                                             Customers
                                         </a>
                                     </li>

@@ -89,6 +89,7 @@
                                             <th>Owner Phone</th>
                                             <th>Owner Rating</th>
                                             <th>Remarks</th>
+                                            <th>Address</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
                                         </tr>
@@ -152,6 +153,15 @@
                                         <input type="number" class="form-control" id="rating" placeholder="Enter a Rating  between 1 and 10"
                                             min="1" max="10" step="1" required>
                                         <div class="invalid-feedback">Please enter a valid rating between 1 and 10.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="address">Address</label>
+                                        <input type="text" class="form-control" id="address" value="">
+                                        <div class="invalid-feedback">Please enter a valid address</div>
                                     </div>
                                 </div>
                             </div>

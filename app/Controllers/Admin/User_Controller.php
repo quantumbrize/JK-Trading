@@ -33,7 +33,7 @@ class User_Controller extends Admin_Controller{
             'data_page' => [],
             'data_header' => [
                 'header_link' => ['customer_css.php'],
-                'title' => 'Customer',
+                'title' => 'Sales Person',
                 'header' => [],
                 'sidebar' => ['users'=>true],
                 'site' => 'admin'

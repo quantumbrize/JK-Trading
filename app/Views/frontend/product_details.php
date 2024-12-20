@@ -166,7 +166,7 @@
                     <div class="keyword-div" id="keyword_div"></div> <br>
                 </div>
                 <div class="col-sm-6 col-6">
-                    <div style="text-align:right;" class="col-lg-6 col-6" id="size_chart_link">
+                    <div style="text-align:right;" class="col-lg-6 col-6" id="">
                 </div>
                     
                 </div>
@@ -205,7 +205,7 @@
             <ul id="product_stock"></ul><br>
             <span style="color:red;" id="stock_msg"></span>
 
-            <div class="col-lg-6 col-6" id="size_chart_link_pc"></div>
+            <div class="col-lg-6 col-6" id=""></div>
 
            <div id="product_description">
 
@@ -220,16 +220,7 @@
                     <a href="#" class="color" style="background-color: #333;"></a> -->
                 </div>
             </div>
-            <div class="product-form product-variation-form product-size-swatch">
-                <label class="mb-1" id="product_size_label"><b>Size</b></label>
-                <div class="flex-wrap d-flex align-items-center product-variations" id="product_size">
-                    <!-- <a href="#" class="size">Small</a>
-                    <a href="#" class="size">Medium</a>
-                    <a href="#" class="size">Large</a>
-                    <a href="#" class="size">Extra Large</a> -->
-                </div>
-                <!-- <a href="#" class="product-variation-clean">Clean All</a> -->
-            </div>
+            
             <!-- desktop screen cart section -->
             <div class="add-to-cart desktop-screen-cart" id="product_add_to_cart_button">
                 <!-- <button class="add-to-cart-btn checkout-btn">Add to Cart</button>

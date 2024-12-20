@@ -76,7 +76,7 @@ $routes->get('/admin/orders',                       'Admin\Orders_Controller::in
 $routes->get('/admin/orders/returns',               'Admin\Orders_Controller::load_orders_returns'); // Admin order returns page
 $routes->get('/admin/orders/returns/details',       'Admin\Orders_Controller::load_orders_returns_single'); // Admin order returns details page
 $routes->get('/admin/user/order',                   'Admin\Orders_Controller::load_single_order'); // Admin single order page
-$routes->get('/admin/users/customers',              'Admin\User_Controller::load_customer'); // Admin customers page
+$routes->get('/admin/users/sales_person',              'Admin\User_Controller::load_customer'); // Admin customers page
 $routes->get('/admin/users/vendors',                'Admin\User_Controller::load_vendor'); // Admin vendors page
 $routes->get('/admin/users/staff',                  'Admin\User_Controller::load_staff'); // Admin staff page
 $routes->get('/admin/users/staff/add',              'Admin\User_Controller::load_staff_add'); // Admin add staff page
@@ -280,3 +280,6 @@ $routes->post('/api/delete/sales_person',                  'Api\User_Controller:
 $routes->get('/api/getSalesPersonRoute/',           'Api\User_Controller::GET_sales_person_route');
 
 $routes->get('/api/delete/product',                'Api\Product_Controller::GET_delete_product');
+
+$routes->get('/api/remove_route',                'Api\User_Controller::GET_remove_route'); // Delete customer
+$routes->get('/api/remove_shop',                'Api\User_Controller::GET_remove_shop'); // Delete customer

@@ -578,6 +578,7 @@ class Banner_Controller extends Api_Controller
                 'owner_phone' => $data['ownerPhone'],
                 'owner_rating' => $data['rating'],
                 'remarks' => $data['remark'],
+                'address' => $data['address'],
 
             ];
             
@@ -669,6 +670,7 @@ class Banner_Controller extends Api_Controller
                 'owner_phone' => $data['ownerPhone'],
                 'owner_rating' => $data['rating'],
                 'remarks' => $data['remark'],
+                'address' => $data['address'],
                 
             ];
             

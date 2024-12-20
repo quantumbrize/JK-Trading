@@ -423,7 +423,7 @@
                                         <input type="text" placeholder="Remarks" class="remarks-input form-control" style="padding: 5px;" value="${shop.shop_remarks}">
                                     </div>
                                     <!-- Close button to remove shop -->
-                                    <button class="close-shop-btn btn btn-danger btn-sm" style="width: 20px; margin-top: 5px;" onclick="removeShop(${shop.shop_uid})">X</button>
+                 
                                 </div>
                             </div>
                         `;
@@ -570,7 +570,7 @@ function populateModal(shops) {
     </div>
 
     <!-- Remove button taking the full width of the container -->
-    <button class="close-shop-btn btn btn-danger btn-sm" style="width: 100%; margin-top: 10px;" onclick="removeShop(${shop.shop_uid})">X</button>
+
 </div>
         `;
     });
