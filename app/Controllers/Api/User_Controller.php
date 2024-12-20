@@ -2302,6 +2302,7 @@ private function sales_person_add($data)
             // Insert shop data (now including owner_name and owner_rating)
             foreach ($shop_data as $shop) {
                 $SalesPersonShopModel->insert([
+                    'uid'=>$this->generate_uid("SALSHO"),
                     'sales_person_uid' => $sales_person_uid,
                     'shop_uid' => $shop['shop_uid'],
                     'shop_name' => $shop['shop_name'],
@@ -2537,6 +2538,7 @@ private function sales_person_add($data)
                     foreach ($shop_data as $shop) {
                         // Ensure optional fields are handled properly (null values are allowed)
                         $shop_data_to_insert = [
+                            'uid'=>$this->generate_uid("SALSHO"),
                             'sales_person_uid' => $data['sales_person_uid'],
                             'shop_uid' => isset($shop['shop_uid']) ? $shop['shop_uid'] : null,
                             'shop_name' => isset($shop['shop_name']) ? $shop['shop_name'] : null,

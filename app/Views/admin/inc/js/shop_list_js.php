@@ -101,6 +101,7 @@ function load_shop_details(shop_uid) {
                 $('#rating').val(shop.owner_rating);
                 $('#remark').val(shop.remarks);
                 $('#current_uid').val(shop.uid);
+                $('#address').val(shop.address);
 
                 // Store the shop_uid for submission
                 $('#shop_update_btn').data('shop-uid', shop_uid);
