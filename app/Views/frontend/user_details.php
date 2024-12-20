@@ -25,15 +25,45 @@
                 <span style="color:red" id="number_val"></span>
             </div>
             <div class="input-group">
-                <!-- <label for="shop">Select Shop</label> -->
-                <select class="form-control" name="shop" id="shop">
-                    
-                </select> &nbsp;&nbsp;&nbsp;
-                <button id="add_shop">Add Shop</button>
-                
-            </div>
-            <div id="addedShopList" style="margin-top: 20px;"></div>
-            <input type="hidden" id="user_id">
+    <!-- Select Shop Dropdown -->
+    <select class="form-control" name="shop" id="shop">
+        <!-- Options will be populated dynamically -->
+    </select>
+</div>
+
+<div class="input-group" style="margin-top: 10px;">
+    <!-- Add Shop Button -->
+    <button id="add_shop" class="btn btn-primary btn-block">Add Shop</button>
+</div>
+
+<div class="input-group" style="margin-top: 10px;">
+    <!-- View Shops Button (Full width below the Add Shop button) -->
+    <button id="view_shops" class="btn btn-primary btn-block">View Shops</button>
+</div>
+
+<!-- Modal to Edit Shops and Remarks -->
+<div class="modal" id="editShopsModal" tabindex="-1" role="dialog" aria-labelledby="editShopsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editShopsModalLabel">Edit Shops and Remarks</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="modalShopsList"></div> <!-- Shops will be populated here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" id="user_id">
+>
+
             
             <!-- <button onclick="window.location.href='<?= base_url('user/address')?>'" type="button" id="locationButton">Add your Location</button> -->
             <div class="confirm-btn-bottom-fix">

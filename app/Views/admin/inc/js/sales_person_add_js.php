@@ -213,6 +213,9 @@
 
                 $('#alert').html(alertHtml);
                 console.log("Server Response: ", resp);
+                setTimeout(function () {
+                        $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                            }, 1500);
 
                 if (resp.status) location.reload();
             },

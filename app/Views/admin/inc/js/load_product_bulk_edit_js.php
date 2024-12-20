@@ -630,6 +630,9 @@
                                     <i class="ri-check-line label-icon"></i><strong>success</strong> - All Products Added
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>`)
+                            setTimeout(function () {
+                                $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                                    }, 1500);
 
                         }
 

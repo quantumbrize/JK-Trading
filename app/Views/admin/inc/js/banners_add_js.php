@@ -71,6 +71,7 @@
                         $imageContainer.html(``);
                         $numOfFiles.html(``);
                         $('#images').html(``)
+                        location.reload();
 
                     } else {
                         html += `<div class="alert alert-warning alert-dismissible alert-label-icon label-arrow fade show material-shadow" role="alert">
@@ -82,6 +83,9 @@
 
                     $('#alert').html(html)
                     console.log(resp)
+                    setTimeout(function () {
+                        $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                            }, 1500);
                 },
                 error: function (err) {
                     console.log(err)

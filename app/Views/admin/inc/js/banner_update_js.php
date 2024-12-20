@@ -83,6 +83,9 @@
 
                     $('#alert').html(html)
                     console.log(resp)
+                    setTimeout(function () {
+                        $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                            }, 1500);
                 },
                 error: function (err) {
                     console.log(err)
