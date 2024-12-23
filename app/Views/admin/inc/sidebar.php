@@ -210,7 +210,7 @@
                 ?>
 
 
-                <?php
+                <!-- <?php
                 if (isset($_SESSION[SES_STAFF_USER_ID]) && in_array('promotion_card', $_SESSION[SES_STAFF_ACCESS])) {
                     ?>
                     <li class="nav-item ">
@@ -230,7 +230,7 @@
                         </li>
                     <?php
                 }
-                ?>
+                ?> -->
 
                 <?php
                 if (isset($_SESSION[SES_STAFF_USER_ID]) && in_array('categories', $_SESSION[SES_STAFF_ACCESS])) {

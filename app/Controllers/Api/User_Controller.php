@@ -2228,7 +2228,7 @@ private function sales_person_add($data)
         'message' => 'Sales Person not updated',
         'data' => null
     ];
-
+    // $this->prd($data);
     // Validate the required fields
     if (empty($data['sales_person_name'])) {
         $resp['message'] = 'Please Add Sales Person Name';
@@ -2274,10 +2274,11 @@ private function sales_person_add($data)
             'email' => $data['customer_email'],
             'number' => $data['customer_Phone'],
             'status' => $data['status-field'],
-            'type' => $data['type-field'],
+            'type' => 'staff',
             'created_at' => $formatted_date,
             'yearly_total_sale' => $data['yearly_total_sale'],
             'ongoing_month_sale' => $data['ongoing_month_sale'],
+            'location' => $data['location'],
         ];
 
         $SalesPerMonthModel = new SalesPerMonthModel();

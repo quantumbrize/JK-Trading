@@ -155,6 +155,7 @@
                             }
                             
                             console.log('users',user)
+                            if(user.type != 'admin'){
                             html += `<tr>
                                         <th scope="row">
                                             <div class="form-check">
@@ -213,6 +214,9 @@
                                         <td class="status">
                                             <span class="badge bg-success-subtle ${status_color} text-uppercase">${user.status}</span>
                                         </td>
+                                         <td>
+                                            <a class="btn btn-primary" href="${user.location}" target="__blank">see location</a>
+                                        </td>
                                         <td>
                                             <ul class="list-inline hstack gap-2 mb-0">
                                                 <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Edit">
@@ -229,6 +233,8 @@
                                         </td>
                                         
                                     </tr>`;
+                            }
+                            
 
                         })
                         $('#table_data').html(html)

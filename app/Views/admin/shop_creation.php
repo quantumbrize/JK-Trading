@@ -64,7 +64,7 @@
                         <div class="card-body">
                             <div class="mb-3">
                             <label class="form-label" for="ownerPhone">Owner Phone Number</label>
-                                <input type="text" class="form-control" id="ownerPhone" value=""
+                                <input type="number" class="form-control" id="ownerPhone" value=""
                                     placeholder="Enter meta-author" required="">
                                 <div class="invalid-feedback">Please Enter Owner Phone Number.</div>
 

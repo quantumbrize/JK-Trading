@@ -204,6 +204,7 @@
                                             <th style="width: 150px;">Selected Month Sale(₹)</th>
                                             <th style="width: 150px;">Ongoing Month Sale(₹)</th>
                                             <th style="width: 150px;">Days and Route</th>
+                                            <th style="width: 150px;">Location</th>
                                             <th style="width: 100px;">Status</th>
                                             <th style="width: 100px;">Edit</th>
                                         </tr>

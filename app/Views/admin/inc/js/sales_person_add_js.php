@@ -139,7 +139,7 @@
         formData.append('customer_Phone', document.getElementById('customer_Phone').value);
         formData.append('date-field', document.getElementById('date-field').value);
         formData.append('status-field', document.getElementById('status-field').value);
-        formData.append('type-field', document.getElementById('type-field').value);
+        formData.append('location', document.getElementById('person_location').value);
 
         // Append month-sale data as JSON string
         formData.append('monthly_sales_data', JSON.stringify(monthly_sales_data));
@@ -415,9 +415,9 @@ function updateSaleInWords(inputId, outputId) {
 }
 
 // Initialize functionality for both fields
-updateSaleInWords("yearly_total_sale", "yearly_total_sale_in_words");
-updateSaleInWords("monthly_total_sale", "monthly_total_sale_in_words");
-updateSaleInWords("ongoing_month_sale", "ongoin_total_sale_in_words");
+// updateSaleInWords("yearly_total_sale", "yearly_total_sale_in_words");
+// updateSaleInWords("monthly_total_sale", "monthly_total_sale_in_words");
+// updateSaleInWords("ongoing_month_sale", "ongoin_total_sale_in_words");
 
 
 
