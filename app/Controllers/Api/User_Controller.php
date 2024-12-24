@@ -709,9 +709,11 @@ class User_Controller extends Api_Controller
             $SalesPerMonthModel = new SalesPerMonthModel();
             $SalesPersonShopModel = new SalesPersonShopModel();
             $SalesPersonRouteModel = new SalesPersonRouteModel();
+            $SalesPersonModel = new SalesPersonModel();
             $monthly_sales = $SalesPerMonthModel->where('sales_person_uid', $user_id)->findAll();
             $sales_person_shop= $SalesPersonShopModel->where('sales_person_uid', $user_id)->findAll();
             $sales_person_route= $SalesPersonRouteModel->where('sales_person_uid', $user_id)->findAll();
+            $sales_person= $SalesPersonModel->where('user_id', $user_id)->first();
             $resp = [
                 "status" => true,
                 "message" => "Data fetched",
@@ -723,12 +725,15 @@ class User_Controller extends Api_Controller
                 "monthly_sales" => $monthly_sales,
                 "sales_person_shop" => $sales_person_shop,
                 "sales_person_route" => $sales_person_route,
+                "sales_person" => $sales_person,
             ];
            
         } else {
             $UsersModel = new UsersModel();
+            
             // $users = $UsersModel->where('type', 'user')->findAll();
             $users = $UsersModel->findAll();
+            
             if (count($users) > 0) {
                 $UserImageModel = new UserImageModel();
                 foreach ($users as $index => $user) {
@@ -736,11 +741,18 @@ class User_Controller extends Api_Controller
                     $users[$index]['user_img'] = $img;
                 }
 
+                $SalesPersonModel = new SalesPersonModel();
+                foreach ($users as $index => $user) {
+                    $sales_person= $SalesPersonModel->where('user_id', $user['uid'])->first();
+                    $users[$index]['sales_person'] = $sales_person;
+                }
+
             }
             $resp = [
                 "status" => true,
                 "message" => "Data fetched",
                 "user_data" => $users,
+                "sales_person" => $sales_person,
             ];
         }
         return $resp;
@@ -2029,312 +2041,254 @@ class User_Controller extends Api_Controller
 
         return $resp;
     }
-//     private function sales_person_add($data)
-// {
-//     $resp = [
-//         'status' => false,
-//         'message' => 'Sales Person not updated',
-//         'data' => null
-//     ];
 
-//     // Validate the required fields
-//     if (empty($data['sales_person_name'])) {
-//         $resp['message'] = 'Please Add Sales Person Name';
-//     } elseif (empty($data['yearly_total_sale'])) {
-//         $resp['message'] = 'Please Add Yearly Total Sale';
-//     } elseif (empty($data['ongoing_month_sale'])) {
-//         $resp['message'] = 'Please Add Ongoing Month Sale';
-//     } else {
-//         $monthly_sales = json_decode($data['monthly_sales_data'], true);
-//         $shop_data = json_decode($data['shop_data'], true); // Decode the shop data (uid, name, owner_name, owner_rating)
 
-//         // Ensure there is shop data
-//         if (empty($shop_data)) {
-//             $resp['message'] = 'Please Add at least one shop';
-//             return $resp;
-//         }
 
-//         // Date formatting
-//         $date = new \DateTime($data['date-field']);
-//         $formatted_date = $date->format("Y/m/d H:i:s");
 
-//         // Generate UID
-//         $sales_person_uid = $this->generate_uid("USR");
-//         $sale_data = [
-//             'uid' => $sales_person_uid,
-//             'user_name' => $data['sales_person_name'],
-//             'email' => $data['customer_email'],
-//             'number' => $data['customer_Phone'],
-//             'status' => $data['status-field'],
-//             'type' => $data['type-field'],
-//             'created_at' => $formatted_date,
-//             'yearly_total_sale' => $data['yearly_total_sale'],
-//             'ongoing_month_sale' => $data['ongoing_month_sale'],
-//         ];
+    // private function sales_person_add($data)
+    // {
+    //     $resp = [
+    //         'status' => false,
+    //         'message' => 'Sales Person not updated',
+    //         'data' => null
+    //     ];
+    //     // $this->prd($data);
+    //     // Validate the required fields
+    //     if (empty($data['sales_person_name'])) {
+    //         $resp['message'] = 'Please Add Sales Person Name';
+    //     } else {
+    //         // Check if the email or phone number already exists
+    //         $UsersModel = new UsersModel();
+    //         $existingEmail = $UsersModel->where('email', $data['customer_email'])->first();
+    //         $existingPhone = $UsersModel->where('number', $data['customer_Phone'])->first();
 
-//         $UsersModel = new UsersModel();
-//         $SalesPerMonthModel = new SalesPerMonthModel();
-//         $SalesPersonShopModel = new SalesPersonShopModel(); // Initialize the new model for shop data
+    //         if ($existingEmail) {
+    //             $resp['message'] = 'Email is already taken.';
+    //             return $resp;
+    //         } elseif ($existingPhone) {
+    //             $resp['message'] = 'Phone number is already taken.';
+    //             return $resp;
+    //         }
 
-//         $UsersModel->transStart();
-//         try {
-//             // Insert main sales person data
-//             $UsersModel->insert($sale_data);
+    //         $monthly_sales = json_decode($data['monthly_sales_data'], true);
+    //         $shop_data = json_decode($data['shop_data'], true); // Decode the shop data (uid, name, owner_name, owner_rating)
+    //         $routes_data = json_decode($data['location_data'], true); // Decode the days and route data
 
-//             // Insert monthly sales data
-//             foreach ($monthly_sales as $month_sale) {
-//                 $SalesPerMonthModel->insert([
-//                     'uid' => $this->generate_uid("PERMON"),
-//                     'sales_person_uid' => $sales_person_uid,
-//                     'month' => $month_sale['month'],
-//                     'sales' => $month_sale['sale'],
-//                 ]);
-//             }
+    //         // Ensure there is shop data
+    //         if (empty($shop_data)) {
+    //             $resp['message'] = 'Please Add at least one shop';
+    //             return $resp;
+    //         }
 
-//             // Insert shop data (now including owner_name and owner_rating)
-//             foreach ($shop_data as $shop) {
-//                 $SalesPersonShopModel->insert([
-//                     'sales_person_uid' => $sales_person_uid,
-//                     'shop_uid' => $shop['shop_uid'],
-//                     'shop_name' => $shop['shop_name'],
-//                     'owner_name' => $shop['owner_name'],
-//                     'owner_rating' => $shop['owner_rating'],
-//                 ]);
-//             }
+    //         // Ensure routes data is provided
+    //         if (empty($routes_data)) {
+    //             $resp['message'] = 'Please Add at least one Route';
+    //             return $resp;
+    //         }
 
-//             // Commit transaction
-//             $UsersModel->transCommit();
+    //         // Date formatting
+    //         $date = new \DateTime($data['date-field']);
+    //         $formatted_date = $date->format("Y/m/d H:i:s");
 
-//             $resp['status'] = true;
-//             $resp['message'] = 'Sales Person Added Successfully';
-//         } catch (\Exception $e) {
-//             $UsersModel->transRollback();
-//             $resp['message'] = $e->getMessage();
-//         }
-//     }
+    //         // Generate UID
+    //         $sales_person_uid = $this->generate_uid("USR");
+    //         $sale_data = [
+    //             'uid' => $sales_person_uid,
+    //             'user_name' => $data['sales_person_name'],
+    //             'email' => $data['customer_email'],
+    //             'number' => $data['customer_Phone'],
+    //             'status' => $data['status-field'],
+    //             'type' => 'staff',
+    //             'created_at' => $formatted_date,
+    //             'yearly_total_sale' => $data['yearly_total_sale'],
+    //             'ongoing_month_sale' => $data['ongoing_month_sale'],
+    //             'location' => $data['location'],
+    //         ];
 
-//     return $resp;
-// }
+    //         $SalesPerMonthModel = new SalesPerMonthModel();
+    //         $SalesPersonShopModel = new SalesPersonShopModel(); // Initialize the new model for shop data
+    //         $SalesPersonRouteModel = new SalesPersonRouteModel(); // Initialize the new model for days and routes
 
-// private function sales_person_add($data)
-// {
-//     $resp = [
-//         'status' => false,
-//         'message' => 'Sales Person not updated',
-//         'data' => null
-//     ];
+    //         $UsersModel->transStart();
+    //         try {
+    //             // Insert main sales person data
+    //             $UsersModel->insert($sale_data);
 
-//     // Validate the required fields
-//     if (empty($data['sales_person_name'])) {
-//         $resp['message'] = 'Please Add Sales Person Name';
-//     } elseif (empty($data['yearly_total_sale'])) {
-//         $resp['message'] = 'Please Add Yearly Total Sale';
-//     } elseif (empty($data['ongoing_month_sale'])) {
-//         $resp['message'] = 'Please Add Ongoing Month Sale';
-//     } else {
-//         $monthly_sales = json_decode($data['monthly_sales_data'], true);
-//         $shop_data = json_decode($data['shop_data'], true); // Decode the shop data (uid, name, owner_name, owner_rating)
-//         $routes_data = json_decode($data['location_data'], true); // Decode the days and route data
+    //             // Insert monthly sales data
+    //             foreach ($monthly_sales as $month_sale) {
+    //                 $SalesPerMonthModel->insert([
+    //                     'uid' => $this->generate_uid("PERMON"),
+    //                     'sales_person_uid' => $sales_person_uid,
+    //                     'month' => $month_sale['month'],
+    //                     'sales' => $month_sale['sale'],
+    //                 ]);
+    //             }
 
-//         // Ensure there is shop data
-//         if (empty($shop_data)) {
-//             $resp['message'] = 'Please Add at least one shop';
-//             return $resp;
-//         }
+    //             // Insert shop data (now including owner_name and owner_rating)
+    //             foreach ($shop_data as $shop) {
+    //                 $SalesPersonShopModel->insert([
+    //                     'uid'=>$this->generate_uid("SALSHO"),
+    //                     'sales_person_uid' => $sales_person_uid,
+    //                     'shop_uid' => $shop['shop_uid'],
+    //                     'shop_name' => $shop['shop_name'],
+    //                     'owner_name' => $shop['owner_name'],
+    //                     'owner_rating' => $shop['owner_rating'],
+    //                 ]);
+    //             }
 
-//         // Ensure routes data is provided
-//         if (empty($routes_data)) {
-//             $resp['message'] = 'Please Add at least one Route';
-//             return $resp;
-//         }
+    //             // Insert routes data (days and routes)
+    //             foreach ($routes_data as $route) {
+    //                 $SalesPersonRouteModel->insert([
+    //                     'sales_person_uid' => $sales_person_uid,
+    //                     'uid' => $this->generate_uid("SALROU"),
+    //                     'days' => $route['days'],
+    //                     'route' => $route['route'],
+    //                 ]);
+    //             }
 
-//         // Date formatting
-//         $date = new \DateTime($data['date-field']);
-//         $formatted_date = $date->format("Y/m/d H:i:s");
+    //             // Commit transaction
+    //             $UsersModel->transCommit();
 
-//         // Generate UID
-//         $sales_person_uid = $this->generate_uid("USR");
-//         $sale_data = [
-//             'uid' => $sales_person_uid,
-//             'user_name' => $data['sales_person_name'],
-//             'email' => $data['customer_email'],
-//             'number' => $data['customer_Phone'],
-//             'status' => $data['status-field'],
-//             'type' => $data['type-field'],
-//             'created_at' => $formatted_date,
-//             'yearly_total_sale' => $data['yearly_total_sale'],
-//             'ongoing_month_sale' => $data['ongoing_month_sale'],
-//         ];
+    //             $resp['status'] = true;
+    //             $resp['message'] = 'Sales Person Added Successfully';
+    //         } catch (\Exception $e) {
+    //             $UsersModel->transRollback();
+    //             $resp['message'] = $e->getMessage();
+    //         }
+    //     }
 
-//         $UsersModel = new UsersModel();
-//         $SalesPerMonthModel = new SalesPerMonthModel();
-//         $SalesPersonShopModel = new SalesPersonShopModel(); // Initialize the new model for shop data
-//         $SalesPersonRouteModel = new SalesPersonRouteModel(); // Initialize the new model for days and routes
+    //     return $resp;
+    // }
 
-//         $UsersModel->transStart();
-//         try {
-//             // Insert main sales person data
-//             $UsersModel->insert($sale_data);
-
-//             // Insert monthly sales data
-//             foreach ($monthly_sales as $month_sale) {
-//                 $SalesPerMonthModel->insert([
-//                     'uid' => $this->generate_uid("PERMON"),
-//                     'sales_person_uid' => $sales_person_uid,
-//                     'month' => $month_sale['month'],
-//                     'sales' => $month_sale['sale'],
-//                 ]);
-//             }
-
-//             // Insert shop data (now including owner_name and owner_rating)
-//             foreach ($shop_data as $shop) {
-//                 $SalesPersonShopModel->insert([
-//                     'sales_person_uid' => $sales_person_uid,
-//                     'shop_uid' => $shop['shop_uid'],
-//                     'shop_name' => $shop['shop_name'],
-//                     'owner_name' => $shop['owner_name'],
-//                     'owner_rating' => $shop['owner_rating'],
-//                 ]);
-//             }
-
-//             // Insert routes data (days and routes)
-//             foreach ($routes_data as $route) {
-//                 $SalesPersonRouteModel->insert([
-//                     'sales_person_uid' => $sales_person_uid,
-//                     'uid' => $this->generate_uid("SALROU"),
-//                     'days' => $route['days'],
-//                     'route' => $route['route'],
-//                 ]);
-//             }
-
-//             // Commit transaction
-//             $UsersModel->transCommit();
-
-//             $resp['status'] = true;
-//             $resp['message'] = 'Sales Person Added Successfully';
-//         } catch (\Exception $e) {
-//             $UsersModel->transRollback();
-//             $resp['message'] = $e->getMessage();
-//         }
-//     }
-
-//     return $resp;
-// }
-
-private function sales_person_add($data)
-{
-    $resp = [
-        'status' => false,
-        'message' => 'Sales Person not updated',
-        'data' => null
-    ];
-    // $this->prd($data);
-    // Validate the required fields
-    if (empty($data['sales_person_name'])) {
-        $resp['message'] = 'Please Add Sales Person Name';
-    } else {
-        // Check if the email or phone number already exists
-        $UsersModel = new UsersModel();
-        $existingEmail = $UsersModel->where('email', $data['customer_email'])->first();
-        $existingPhone = $UsersModel->where('number', $data['customer_Phone'])->first();
-
-        if ($existingEmail) {
-            $resp['message'] = 'Email is already taken.';
-            return $resp;
-        } elseif ($existingPhone) {
-            $resp['message'] = 'Phone number is already taken.';
-            return $resp;
-        }
-
-        $monthly_sales = json_decode($data['monthly_sales_data'], true);
-        $shop_data = json_decode($data['shop_data'], true); // Decode the shop data (uid, name, owner_name, owner_rating)
-        $routes_data = json_decode($data['location_data'], true); // Decode the days and route data
-
-        // Ensure there is shop data
-        if (empty($shop_data)) {
-            $resp['message'] = 'Please Add at least one shop';
-            return $resp;
-        }
-
-        // Ensure routes data is provided
-        if (empty($routes_data)) {
-            $resp['message'] = 'Please Add at least one Route';
-            return $resp;
-        }
-
-        // Date formatting
-        $date = new \DateTime($data['date-field']);
-        $formatted_date = $date->format("Y/m/d H:i:s");
-
-        // Generate UID
-        $sales_person_uid = $this->generate_uid("USR");
-        $sale_data = [
-            'uid' => $sales_person_uid,
-            'user_name' => $data['sales_person_name'],
-            'email' => $data['customer_email'],
-            'number' => $data['customer_Phone'],
-            'status' => $data['status-field'],
-            'type' => 'staff',
-            'created_at' => $formatted_date,
-            'yearly_total_sale' => $data['yearly_total_sale'],
-            'ongoing_month_sale' => $data['ongoing_month_sale'],
-            'location' => $data['location'],
+    private function sales_person_add($data)
+    {
+        $resp = [
+            'status' => false,
+            'message' => 'Sales Person not updated',
+            'data' => null
         ];
+        // $this->prd($data);
+        // Validate the required fields
+        if (empty($data['sales_person_name'])) {
+            $resp['message'] = 'Please Add Sales Person Name';
+        } else {
+            // Check if the email or phone number already exists
+            $UsersModel = new UsersModel();
+            $existingEmail = $UsersModel->where('email', $data['customer_email'])->first();
+            $existingPhone = $UsersModel->where('number', $data['customer_Phone'])->first();
 
-        $SalesPerMonthModel = new SalesPerMonthModel();
-        $SalesPersonShopModel = new SalesPersonShopModel(); // Initialize the new model for shop data
-        $SalesPersonRouteModel = new SalesPersonRouteModel(); // Initialize the new model for days and routes
-
-        $UsersModel->transStart();
-        try {
-            // Insert main sales person data
-            $UsersModel->insert($sale_data);
-
-            // Insert monthly sales data
-            foreach ($monthly_sales as $month_sale) {
-                $SalesPerMonthModel->insert([
-                    'uid' => $this->generate_uid("PERMON"),
-                    'sales_person_uid' => $sales_person_uid,
-                    'month' => $month_sale['month'],
-                    'sales' => $month_sale['sale'],
-                ]);
+            if ($existingEmail) {
+                $resp['message'] = 'Email is already taken.';
+                return $resp;
+            } elseif ($existingPhone) {
+                $resp['message'] = 'Phone number is already taken.';
+                return $resp;
             }
 
-            // Insert shop data (now including owner_name and owner_rating)
-            foreach ($shop_data as $shop) {
-                $SalesPersonShopModel->insert([
-                    'uid'=>$this->generate_uid("SALSHO"),
-                    'sales_person_uid' => $sales_person_uid,
-                    'shop_uid' => $shop['shop_uid'],
-                    'shop_name' => $shop['shop_name'],
-                    'owner_name' => $shop['owner_name'],
-                    'owner_rating' => $shop['owner_rating'],
-                ]);
+            $monthly_sales = json_decode($data['monthly_sales_data'], true);
+            $shop_data = json_decode($data['shop_data'], true); // Decode the shop data (uid, name, owner_name, owner_rating)
+            $routes_data = json_decode($data['location_data'], true); // Decode the days and route data
+
+            // Ensure there is shop data
+            if (empty($shop_data)) {
+                $resp['message'] = 'Please Add at least one shop';
+                return $resp;
             }
 
-            // Insert routes data (days and routes)
-            foreach ($routes_data as $route) {
-                $SalesPersonRouteModel->insert([
-                    'sales_person_uid' => $sales_person_uid,
-                    'uid' => $this->generate_uid("SALROU"),
-                    'days' => $route['days'],
-                    'route' => $route['route'],
-                ]);
+            // Ensure routes data is provided
+            if (empty($routes_data)) {
+                $resp['message'] = 'Please Add at least one Route';
+                return $resp;
             }
 
-            // Commit transaction
-            $UsersModel->transCommit();
+            // Date formatting
+            $date = new \DateTime($data['date-field']);
+            $formatted_date = $date->format("Y/m/d H:i:s");
 
-            $resp['status'] = true;
-            $resp['message'] = 'Sales Person Added Successfully';
-        } catch (\Exception $e) {
-            $UsersModel->transRollback();
-            $resp['message'] = $e->getMessage();
+            // Generate UID
+            $sales_person_uid = $this->generate_uid("USR");
+            $sale_data = [
+                'uid' => $sales_person_uid,
+                'user_name' => $data['sales_person_name'],
+                'email' => $data['customer_email'],
+                'number' => $data['customer_Phone'],
+                'password' => md5($data['password']),
+                'status' => $data['status-field'],
+                'type' => 'staff',
+                'created_at' => $formatted_date,
+                // 'yearly_total_sale' => $data['yearly_total_sale'],
+                // 'ongoing_month_sale' => $data['ongoing_month_sale'],
+                // 'location' => $data['location'],
+            ];
+
+            $sale_oerson_data = [
+                'uid' => $this->generate_uid("SALPER"),
+                'user_id' => $sales_person_uid,
+                'yearly_total_sale' => $data['yearly_total_sale'],
+                'ongoing_month_sale' => $data['ongoing_month_sale'],
+                'number2' => "",
+                'location' => $data['location'],
+            ];
+
+
+
+            $SalesPerMonthModel = new SalesPerMonthModel();
+            $SalesPersonShopModel = new SalesPersonShopModel(); // Initialize the new model for shop data
+            $SalesPersonRouteModel = new SalesPersonRouteModel(); // Initialize the new model for days and routes
+            $SalesPersonModel = new SalesPersonModel(); // Initialize the new model for days and routes
+            
+
+            $UsersModel->transStart();
+            try {
+                // Insert main sales person data
+                $UsersModel->insert($sale_data);
+                $SalesPersonModel->insert($sale_oerson_data);
+
+                // Insert monthly sales data
+                foreach ($monthly_sales as $month_sale) {
+                    $SalesPerMonthModel->insert([
+                        'uid' => $this->generate_uid("PERMON"),
+                        'sales_person_uid' => $sales_person_uid,
+                        'month' => $month_sale['month'],
+                        'sales' => $month_sale['sale'],
+                    ]);
+                }
+
+                // Insert shop data (now including owner_name and owner_rating)
+                foreach ($shop_data as $shop) {
+                    $SalesPersonShopModel->insert([
+                        'uid'=>$this->generate_uid("SALSHO"),
+                        'sales_person_uid' => $sales_person_uid,
+                        'shop_uid' => $shop['shop_uid'],
+                        'shop_name' => $shop['shop_name'],
+                        'owner_name' => $shop['owner_name'],
+                        'owner_rating' => $shop['owner_rating'],
+                    ]);
+                }
+
+                // Insert routes data (days and routes)
+                foreach ($routes_data as $route) {
+                    $SalesPersonRouteModel->insert([
+                        'sales_person_uid' => $sales_person_uid,
+                        'uid' => $this->generate_uid("SALROU"),
+                        'days' => $route['days'],
+                        'route' => $route['route'],
+                    ]);
+                }
+
+                // Commit transaction
+                $UsersModel->transCommit();
+
+                $resp['status'] = true;
+                $resp['message'] = 'Sales Person Added Successfully';
+            } catch (\Exception $e) {
+                $UsersModel->transRollback();
+                $resp['message'] = $e->getMessage();
+            }
         }
-    }
 
-    return $resp;
-}
+        return $resp;
+    }
 
     
 
@@ -2499,25 +2453,35 @@ private function sales_person_add($data)
             $date = new \DateTime($data['date-field']);
             $formatted_date = $date->format("Y/m/d H:i:s");
             $sale_data = [
-                'uid' => $sales_person_uid,
+                // 'uid' => $sales_person_uid,
                 'user_name' => $data['sales_person_name'],
                 'email' => $data['sales_person_email'],
                 'number' => $data['sales_person_phone'],
-                'status' => $data['status-field'],
-                'created_at' => $formatted_date,
-                'yearly_total_sale' => $data['yearly_total_sale'],
-                'ongoing_month_sale' => $data['ongoing_month_sale'],
+                // 'status' => $data['status-field'],
+                // 'created_at' => $formatted_date,
+                // 'yearly_total_sale' => $data['yearly_total_sale'],
+                // 'ongoing_month_sale' => $data['ongoing_month_sale'],
+            ];
+
+            $sale_person = [
+                'location' => $data['location-field'],
+                // 'status' => $data['status-field'],
+                // 'created_at' => $formatted_date,
+                // 'yearly_total_sale' => $data['yearly_total_sale'],
+                // 'ongoing_month_sale' => $data['ongoing_month_sale'],
             ];
     
             $UsersModel = new UsersModel();
             $SalesPerMonthModel = new SalesPerMonthModel();
             $SalesPersonShopModel = new SalesPersonShopModel();
             $SalesPersonRouteModel = new SalesPersonRouteModel();
+            $SalesPersonModel = new SalesPersonModel();
     
             $UsersModel->transStart();
             try {
                 // Update the sales person data
                 $UsersModel->where('uid', $data['sales_person_uid'])->set($sale_data)->update();
+                $SalesPersonModel->where('user_id', $data['sales_person_uid'])->set($sale_person)->update();
     
                 // Insert/Update monthly sales data
                 foreach ($monthly_sales as $month_sale) {

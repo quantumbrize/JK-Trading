@@ -193,11 +193,10 @@
                                 <table class="table align-middle" id="customerTable">
                                     <thead class="table-light text-muted">
                                         <tr>
-                                            <th style="width: 100px;"></th>
                                             <th style="width: 150px;">Image</th>
                                             <th style="width: 200px;">Name</th>
                                             <th style="width: 150px;">Number</th>
-                                            <th style="width: 150px;">Number 2</th>
+                                            <!-- <th style="width: 150px;">Number 2</th> -->
                                             <th style="width: 200px;">Email</th>
                                             <th style="width: 150px;">Joining Date</th>
                                             <th style="width: 150px;">Yearly Total Sale(₹)</th>
@@ -319,7 +318,14 @@
                                                 <div class="invalid-feedback">Please select a date.</div>
                                             </div>
 
-                                            <div>
+                                            <div class="mb-3">
+                                                <label for="date-field" class="form-label">Location</label>
+                                                <input type="text" id="location-field" class="form-control" required=""
+                                                    placeholder="Enter Location">
+                                                <div class="invalid-feedback">Please select a date.</div>
+                                            </div>
+
+                                            <!-- <div>
                                                 <label for="status-field" class="form-label">Status</label>
                                                 <select class="form-control" data-choices=""
                                                     data-choices-search-false="" name="status-field" id="status-field"
@@ -328,14 +334,14 @@
                                                     <option value="Active">Active</option>
                                                     <option value="Block">Block</option>
                                                 </select>
-                                            </div>
-                                            <div class="mb-3">
+                                            </div> -->
+                                            <!-- <div class="mb-3">
                                                 <label class="form-label" for="yearly_total_sale">Yearly Total Sale (₹)</label>
                                                 <input type="number" class="form-control" id="yearly_total_sale" placeholder="Enter yearly total sale" required>
                                                 <div class="invalid-feedback">Please Enter yearly total sale.</div>
                                                 <div id="yearly_total_sale_in_words" class="mt-2 text-muted"></div> 
 
-                                            </div>
+                                            </div> -->
                                             <div class="mb-3">
                                                 <label class="form-label" for="current_month">Current Month</label>
                                                 <select class="form-select" id="current_month">
@@ -372,12 +378,12 @@
                                                     <!-- The selected months will be shown here -->
                                                 </ul>
                                             </div>
-                                            <div class="mb-3">
+                                            <!-- <div class="mb-3">
                                                 <label class="form-label" for="ongoing_month_sale">Ongoing Month Sale (₹)</label>
                                                 <input type="number" class="form-control" id="ongoing_month_sale" placeholder="Enter Ongoing Month Sale" required>
                                                 <div class="invalid-feedback">Please Enter Ongoing Month Sale.</div>
                                                 <div id="ongoin_total_sale_in_words" class="mt-2 text-muted"></div>
-                                            </div>
+                                            </div> -->
                                             <div class="mb-3">
                                                 <label class="form-label" for="days">Days</label>
                                                 <input type="text" class="form-control" id="days" placeholder="Enter Days" required>

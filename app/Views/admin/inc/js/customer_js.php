@@ -154,14 +154,14 @@
                                 status_color = 'text-success'
                             }
                             
-                            console.log('users',user)
+                            // console.log('users',user)
                             if(user.type != 'admin'){
                             html += `<tr>
-                                        <th scope="row">
+                                        <!-- <th scope="row">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                             </div>
-                                        </th>
+                                        </th> -->
                                         <td>
                                             <img src="${image}" alt="" class="product-img" style="width: 80px; height: 80px;  border-radius: 50%; overflow: hidden;">
                                         </td>
@@ -172,16 +172,13 @@
                                             ${user.number}
                                         </td>
                                         <td>
-                                            ${user.number2}
-                                        </td>
-                                        <td>
                                             ${user.email}
                                         </td>
                                         <td>
                                             ${formatted_date}
                                         </td>
                                         <td>
-                                            ${user.yearly_total_sale}
+                                            ${user.sales_person.yearly_total_sale}
                                         </td>
                                         <td>
                                             <select class="form-select form-select-sm monthly-sale-dropdown" 
@@ -206,16 +203,17 @@
                                             </div>
                                         </td>
                                         <td>
-                                            ${user.ongoing_month_sale}
+                                            ${user.sales_person.ongoing_month_sale}
                                         </td>
                                         <td>
                                             <button class="btn btn-info" onclick="showRouteDetails('${user.uid}')">View Days and Route</button>
                                         </td>
+
+                                        <td>
+                                            <a class="btn btn-primary" href="${user.sales_person.location}" target="__blank">see location</a>
+                                        </td>
                                         <td class="status">
                                             <span class="badge bg-success-subtle ${status_color} text-uppercase">${user.status}</span>
-                                        </td>
-                                         <td>
-                                            <a class="btn btn-primary" href="${user.location}" target="__blank">see location</a>
                                         </td>
                                         <td>
                                             <ul class="list-inline hstack gap-2 mb-0">
@@ -386,8 +384,9 @@
                 $("#date-field").val(formattedDate); // Set the formatted date
 
                 $("#status-field").val(resp.user_data.status);
-                $("#yearly_total_sale").val(resp.user_data.yearly_total_sale);
-                $("#ongoing_month_sale").val(resp.user_data.ongoing_month_sale);
+                $("#yearly_total_sale").val(resp.sales_person.yearly_total_sale);
+                $("#ongoing_month_sale").val(resp.sales_person.ongoing_month_sale);
+                $("#location-field").val(resp.sales_person.location);
                 $("#current_uid").val(resp.user_data.uid);
 
                 // Monthly Sales
@@ -869,9 +868,10 @@ function sales_person_update() {
     formData.append('sales_person_email', $('#email-field').val());
     formData.append('sales_person_phone', $('#phone-field').val());
     formData.append('date-field', $('#date-field').val());
-    formData.append('status-field', $('#status-field').val());
-    formData.append('yearly_total_sale', $('#yearly_total_sale').val());
-    formData.append('ongoing_month_sale', $('#ongoing_month_sale').val());
+    formData.append('location-field', $('#location-field').val());
+    // formData.append('status-field', $('#status-field').val());
+    // formData.append('yearly_total_sale', $('#yearly_total_sale').val());
+    // formData.append('ongoing_month_sale', $('#ongoing_month_sale').val());
     formData.append('sales_person_uid', $('#current_uid').val());
     formData.append('monthly_sales_data', JSON.stringify(monthly_sales_data));
 

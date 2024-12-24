@@ -80,18 +80,18 @@
                     </div>
 
                     <!-- Status -->
-                    <div class="card">
+                    <!-- <div class="card">
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="status-field" class="form-label">Status</label>
                                 <select class="form-control" data-choices="" data-choices-search-false="" name="status-field" id="status-field" required>
                                     <option value="">Status</option>
-                                    <option value="Active">Active</option>
-                                    <option value="Block">Block</option>
+                                    <option value="active">Active</option>
+                                    <option value="block">Block</option>
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Type -->
                     <div class="card">
@@ -207,6 +207,18 @@
                                 </div>
                                 <div id="addedShopList" style="margin-top: 20px;"></div>
                                 <input type="hidden" id="user_id">
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Select Shop -->
+                     <div class="card">
+                        <div class="card-body">
+                            <div class="mb-3">
+                            <label class="form-label" for="password">Password</label>
+                                <div class="input-group">
+                                
+                                <input type="text" class="form-control" id="password" placeholder="Enter Ongoing Month Sale" required>
                             </div>
                         </div>
                     </div>

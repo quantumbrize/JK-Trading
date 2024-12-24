@@ -88,7 +88,8 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label class="form-label" for="address">Address</label>
-                                <input type="text" class="form-control" id="address" value="">
+                                <input type="text" class="form-control" id="address" value="" placeholder="Enter Address"
+                                    required="">
                                 <div class="invalid-feedback">Please enter a valid address</div>
                             </div>
                         </div>

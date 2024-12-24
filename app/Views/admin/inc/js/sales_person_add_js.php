@@ -138,8 +138,9 @@
         formData.append('customer_email', document.getElementById('customer_email').value);
         formData.append('customer_Phone', document.getElementById('customer_Phone').value);
         formData.append('date-field', document.getElementById('date-field').value);
-        formData.append('status-field', document.getElementById('status-field').value);
+        formData.append('status-field', 'active');
         formData.append('location', document.getElementById('person_location').value);
+        formData.append('password', document.getElementById('password').value);
 
         // Append month-sale data as JSON string
         formData.append('monthly_sales_data', JSON.stringify(monthly_sales_data));
