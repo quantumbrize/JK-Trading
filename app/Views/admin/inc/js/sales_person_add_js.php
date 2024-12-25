@@ -218,7 +218,7 @@
         // Append primary data
         formData.append('sales_person_name', document.getElementById('sales_person_name').value);
         formData.append('yearly_total_sale', document.getElementById('yearly_total_sale').value);
-        formData.append('ongoing_month_sale', document.getElementById('ongoing_month_sale').value);
+        // formData.append('ongoing_month_sale', document.getElementById('ongoing_month_sale').value);
         formData.append('customer_email', document.getElementById('customer_email').value);
         formData.append('customer_Phone', document.getElementById('customer_Phone').value);
         formData.append('customer_Phone2', document.getElementById('customer_Phone2').value);

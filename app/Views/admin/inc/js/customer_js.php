@@ -206,9 +206,6 @@
                                             </div>
                                         </td>
                                         <td>
-                                            ${user.sales_person.ongoing_month_sale}
-                                        </td>
-                                        <td>
                                             <button class="btn btn-info" onclick="showRouteDetails('${user.uid}')">View Days and Route</button>
                                         </td>
                                         <td class="status">
@@ -872,6 +869,7 @@ function sales_person_update() {
     formData.append('sales_person_phone', $('#phone-field').val());
     formData.append('date-field', $('#date-field').val());
     formData.append('location-field', $('#location-field').val());
+    formData.append('password', $('#password-field').val());
     // formData.append('status-field', $('#status-field').val());
     // formData.append('yearly_total_sale', $('#yearly_total_sale').val());
     // formData.append('ongoing_month_sale', $('#ongoing_month_sale').val());

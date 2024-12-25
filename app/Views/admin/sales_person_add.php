@@ -172,7 +172,7 @@
                     </div>
 
                     <!-- Ongoing Month Sale -->
-                    <div class="card">
+                    <!-- <div class="card">
                         <div class="card-body">
                             <div class="mb-3">
                                 <label class="form-label" for="ongoing_month_sale">Ongoing Month Sale (₹)</label>
@@ -181,7 +181,7 @@
                             </div>
                             <div id="ongoin_total_sale_in_words" class="mt-2 text-muted"></div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="card">
                         <div class="card-body">
                             <div class="mb-3">

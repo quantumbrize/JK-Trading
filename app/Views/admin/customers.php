@@ -201,7 +201,7 @@
                                             <th style="width: 150px;">Joining Date</th>
                                             <th style="width: 150px;">Yearly Total Sale(₹)</th>
                                             <th style="width: 150px;">Selected Month Sale(₹)</th>
-                                            <th style="width: 150px;">Ongoing Month Sale(₹)</th>
+                                            <!-- <th style="width: 150px;">Ongoing Month Sale(₹)</th> -->
                                             <th style="width: 150px;">Days and Route</th>
                                             <th style="width: 100px;">Status</th>
                                             <th style="width: 150px;">Location</th>
@@ -408,7 +408,15 @@
                                                 <div id="addedShopList" style="margin-top: 20px;"></div>
                                                 <input type="hidden" id="user_id">
                                             </div>
+                                            <div class="mb-3">
+                                                <label for="date-field" class="form-label">Password</label>
+                                                <input type="text" id="password-field" class="form-control" required=""
+                                                    placeholder="Enter Password">
+                                                <div class="invalid-feedback">Enter Password.</div>
+                                            </div>
                                         </div>
+
+                                        
                                         
                                         <div class="modal-footer">
                                             <div class="hstack gap-2 justify-content-end">

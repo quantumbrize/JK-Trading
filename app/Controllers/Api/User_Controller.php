@@ -2225,7 +2225,7 @@ class User_Controller extends Api_Controller
                 'uid' => $this->generate_uid("SALPER"),
                 'user_id' => $sales_person_uid,
                 // 'yearly_total_sale' => $data['yearly_total_sale'],
-                'ongoing_month_sale' => $data['ongoing_month_sale'],
+                'ongoing_month_sale' => "",
                 'number2' => $data['customer_Phone2'],
                 'location' => $data['location'],
             ];
@@ -2474,6 +2474,10 @@ class User_Controller extends Api_Controller
                 // 'yearly_total_sale' => $data['yearly_total_sale'],
                 // 'ongoing_month_sale' => $data['ongoing_month_sale'],
             ];
+
+            if(!empty($data['password'])){
+                $sale_data['password'] =  md5($data['password']);
+            }
 
             $sale_person = [
                 'location' => $data['location-field'],
