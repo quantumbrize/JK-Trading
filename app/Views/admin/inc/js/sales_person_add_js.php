@@ -128,7 +128,91 @@
     //         }
     //     });
     // }
+    document.getElementById('customer_Phone2').addEventListener('input', function (e) {
+        const value = e.target.value;
+        if (value.length > 10) {
+            e.target.value = value.slice(0, 10);
+        }
+    });
+
+    document.getElementById('customer_Phone').addEventListener('input', function (e) {
+        const value = e.target.value;
+        if (value.length > 10) {
+            e.target.value = value.slice(0, 10);
+        }
+    });
     function sales_persons_add() {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let name = document.getElementById('sales_person_name').value;
+        let email = document.getElementById('customer_email').value;
+        let phone = document.getElementById('customer_Phone').value;
+        let phone2 = document.getElementById('customer_Phone2').value;
+        let location = document.getElementById('person_location').value;
+        let joining_date = document.getElementById('date-field').value;
+        if(name.length < 3){
+            let alertHtml = `<div class="alert alert-success">Please Enter Name</div>`;
+
+                $('#alert').html(alertHtml);
+                
+                setTimeout(function () {
+                    $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                }, 1500);
+                return;
+        }
+        if(!emailRegex.test(email)){
+            let alertHtml = `<div class="alert alert-success">Please Enter Valid Email</div>`;
+
+                $('#alert').html(alertHtml);
+                
+                setTimeout(function () {
+                    $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                }, 1500);
+                return;
+        }
+
+        if(phone.length < 10){
+            let alertHtml = `<div class="alert alert-success">Please Enter Valid Phone Number</div>`;
+
+                $('#alert').html(alertHtml);
+                
+                setTimeout(function () {
+                    $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                }, 1500);
+                return;
+        }
+
+        if(phone2.length < 10){
+            let alertHtml = `<div class="alert alert-success">Please Enter Valid Phone Number 2</div>`;
+
+                $('#alert').html(alertHtml);
+                
+                setTimeout(function () {
+                    $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                }, 1500);
+                return;
+        }
+
+        if(location.length < 2){
+            let alertHtml = `<div class="alert alert-success">Please Enter Location</div>`;
+
+                $('#alert').html(alertHtml);
+                
+                setTimeout(function () {
+                    $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                }, 1500);
+                return;
+        }
+
+        if(joining_date.length < 2){
+            let alertHtml = `<div class="alert alert-success">Please Enter Joining date</div>`;
+
+                $('#alert').html(alertHtml);
+                
+                setTimeout(function () {
+                    $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                }, 1500);
+                return;
+        }
         const formData = new FormData();
 
         // Append primary data
@@ -137,6 +221,7 @@
         formData.append('ongoing_month_sale', document.getElementById('ongoing_month_sale').value);
         formData.append('customer_email', document.getElementById('customer_email').value);
         formData.append('customer_Phone', document.getElementById('customer_Phone').value);
+        formData.append('customer_Phone2', document.getElementById('customer_Phone2').value);
         formData.append('date-field', document.getElementById('date-field').value);
         formData.append('status-field', 'active');
         formData.append('location', document.getElementById('person_location').value);

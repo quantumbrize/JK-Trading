@@ -20,12 +20,12 @@
                                 <h5 class="card-title mb-0">All Order</h5>
                             </div>
                             <div class="col-sm-auto">
-                                <div class="d-flex gap-1 flex-wrap">
+                                <!-- <div class="d-flex gap-1 flex-wrap">
                                     <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal">
                                         <i class="ri-add-line align-bottom me-1"></i>
                                         Create Order
                                     </button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

@@ -62,7 +62,18 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label class="form-label" for="customer_Phone">Phone</label>
-                                <input type="number" class="form-control" id="customer_Phone" placeholder="Enter Sales Person Name" required>
+                                <input type="number" class="form-control" id="customer_Phone" maxlength="10"  placeholder="Enter Sales Person Phone" required>
+                                <div class="invalid-feedback">Please enter the Phone number</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phone 2-->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label" for="customer_Phone2">Phone 2</label>
+                                <input type="number" class="form-control" id="customer_Phone2" maxlength="10"  placeholder="Enter Sales Person Phone 2" required>
                                 <div class="invalid-feedback">Please enter the Phone number</div>
                             </div>
                         </div>

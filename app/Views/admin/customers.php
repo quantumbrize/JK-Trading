@@ -196,15 +196,15 @@
                                             <th style="width: 150px;">Image</th>
                                             <th style="width: 200px;">Name</th>
                                             <th style="width: 150px;">Number</th>
-                                            <!-- <th style="width: 150px;">Number 2</th> -->
+                                            <th style="width: 150px;">Number 2</th>
                                             <th style="width: 200px;">Email</th>
                                             <th style="width: 150px;">Joining Date</th>
                                             <th style="width: 150px;">Yearly Total Sale(₹)</th>
                                             <th style="width: 150px;">Selected Month Sale(₹)</th>
                                             <th style="width: 150px;">Ongoing Month Sale(₹)</th>
                                             <th style="width: 150px;">Days and Route</th>
-                                            <th style="width: 150px;">Location</th>
                                             <th style="width: 100px;">Status</th>
+                                            <th style="width: 150px;">Location</th>
                                             <th style="width: 100px;">Edit</th>
                                         </tr>
                                     </thead>

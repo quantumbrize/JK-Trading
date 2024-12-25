@@ -1,6 +1,89 @@
 <script>
     // $('#shop_add_btn').on('click', function () {
+        document.getElementById('ownerPhone').addEventListener('input', function (e) {
+            const value = e.target.value;
+            if (value.length > 10) {
+                e.target.value = value.slice(0, 10);
+            }
+        });
     function shop_add(){
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let shop_name = document.getElementById('shopName').value;
+        let owner_name = document.getElementById('ownerName').value;
+        let owner_phone = document.getElementById('ownerPhone').value;
+        let rating = document.getElementById('rating').value;
+        let remark = document.getElementById('remark').value;
+        let address = document.getElementById('address').value;
+        if(shop_name == ""){
+            let alertHtml = `<div class="alert alert-success">Please Enter Shop Name</div>`;
+
+                $('#alert').html(alertHtml);
+                
+                setTimeout(function () {
+                    $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                }, 1500);
+                return;
+        }
+
+        if(owner_name == ""){
+            let alertHtml = `<div class="alert alert-success">Please Enter Owner Name</div>`;
+
+                $('#alert').html(alertHtml);
+                
+                setTimeout(function () {
+                    $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                }, 1500);
+                return;
+        }
+
+
+        if(owner_phone.length < 10){
+            let alertHtml = `<div class="alert alert-success">Please Enter Valid Phone Number</div>`;
+
+                $('#alert').html(alertHtml);
+                
+                setTimeout(function () {
+                    $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                }, 1500);
+                return;
+        }
+
+        if(rating == ""){
+            let alertHtml = `<div class="alert alert-success">Please Enter Rating</div>`;
+
+                $('#alert').html(alertHtml);
+                
+                setTimeout(function () {
+                    $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                }, 1500);
+                return;
+        }
+
+        if(address == ""){
+            let alertHtml = `<div class="alert alert-success">Please Enter Address</div>`;
+
+                $('#alert').html(alertHtml);
+                
+                setTimeout(function () {
+                    $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                }, 1500);
+                return;
+        }
+
+        if(remark == ""){
+            let alertHtml = `<div class="alert alert-success">Please Enter Remark</div>`;
+
+                $('#alert').html(alertHtml);
+                
+                setTimeout(function () {
+                    $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+                }, 1500);
+                return;
+        }
+
+        
+        
             var formData = new FormData();
 
             formData.append('shopName', $('#shopName').val());

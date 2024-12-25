@@ -2224,9 +2224,9 @@ class User_Controller extends Api_Controller
             $sale_oerson_data = [
                 'uid' => $this->generate_uid("SALPER"),
                 'user_id' => $sales_person_uid,
-                'yearly_total_sale' => $data['yearly_total_sale'],
+                // 'yearly_total_sale' => $data['yearly_total_sale'],
                 'ongoing_month_sale' => $data['ongoing_month_sale'],
-                'number2' => "",
+                'number2' => $data['customer_Phone2'],
                 'location' => $data['location'],
             ];
 
@@ -2242,10 +2242,13 @@ class User_Controller extends Api_Controller
             try {
                 // Insert main sales person data
                 $UsersModel->insert($sale_data);
-                $SalesPersonModel->insert($sale_oerson_data);
+                
 
                 // Insert monthly sales data
+                // $yearly_total_sale = $SalesPersonModel->where('user_id', $sales_person_uid)->first();
+                $yearly_total_sale = 0;
                 foreach ($monthly_sales as $month_sale) {
+                    $yearly_total_sale += (int)$month_sale['sale'];
                     $SalesPerMonthModel->insert([
                         'uid' => $this->generate_uid("PERMON"),
                         'sales_person_uid' => $sales_person_uid,
@@ -2253,6 +2256,9 @@ class User_Controller extends Api_Controller
                         'sales' => $month_sale['sale'],
                     ]);
                 }
+
+                $sale_oerson_data['yearly_total_sale'] = $yearly_total_sale;
+                $SalesPersonModel->insert($sale_oerson_data);
 
                 // Insert shop data (now including owner_name and owner_rating)
                 foreach ($shop_data as $shop) {
@@ -2437,11 +2443,17 @@ class User_Controller extends Api_Controller
         // Validate required fields (keeping mandatory fields, optional fields are now handled)
         if (empty($data['sales_person_name'])) {
             $resp['message'] = 'Please Add Sales Person Name';
-        } elseif (empty($data['yearly_total_sale'])) {
-            $resp['message'] = 'Please Add Yearly Total Sale';
-        } elseif (empty($data['ongoing_month_sale'])) {
-            $resp['message'] = 'Please Add Ongoing Month Sale';
-        } elseif (empty($data['sales_person_uid'])) {
+        } 
+        
+        // elseif (empty($data['yearly_total_sale'])) {
+        //     $resp['message'] = 'Please Add Yearly Total Sale';
+        // } 
+        
+        // elseif (empty($data['ongoing_month_sale'])) {
+        //     $resp['message'] = 'Please Add Ongoing Month Sale';
+        // } 
+        
+        elseif (empty($data['sales_person_uid'])) {
             $resp['message'] = 'Please Add Sales Person UID';
         } else {
             $sales_person_uid = $data['sales_person_uid'];
@@ -2480,11 +2492,14 @@ class User_Controller extends Api_Controller
             $UsersModel->transStart();
             try {
                 // Update the sales person data
+                $yearly_sale = $SalesPersonModel->select('yearly_total_sale')->where('user_id', $data['sales_person_uid'])->first();
                 $UsersModel->where('uid', $data['sales_person_uid'])->set($sale_data)->update();
-                $SalesPersonModel->where('user_id', $data['sales_person_uid'])->set($sale_person)->update();
     
                 // Insert/Update monthly sales data
                 foreach ($monthly_sales as $month_sale) {
+                    $yearly_sale['yearly_total_sale'] = (int)$yearly_sale['yearly_total_sale'];
+                    $month_sale['sale'] = (int)$month_sale['sale'];
+                    $yearly_sale['yearly_total_sale'] += $month_sale['sale'];
                     $sale_per_month_data = [
                         'uid' => $this->generate_uid("PERMON"),
                         'sales_person_uid' => $data['sales_person_uid'],
@@ -2493,6 +2508,8 @@ class User_Controller extends Api_Controller
                     ];
                     $SalesPerMonthModel->insert($sale_per_month_data);
                 }
+                $sale_person['yearly_total_sale'] = $yearly_sale['yearly_total_sale'];
+                $SalesPersonModel->where('user_id', $data['sales_person_uid'])->set($sale_person)->update();
     
                 // Handle shop data (insert or update shop info for this sales person)
                 if (!empty($shop_data)) {

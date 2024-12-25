@@ -139,7 +139,7 @@
             success: function (resp) {
                 if (resp.status) {
                     console.log('userda',resp)
-                        $('#all_user_count').html(resp.user_data.length)
+                        $('#all_user_count').html(resp.user_data.length-1)
                         let html = ``
                         $.each(resp.user_data, function (index, user) {
                             // let product_img = banner.img.length > 0 ? banner.img[0]['src'] : ''
@@ -170,6 +170,9 @@
                                         </td>
                                         <td>
                                             ${user.number}
+                                        </td>
+                                        <td>
+                                            ${user.sales_person.number2}
                                         </td>
                                         <td>
                                             ${user.email}
@@ -208,13 +211,13 @@
                                         <td>
                                             <button class="btn btn-info" onclick="showRouteDetails('${user.uid}')">View Days and Route</button>
                                         </td>
-
-                                        <td>
-                                            <a class="btn btn-primary" href="${user.sales_person.location}" target="__blank">see location</a>
-                                        </td>
                                         <td class="status">
                                             <span class="badge bg-success-subtle ${status_color} text-uppercase">${user.status}</span>
                                         </td>
+                                        <td>
+                                            <a class="btn btn-primary" href="${user.sales_person.location}" target="__blank">see location</a>
+                                        </td>
+                                        
                                         <td>
                                             <ul class="list-inline hstack gap-2 mb-0">
                                                 <li class="list-inline-item edit" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Edit">
