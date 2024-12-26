@@ -39,6 +39,7 @@
                                     <th scope="col">Amount</th>
                                     <th scope="col">Pay Method</th>
                                     <th scope="col">Status</th>
+                                    <th scope="col">Billing</th>
                                 </tr>
                             </thead>
                             <tbody id="order_table_body">
@@ -56,3 +57,44 @@
     <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
+
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Product Details</h1>
+        <button type="button" class="btn-close" onclick="close_order_modal()"></button>
+      </div>
+      <div class="modal-body">
+      <form id="productForm">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Product Image</th>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Discount (%)</th>
+                        <th>Tax</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="productDetails">
+                    <!-- Product rows will be dynamically loaded here -->
+                </tbody>
+            </table>
+            <div class="form-group">
+                <label for="grandTotal">Grand Total</label>
+                <input type="number" class="form-control" id="grandTotal" readonly>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="generateBill()">Update</button>
+        <button type="button" class="btn btn-secondary" onclick="close_order_modal()">Close</button>
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>

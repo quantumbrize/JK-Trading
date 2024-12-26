@@ -186,7 +186,7 @@
                                         <td>
                                             ${user.sales_person.yearly_total_sale}
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             <select class="form-select form-select-sm monthly-sale-dropdown" 
                                                     data-sales-person-uid="${user.uid}" 
                                                     onchange="fetchMonthlySale(this)">
@@ -207,7 +207,7 @@
                                             <div class="monthly-sale-result" style="margin-top: 5px; font-weight: bold; font-size: 12px;">
                                                 <!-- Monthly Sale will be displayed here -->
                                             </div>
-                                        </td>
+                                        </td> -->
                                         <td>
                                             <button type="button" class="btn btn-primary" onclick="yearly_sales_data('${user.uid}')">
                                                 Sales Chart
