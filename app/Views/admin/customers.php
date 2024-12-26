@@ -306,8 +306,15 @@
 
                                             <div class="mb-3">
                                                 <label for="phone-field" class="form-label">Phone</label>
-                                                <input type="text" id="phone-field" class="form-control"
+                                                <input type="number" id="phone-field" class="form-control"
                                                     placeholder="Enter phone no." required="">
+                                                <div class="invalid-feedback">Please enter a phone.</div>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="phone-field" class="form-label">Phone 2</label>
+                                                <input type="number" id="phone-field2" class="form-control"
+                                                    placeholder="Enter phone no2." required="">
                                                 <div class="invalid-feedback">Please enter a phone.</div>
                                             </div>
 

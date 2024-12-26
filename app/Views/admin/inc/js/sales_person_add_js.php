@@ -181,16 +181,16 @@
                 return;
         }
 
-        if(phone2.length < 10){
-            let alertHtml = `<div class="alert alert-success">Please Enter Valid Phone Number 2</div>`;
+        // if(phone2.length < 10){
+        //     let alertHtml = `<div class="alert alert-success">Please Enter Valid Phone Number 2</div>`;
 
-                $('#alert').html(alertHtml);
+        //         $('#alert').html(alertHtml);
                 
-                setTimeout(function () {
-                    $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
-                }, 1500);
-                return;
-        }
+        //         setTimeout(function () {
+        //             $('#alert .alert').alert('close'); // Closes the alert after 2 seconds
+        //         }, 1500);
+        //         return;
+        // }
 
         if(location.length < 2){
             let alertHtml = `<div class="alert alert-success">Please Enter Location</div>`;

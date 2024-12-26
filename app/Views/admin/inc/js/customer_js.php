@@ -301,7 +301,7 @@
                             legend: { display: false },
                             title: {
                                 display: true,
-                                text: "Yearly Sales Data"
+                                text: "Yearly Sales Data In INR"
                             },
                             onClick: function (event) {
                                 var activePoints = chartInstance.getElementsAtEvent(event);
@@ -379,7 +379,7 @@
                             legend: { display: false },
                             title: {
                                 display: true,
-                                text: `Monthly Sales Data for ${year}`
+                                text: `Monthly Sales Data for ${year} In INR`
                             }
                         }
                     });
@@ -529,6 +529,7 @@
                 $("#customername-field").val(resp.user_data.user_name);
                 $("#email-field").val(resp.user_data.email);
                 $("#phone-field").val(resp.user_data.number);
+                $("#phone-field2").val(resp.sales_person.number2);
 
                 // Format the date field to 'YYYY-MM-DD'
                 const date = new Date(resp.user_data.created_at);

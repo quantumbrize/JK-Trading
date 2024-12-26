@@ -102,7 +102,7 @@
                 console.log(resp)
                 if (resp.status) {
                     let order = resp.data
-                    
+                    $('#productDetails').html('');
                     let html = ``
                     let total_discount = 0
                     let delivery_charge = 0
@@ -199,6 +199,7 @@
     }
 
     function close_order_modal() {
+        $('#productDetails').empty('');
         $('#productModal').modal('hide');
     }
 
