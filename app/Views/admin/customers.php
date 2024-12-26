@@ -201,6 +201,7 @@
                                             <th style="width: 150px;">Joining Date</th>
                                             <th style="width: 150px;">Yearly Total Sale(₹)</th>
                                             <th style="width: 150px;">Selected Month Sale(₹)</th>
+                                            <th style="width: 150px;">Sales Chart</th>
                                             <!-- <th style="width: 150px;">Ongoing Month Sale(₹)</th> -->
                                             <th style="width: 150px;">Days and Route</th>
                                             <th style="width: 100px;">Status</th>
@@ -488,4 +489,47 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Yearly Sales</h1>
+        <button type="button" class="btn-close" onclick="close_yearly_sales_modal()"></button>
+      </div>
+      <div class="modal-body">
+      <canvas id="myChart" style="width:100%;max-width:800px"></canvas>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalMonthly" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Monthly Sales</h1>
+        <button type="button" class="btn-close" onclick="close_monthly_sales_modal()"></button>
+      </div>
+      <div class="modal-body">
+      <canvas id="myChartMonthly" style="width:100%;max-width:800px"></canvas>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
 </div>

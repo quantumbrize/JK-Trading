@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-ROBdErehxIu+Y/Bgy5ZsEgGQJ14gwYpS7YCS4xGOEl0x2TRccKoE+LYhCFOShXsO" crossorigin="anonymous">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <? //require_once(APPPATH . 'views/inc/main_css.php');      ?>
     <?php
     if (!empty($header_asset_link)) {

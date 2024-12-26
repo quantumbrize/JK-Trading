@@ -1,6 +1,9 @@
 <script>
+    
     $(document).ready(function() {
         customers()
+
+        
     });
     let shopData = [];
     let monthly_sales_data = [];
@@ -206,6 +209,11 @@
                                             </div>
                                         </td>
                                         <td>
+                                            <button type="button" class="btn btn-primary" onclick="yearly_sales_data('${user.uid}')">
+                                                Sales Chart
+                                            </button>
+                                        </td>
+                                        <td>
                                             <button class="btn btn-info" onclick="showRouteDetails('${user.uid}')">View Days and Route</button>
                                         </td>
                                         <td class="status">
@@ -254,6 +262,151 @@
             // }
         })
     }
+    var chartInstance; 
+    function yearly_sales_data(user_id) {
+        $.ajax({
+            url: "<?= base_url('/api/yearly/sales') ?>",
+            type: "GET",
+            data: { user_id: user_id },
+            beforeSend: function () {},
+            success: function (resp) {
+                if (resp.status) {
+                    console.log(resp);
+                    var xValues = [];
+                    var yValues = [];
+                    var barColors = [];
+
+                    $.each(resp.data, function (index, sales) {
+                        xValues.push(index); // Push the year (2023, 2024, etc.) as the label
+                        yValues.push(sales.sales); // Push the sales value
+                        barColors.push("#1E3A8A"); // Push the color
+                    });
+
+                    // Destroy the existing chart instance if it exists
+                    if (chartInstance) {
+                        chartInstance.destroy();
+                    }
+
+                    // Create a new chart instance
+                    chartInstance = new Chart("myChart", {
+                        type: "bar",
+                        data: {
+                            labels: xValues, // Years as x-axis labels
+                            datasets: [{
+                                backgroundColor: barColors, // Bar colors
+                                data: yValues // Sales values
+                            }]
+                        },
+                        options: {
+                            legend: { display: false },
+                            title: {
+                                display: true,
+                                text: "Yearly Sales Data"
+                            },
+                            onClick: function (event) {
+                                var activePoints = chartInstance.getElementsAtEvent(event);
+
+                                if (activePoints.length > 0) {
+                                    var clickedElementIndex = activePoints[0]._index; // Get the clicked bar's index
+                                    var year = xValues[clickedElementIndex]; // Get the year label from xValues array
+                                    get_monthly_sales(user_id, year); // Pass user_id and year to handle click
+                                }
+                            }
+                        }
+                    });
+
+                    $('#exampleModal').modal('show');
+
+                } else {
+                    console.log(resp);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            },
+            complete: function () {}
+        });
+    }
+
+
+
+    function close_yearly_sales_modal() {
+        $('#exampleModal').modal('hide');
+        
+        // Clear the chart when the modal is closed
+        if (chartInstance) {
+            chartInstance.destroy(); // Destroy the chart instance
+            chartInstance = null; // Reset the instance variable
+        }
+    }
+
+    var chartInstanceMonthly;
+    function get_monthly_sales(user_id, year) {
+        $.ajax({
+            url: "<?= base_url('/api/monthly/sales') ?>",
+            type: "GET",
+            data: { user_id: user_id, year: year },
+            beforeSend: function () {},
+            success: function (resp) {
+                if (resp.status) {
+                    console.log(resp);
+                    var xValues = [];
+                    var yValues = [];
+                    var barColors = [];
+
+                    $.each(resp.data, function (index, sales) {
+                        xValues.push(sales.month); // Push the month (January, February, etc.) as the label
+                        yValues.push(sales.sales); // Push the sales value
+                        barColors.push("#1E3A8A"); // Push the color
+                    });
+
+                    // Destroy the existing chart instance if it exists
+                    if (chartInstanceMonthly) {
+                        chartInstanceMonthly.destroy();
+                    }
+
+                    // Create a new chart instance
+                    chartInstanceMonthly = new Chart("myChartMonthly", {
+                        type: "bar",
+                        data: {
+                            labels: xValues, // Months as x-axis labels
+                            datasets: [{
+                                backgroundColor: barColors, // Bar colors
+                                data: yValues // Sales values
+                            }]
+                        },
+                        options: {
+                            legend: { display: false },
+                            title: {
+                                display: true,
+                                text: `Monthly Sales Data for ${year}`
+                            }
+                        }
+                    });
+
+                    $('#exampleModalMonthly').modal('show');
+                } else {
+                    console.log(resp);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            },
+            complete: function () {}
+        });
+    }
+
+    function close_monthly_sales_modal() {
+        $('#exampleModalMonthly').modal('hide');
+        
+        // Clear the chart when the modal is closed
+        if (chartInstanceMonthly) {
+            chartInstanceMonthly.destroy(); // Destroy the chart instance
+            chartInstanceMonthly = null; // Reset the instance variable
+        }
+    }
+
+
 
     // function single_customer(uid) {
     //     user_id=uid

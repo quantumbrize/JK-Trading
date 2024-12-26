@@ -221,6 +221,8 @@ $routes->get('/api/reviews/status/update',          'Api\Product_Controller::GET
 $routes->get('/api/delete/expart-review',           'Api\Product_Controller::GET_expart_review_delete');
 $routes->get('/api/users/review',                   'Api\Product_Controller::GET_reviews_users');
 $routes->post('/api/update/user/status',            'Api\User_Controller::POST_update_user_status'); // Update User Status
+$routes->get('/api/yearly/sales',                   'Api\User_Controller::GET_yearly_sales'); // GET Yearly sales
+$routes->get('/api/monthly/sales',                  'Api\User_Controller::GET_get_monthly_sales'); // GET Monthly sales
 
 $routes->post('/api/product/add/bulk',              'Api\Product_Controller::POST_add_product_bulk'); // Add product
 

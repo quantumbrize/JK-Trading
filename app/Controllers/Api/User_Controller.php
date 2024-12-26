@@ -2600,84 +2600,165 @@ class User_Controller extends Api_Controller
         return $resp;
     }
     private function getSalesPersonRoute($data)
-{
-    // Check if 'user_id' is provided in the request
-    // $this->prd($data);
-    if (isset($data['uid'])) {
-        $user_id = $data['uid'];
+    {
+        // Check if 'user_id' is provided in the request
+        // $this->prd($data);
+        if (isset($data['uid'])) {
+            $user_id = $data['uid'];
 
-        // Load the SalesPersonRouteModel
-        $SalesPersonRouteModel = new SalesPersonRouteModel();
+            // Load the SalesPersonRouteModel
+            $SalesPersonRouteModel = new SalesPersonRouteModel();
 
-        // Fetch the sales person's route data based on the 'user_id'
-        $routeData = $SalesPersonRouteModel->where('sales_person_uid', $user_id)->findAll();
+            // Fetch the sales person's route data based on the 'user_id'
+            $routeData = $SalesPersonRouteModel->where('sales_person_uid', $user_id)->findAll();
 
-        // Check if data is found, and return the appropriate response
-        if (!empty($routeData)) {
-            return [
-                'status' => true,
-                'sales_person_route' => $routeData
-            ];
+            // Check if data is found, and return the appropriate response
+            if (!empty($routeData)) {
+                return [
+                    'status' => true,
+                    'sales_person_route' => $routeData
+                ];
+            } else {
+                return [
+                    'status' => false,
+                    'message' => 'No route data found for the given user ID'
+                ];
+            }
         } else {
+            // If no 'user_id' is provided, return an error message
             return [
                 'status' => false,
-                'message' => 'No route data found for the given user ID'
+                'message' => 'User ID is required'
             ];
         }
-    } else {
-        // If no 'user_id' is provided, return an error message
-        return [
+    }
+    public function remove_route($data)
+    {
+        $route_id = $data['route_id'];
+        
+        if ($route_id) {
+            // Assuming you have a SalesPersonRouteModel for handling routes
+            $SalesPersonRouteModel = new SalesPersonRouteModel();
+            $route =$SalesPersonRouteModel->where('uid', $route_id)->delete();
+
+            if ($route) {
+                // Delete the route
+                // $SalesPersonRouteModel->delete($route_id);
+                
+                return ['status' => true, 'message' => 'Route removed successfully'];
+            } else {
+                // If the route is not found in the database
+                return ['status' => false, 'message' => 'Route not found'];
+            }
+        } else {
+            return ['status' => false, 'message' => 'Route ID is missing'];
+        }
+    }
+
+    public function remove_shop($data)
+    {
+        $shop_id = $data['shop_uid'];
+        // $this->prd($shop_id);
+        
+        if ($shop_id) {
+            // Use the correct model for managing shops
+            $SalesPersonShopModel = new SalesPersonShopModel(); // Replace with your actual shop model
+            $shopDeleted = $SalesPersonShopModel->where('shop_uid', $shop_id)->delete();
+
+            if ($shopDeleted) {
+                return ['status' => true, 'message' => 'Shop removed successfully'];
+            } else {
+                return ['status' => false, 'message' => 'Shop not found or failed to delete'];
+            }
+        } else {
+            return ['status' => false, 'message' => 'Shop ID is missing'];
+        }
+    }
+
+    public function yearly_sales($data)
+    {
+        $resp = [
             'status' => false,
-            'message' => 'User ID is required'
+            'message' => 'Sales not Found',
+            'data' => null
         ];
-    }
-}
-public function remove_route($data)
-{
-    $route_id = $data['route_id'];
-    
-    if ($route_id) {
-        // Assuming you have a SalesPersonRouteModel for handling routes
-        $SalesPersonRouteModel = new SalesPersonRouteModel();
-        $route =$SalesPersonRouteModel->where('uid', $route_id)->delete();
-
-        if ($route) {
-            // Delete the route
-            // $SalesPersonRouteModel->delete($route_id);
-            
-            return ['status' => true, 'message' => 'Route removed successfully'];
+        $user_id = $data['user_id'];
+        if (empty($user_id)) {
+            $resp['message'] = 'User Not Found';
         } else {
-            // If the route is not found in the database
-            return ['status' => false, 'message' => 'Route not found'];
+            $CommonModel = new CommonModel();
+
+            $sql = "SELECT
+                        YEAR(created_at) AS year,
+                        MONTHNAME(STR_TO_DATE(month, '%M')) AS month,
+                        SUM(CAST(sales AS UNSIGNED)) AS sales
+                    FROM
+                        salespermonth
+                    WHERE
+                        sales_person_uid = '$user_id'
+                    GROUP BY
+                        YEAR(created_at),
+                        MONTH(STR_TO_DATE(month, '%M'))
+                    ORDER BY
+                        YEAR(created_at),
+                        MONTH(STR_TO_DATE(month, '%M'))";
+
+            $sales = $CommonModel->customQuery($sql);
+
+            if (count($sales) > 0) {
+                $formatted_sales = [];
+                foreach ($sales as $sale) {
+                    $year = $sale->year;
+                    $month = $sale->month;
+                    $sales_amount = $sale->sales;
+
+                    if (!isset($formatted_sales[$year])) {
+                        $formatted_sales[$year] = [];
+                    }
+
+                    $formatted_sales[$year]['sales'] = $sales_amount;
+                }
+
+                $resp["status"] = true;
+                $resp["data"] = $formatted_sales;
+                $resp["message"] = 'Sales Found';
+            }
         }
-    } else {
-        return ['status' => false, 'message' => 'Route ID is missing'];
+        return $resp;
     }
-}
 
-public function remove_shop($data)
-{
-    $shop_id = $data['shop_uid'];
-    // $this->prd($shop_id);
-    
-    if ($shop_id) {
-        // Use the correct model for managing shops
-        $SalesPersonShopModel = new SalesPersonShopModel(); // Replace with your actual shop model
-        $shopDeleted = $SalesPersonShopModel->where('shop_uid', $shop_id)->delete();
 
-        if ($shopDeleted) {
-            return ['status' => true, 'message' => 'Shop removed successfully'];
+    private function get_monthly_sales($data)
+    {
+        $resp = [
+            'status' => false,
+            'message' => 'Monthly sales data not found',
+            'data' => null
+        ];
+
+        if (empty($data['user_id'])) {
+            $resp['message'] = 'User Not found';
+        } else if(empty($data['year'])){
+            $resp['message'] = 'Year Not not found';
         } else {
-            return ['status' => false, 'message' => 'Shop not found or failed to delete'];
+            $SalesPerMonthModel = new SalesPerMonthModel();
+
+            $sales = $SalesPerMonthModel->where('sales_person_uid', $data['user_id'])
+                            ->where('YEAR(created_at)', $data['year'])
+                            ->orderBy('created_at', 'ASC')  // Order by created_at in ascending order
+                            ->findAll();
+
+            if ($sales) {
+                $resp['status'] = true;
+                $resp['message'] = 'Monthly sales data fetched successfully';
+                $resp['data'] = $sales;
+            } else {
+                $resp['message'] = "No sales data found for the year {$data['year']}";
+            }
         }
-    } else {
-        return ['status' => false, 'message' => 'Shop ID is missing'];
+
+        return $resp;
     }
-}
-
-
-    
-
 
 
 
@@ -2695,6 +2776,21 @@ public function remove_shop($data)
         $resp = $this->add_new_seller($data);
         return $this->response->setJSON($resp);
     }
+
+    public function GET_yearly_sales()
+    {
+        $data = $this->request->getGet();
+        $resp = $this->yearly_sales($data);
+        return $this->response->setJSON($resp);
+    }
+
+    public function GET_get_monthly_sales()
+    {
+        $data = $this->request->getGet();
+        $resp = $this->get_monthly_sales($data);
+        return $this->response->setJSON($resp);
+    }
+
 
     public function POST_update_user_billing()
     {
